@@ -1,26 +1,167 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-500.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-600.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-500.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #241b15;
+  --foreground: #f4ead8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Manrope", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Manrope", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+}
+
+::selection {
+  background: #d6ef63;
+  color: #090705;
+}
+
+.font-serif {
+  font-family: "Cormorant Garamond", Didot, "Bodoni 72", Georgia, serif;
+  font-weight: 400;
+}
+
+.font-menu {
+  font-family: "Cormorant Garamond", Didot, "Bodoni 72", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.candle-dust {
+  background-image:
+    radial-gradient(circle, rgba(232, 196, 135, 0.2) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(232, 196, 135, 0.12) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(255, 229, 184, 0.14) 0 0.8px, transparent 1.5px);
+  background-position:
+    8% 28%,
+    72% 34%,
+    48% 62%;
+  background-size:
+    420px 420px,
+    560px 560px,
+    680px 680px;
+  opacity: 0.28;
+}
+
+.menu-embers {
+  background-image:
+    radial-gradient(circle, rgba(232, 188, 118, 0.24) 0 0.9px, transparent 1.5px),
+    radial-gradient(circle, rgba(248, 218, 164, 0.16) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle, rgba(210, 156, 88, 0.12) 0 0.7px, transparent 1.3px);
+  background-position:
+    18% 12%,
+    82% 38%,
+    44% 72%;
+  background-size:
+    520px 520px,
+    760px 760px,
+    940px 940px;
+  opacity: 0.2;
+  animation: menu-embers-drift 34s ease-in-out infinite alternate;
+}
+
+@keyframes menu-embers-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(10px, -14px, 0);
+  }
+}
+
+.soft-reveal {
+  animation: soft-reveal 560ms ease-out both;
+}
+
+.quiet-lift {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.quiet-lift:hover {
+  transform: translateY(-2px);
+}
+
+.quiet-lift:active {
+  transform: translateY(0);
+}
+
+@keyframes soft-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }

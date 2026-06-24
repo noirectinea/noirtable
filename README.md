@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Noirtable
 
-## Getting Started
+Noirtable is a premium restaurant ordering website built as a portfolio project.
+The project combines an editorial restaurant landing page with a working menu,
+cart, checkout flow, table requests, and a small staff desk for orders.
 
-First, run the development server:
+## Concept
+
+A quiet late-night dining room with a short seasonal menu.
+The design direction is dark, warm, restrained, and editorial rather than a
+generic delivery marketplace.
+
+## Core Features
+
+- Editorial restaurant homepage
+- Responsive mobile layout
+- Filterable menu with dish detail view
+- Menu badges for featured, seasonal, popular, and limited dishes
+- Add/remove quantity controls
+- Persistent cart with localStorage
+- Cart page
+- Checkout page
+- Order success page
+- File-backed order storage
+- Table reservation form
+- Staff desk for orders and reservations
+- Staff order filters by status
+- Demo orders and reservations for portfolio presentation
+- Order status updates: new, accepted, preparing, completed
+- Reservation status updates: new, confirmed, declined
+
+## Pages
+
+- `/` - restaurant homepage, menu, reservation form
+- `/cart` - current order
+- `/checkout` - guest details and order confirmation
+- `/order/success` - final order confirmation
+- `/admin/orders` - staff desk
+- `/case-study` - portfolio presentation page
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Local JSON storage for portfolio backend behavior
+
+## Why This Project Exists
+
+The goal of this project is to show more than a visual landing page.
+It demonstrates a complete small business website flow:
+
+- guests can browse dishes
+- guests can place an order
+- guests can request a table
+- staff can review and update requests
+
+This makes the project useful as a restaurant website case study, not only a
+design concept.
+
+## Running Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build check:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+```
