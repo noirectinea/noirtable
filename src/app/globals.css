@@ -54,6 +54,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
 }
 
 body {
@@ -61,6 +63,9 @@ body {
   color: var(--foreground);
   font-family: "Manrope", "Helvetica Neue", Arial, Helvetica, sans-serif;
   letter-spacing: 0;
+  min-width: 0;
+  overflow-x: clip;
+  width: 100%;
 }
 
 ::selection {

@@ -342,7 +342,7 @@ export function FoodOrderingPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#241b15] text-[#f0e4d2]">
+    <main className="min-h-screen overflow-x-clip bg-[#241b15] text-[#f0e4d2]">
       <div className="fixed left-0 right-0 top-0 z-[60] h-px bg-[#24160f]">
         <div
           className="h-full origin-left bg-[#d9b982]"
@@ -411,7 +411,7 @@ export function FoodOrderingPage() {
       </div>
 
       <section className="relative isolate min-h-screen overflow-hidden bg-[#241b15]">
-        <header className="absolute left-0 right-0 top-0 z-20 mx-auto grid max-w-[1540px] grid-cols-[1fr_auto_1fr] items-start px-4 py-5 sm:px-8 sm:py-6">
+        <header className="absolute left-0 right-0 top-0 z-20 mx-auto grid max-w-[1540px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start px-4 py-5 sm:px-8 sm:py-6">
           <nav className="col-start-1 hidden gap-7 pt-2 text-[9px] font-semibold uppercase tracking-[0.26em] text-[#c9aa7c] md:flex">
             <a href="#menu" className="transition hover:text-white">
               Menu
@@ -616,7 +616,7 @@ export function FoodOrderingPage() {
                   setSelectedItem(item);
                 }
               }}
-              className={`quiet-lift group relative grid min-h-[148px] cursor-pointer grid-cols-[124px_1fr] border border-[#6a523e] bg-[#30251c] transition duration-300 hover:border-[#d0ae77]/65 hover:bg-[#382b21] sm:block ${
+              className={`quiet-lift group relative grid min-h-[148px] cursor-pointer grid-cols-[124px_minmax(0,1fr)] border border-[#6a523e] bg-[#30251c] transition duration-300 hover:border-[#d0ae77]/65 hover:bg-[#382b21] sm:block ${
                 isFeaturedDish(index)
                   ? "lg:col-span-2 sm:min-h-[410px]"
                   : "sm:min-h-[368px]"
@@ -654,10 +654,10 @@ export function FoodOrderingPage() {
                 {String(index + 1).padStart(2, "0")}
               </div>
 
-              <div className="grid content-between py-4 pr-4 sm:min-h-[178px] sm:px-5 sm:pb-16 sm:pt-5">
+              <div className="grid min-w-0 content-between py-4 pr-4 sm:min-h-[178px] sm:px-5 sm:pb-16 sm:pt-5">
                 <div>
                   <div className="flex items-start justify-between gap-4 sm:block">
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
                         <p className="text-[8px] font-semibold uppercase tracking-[0.22em] text-[#9d8669] sm:text-[9px]">
                           {item.category}
@@ -668,7 +668,7 @@ export function FoodOrderingPage() {
                           </p>
                         ) : null}
                       </div>
-                      <h3 className={`font-menu mt-1 leading-[0.94] text-white ${isFeaturedDish(index) ? "text-3xl sm:text-4xl" : "text-2xl sm:text-[31px]"}`}>
+                      <h3 className={`font-menu mt-1 [overflow-wrap:anywhere] leading-[0.94] text-white ${isFeaturedDish(index) ? "text-3xl sm:text-4xl" : "text-2xl sm:text-[31px]"}`}>
                         {item.name}
                       </h3>
                     </div>
