@@ -63,10 +63,6 @@ function getItem(entry: FullMenuEntry) {
   return item;
 }
 
-function slugSection(section: string) {
-  return section.toLowerCase().replace(/\s+/g, "-");
-}
-
 function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
@@ -109,7 +105,7 @@ function FullMenuCard({
       <button
         type="button"
         onClick={() => onView(entry)}
-        className="relative block h-[154px] w-full overflow-hidden border-b border-[#2d261f]/15 text-left"
+        className="relative block h-[174px] w-full overflow-hidden border-b border-[#2d261f]/15 bg-[#11100d] text-left"
         aria-label={`View ${item.name}`}
       >
         <Image
@@ -117,7 +113,7 @@ function FullMenuCard({
           alt={item.name}
           fill
           sizes="(min-width: 1280px) 22vw, (min-width: 768px) 44vw, 100vw"
-          className="object-cover"
+          className="scale-[1.35] object-cover object-center"
         />
       </button>
 
@@ -196,7 +192,7 @@ function DetailModal({
             alt={item.name}
             fill
             sizes="(min-width: 640px) 45vw, 100vw"
-            className="object-cover"
+            className="scale-[1.35] object-cover object-center"
           />
         </div>
         <div className="grid content-between gap-10 px-5 py-6 sm:px-7 sm:py-8">
@@ -247,16 +243,16 @@ function DetailModal({
 
 export function FullMenuPage() {
   const [selectedEntry, setSelectedEntry] = useState<FullMenuEntry | null>(null);
+  const [activeSection, setActiveSection] = useState<"All" | MenuSection>("All");
   const { addItem, itemCount } = useCart();
 
   const selectedItem = selectedEntry ? getItem(selectedEntry) : null;
-  const groupedEntries = useMemo(
+  const visibleEntries = useMemo(
     () =>
-      sectionOrder.map((section) => ({
-        section,
-        entries: fullMenuEntries.filter((entry) => entry.section === section),
-      })),
-    [],
+      activeSection === "All"
+        ? fullMenuEntries
+        : fullMenuEntries.filter((entry) => entry.section === activeSection),
+    [activeSection],
   );
 
   return (
@@ -307,13 +303,22 @@ export function FullMenuPage() {
 
         <section className="grid gap-8 border-b border-[#2d261f]/15 px-6 py-8 lg:grid-cols-[1fr_auto] lg:px-16">
           <nav className="flex gap-8 overflow-x-auto text-[8px] font-semibold uppercase tracking-[0.32em] text-[#11100d]">
-            <a className="border-b border-[#11100d] pb-2" href="#top">
+            <button
+              type="button"
+              onClick={() => setActiveSection("All")}
+              className={`pb-2 ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
+            >
               All
-            </a>
+            </button>
             {sectionOrder.map((section) => (
-              <a key={section} className="pb-2" href={`#${slugSection(section)}`}>
+              <button
+                key={section}
+                type="button"
+                onClick={() => setActiveSection(section)}
+                className={`pb-2 ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
+              >
                 {section}
-              </a>
+              </button>
             ))}
           </nav>
           <p className="max-w-[260px] text-xs leading-6 text-[#11100d]/66 lg:text-right">
@@ -324,27 +329,19 @@ export function FullMenuPage() {
         </section>
 
         <div className="px-6 py-8 lg:px-16">
-          {groupedEntries.map(({ section, entries }) => (
-            <section
-              key={section}
-              id={slugSection(section)}
-              className="scroll-mt-6 pb-8"
-            >
-              <h2 className="border-b border-[#2d261f]/15 pb-3 text-[9px] font-semibold uppercase tracking-[0.36em]">
-                {section}
-              </h2>
-              <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-                {entries.map((entry) => (
-                  <FullMenuCard
-                    key={entry.index}
-                    entry={entry}
-                    item={getItem(entry)}
-                    onView={setSelectedEntry}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
+          <h2 className="border-b border-[#2d261f]/15 pb-3 text-[9px] font-semibold uppercase tracking-[0.36em]">
+            {activeSection === "All" ? "All dishes" : activeSection}
+          </h2>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {visibleEntries.map((entry) => (
+              <FullMenuCard
+                key={entry.index}
+                entry={entry}
+                item={getItem(entry)}
+                onView={setSelectedEntry}
+              />
+            ))}
+          </div>
         </div>
 
         <footer className="flex flex-wrap items-center justify-between gap-5 border-t border-[#2d261f]/15 px-6 py-9 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] lg:px-16">
