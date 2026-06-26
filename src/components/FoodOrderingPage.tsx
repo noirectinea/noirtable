@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
@@ -33,7 +34,7 @@ function Sidebar() {
 
       <nav className="absolute left-0 right-0 top-[22vh] grid gap-7 text-center text-[8px] font-semibold uppercase tracking-[0.32em] text-[#1c1712]">
         <a href="#room">Room</a>
-        <a href="#menu">Menu</a>
+        <Link href="/menu">Menu</Link>
         <a href="#reserve">Reserve</a>
         <Link href="/case-study">Journal</Link>
         <a href="#room">About</a>
@@ -57,11 +58,18 @@ function MenuCard({
 }) {
   const tags = ["Fresh", "Chef pick", "", ""];
   const prepTimes = ["10 min", "12 min", "9 min", "12 min"];
+  const image = `/images/menu-generated/menu-${String(index + 1).padStart(2, "0")}.png`;
 
   return (
     <article className="grid min-h-[320px] border border-[#2d261f]/18 bg-[#e7dfd2]">
-      <div className="h-[132px] border-b border-[#2d261f]/14">
-        <ImagePlaceholder />
+      <div className="relative h-[132px] overflow-hidden border-b border-[#2d261f]/14">
+        <Image
+          src={image}
+          alt={item.name}
+          fill
+          sizes="(min-width: 1024px) 18vw, 100vw"
+          className="object-cover"
+        />
       </div>
 
       <div className="grid content-between px-4 py-4">
@@ -194,7 +202,7 @@ export function FoodOrderingPage() {
                 the room, and the hour.
               </p>
               <a
-                href="#menu"
+                href="/menu"
                 className="mt-10 inline-flex w-fit bg-[#c2a16e] px-9 py-5 text-[9px] font-semibold uppercase tracking-[0.34em] text-[#11100d] transition hover:bg-[#b9935f]"
               >
                 Choose a plate
@@ -280,7 +288,7 @@ export function FoodOrderingPage() {
             </h2>
             <span className="mt-10 h-px w-24 bg-[#2d261f]/22" />
             <Link
-              href="/cart"
+              href="/menu"
               className="mt-8 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.28em]"
             >
               View full menu
