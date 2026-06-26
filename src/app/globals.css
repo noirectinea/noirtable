@@ -41,8 +41,8 @@
 }
 
 :root {
-  --background: #241b15;
-  --foreground: #f4ead8;
+  --background: #e7dfd2;
+  --foreground: #11100d;
 }
 
 @theme inline {
@@ -69,8 +69,8 @@ body {
 }
 
 ::selection {
-  background: #d6ef63;
-  color: #090705;
+  background: #c2a16e;
+  color: #11100d;
 }
 
 .font-serif {
