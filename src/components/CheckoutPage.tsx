@@ -5,18 +5,29 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { formatPrice, useCart } from "@/lib/cart";
 
+type ServiceMethod = "Pickup" | "Delivery";
+
+const LAST_ORDER_KEY = "noirtable-last-order";
+
+function createDemoOrderId() {
+  return `NT-${Date.now().toString().slice(-6)}`;
+}
+
 export function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
   const [guestName, setGuestName] = useState("");
   const [phone, setPhone] = useState("");
+  const [serviceMethod, setServiceMethod] = useState<ServiceMethod>("Pickup");
   const [pickupTime, setPickupTime] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [deliveryNote, setDeliveryNote] = useState("");
   const [note, setNote] = useState("");
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const serviceFee = items.length > 0 ? Math.round(subtotal * 0.08) : 0;
-  const total = subtotal + serviceFee;
+  const fee = items.length > 0 ? (serviceMethod === "Delivery" ? 7 : 4) : 0;
+  const total = subtotal + fee;
 
   async function submitOrder() {
     if (items.length === 0) {
@@ -24,50 +35,54 @@ export function CheckoutPage() {
       return;
     }
 
+    if (serviceMethod === "Delivery" && deliveryAddress.trim().length === 0) {
+      setStatus("Add a delivery address.");
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus("");
 
     try {
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const orderId = createDemoOrderId();
+      const serviceDetail =
+        serviceMethod === "Delivery"
+          ? deliveryAddress
+          : pickupTime
+            ? `Preferred pickup: ${pickupTime}`
+            : "Pickup";
+
+      window.sessionStorage.setItem(
+        LAST_ORDER_KEY,
+        JSON.stringify({
+          orderId,
+          total,
+          serviceMethod,
+          serviceDetail,
+          deliveryNote,
           guestName,
           phone,
-          fulfillment: "Pickup",
-          note: [pickupTime ? `Preferred pickup: ${pickupTime}` : "", note]
-            .filter(Boolean)
-            .join(" / "),
+          note,
           items: items.map((item) => ({
             id: item.id,
+            name: item.name,
+            image: item.image,
             quantity: item.quantity,
+            price: item.price,
           })),
         }),
-      });
-
-      const result = (await response.json()) as {
-        orderId?: string;
-        message?: string;
-        total?: number;
-      };
-
-      if (!response.ok) {
-        setStatus(result.message ?? "Could not send the order.");
-        return;
-      }
+      );
 
       const successParams = new URLSearchParams({
-        order: result.orderId ?? "NT",
-        total: String(result.total ?? total),
-        type: pickupTime ? `Pickup ${pickupTime}` : "Pickup",
+        order: orderId,
+        total: String(total),
+        method: serviceMethod,
       });
 
       clearCart();
       router.push(`/order/success?${successParams.toString()}`);
     } catch {
-      setStatus("Order service unavailable.");
+      setStatus("Could not prepare the order.");
     } finally {
       setIsSubmitting(false);
     }
@@ -95,7 +110,7 @@ export function CheckoutPage() {
             Enter your details. The room receives the order quietly.
           </p>
           <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
-            Pickup / Noirtable / Demo
+            {serviceMethod} / Noirtable / Demo
           </div>
         </div>
 
@@ -115,12 +130,45 @@ export function CheckoutPage() {
                   placeholder="Phone"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
                 />
-                <input
-                  value={pickupTime}
-                  onChange={(event) => setPickupTime(event.target.value)}
-                  placeholder="Preferred pickup time"
-                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
-                />
+                <div className="grid grid-cols-2 border border-[#2d261f]/18 text-[9px] font-semibold uppercase tracking-[0.3em]">
+                  {(["Pickup", "Delivery"] as const).map((method) => (
+                    <button
+                      key={method}
+                      type="button"
+                      onClick={() => setServiceMethod(method)}
+                      className={`h-14 transition-colors duration-300 ${
+                        serviceMethod === method
+                          ? "bg-[#d7c09a] text-[#11100d]"
+                          : "text-[#11100d]/58 hover:bg-[#d7c09a]/45"
+                      }`}
+                    >
+                      {method}
+                    </button>
+                  ))}
+                </div>
+                {serviceMethod === "Pickup" ? (
+                  <input
+                    value={pickupTime}
+                    onChange={(event) => setPickupTime(event.target.value)}
+                    placeholder="Preferred pickup time"
+                    className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                  />
+                ) : (
+                  <>
+                    <input
+                      value={deliveryAddress}
+                      onChange={(event) => setDeliveryAddress(event.target.value)}
+                      placeholder="Delivery address"
+                      className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                    />
+                    <input
+                      value={deliveryNote}
+                      onChange={(event) => setDeliveryNote(event.target.value)}
+                      placeholder="Apartment / delivery note"
+                      className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                    />
+                  </>
+                )}
                 <textarea
                   value={note}
                   onChange={(event) => setNote(event.target.value)}
@@ -174,8 +222,8 @@ export function CheckoutPage() {
                   <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Service</span>
-                  <span>{formatPrice(serviceFee)}</span>
+                  <span>{serviceMethod === "Delivery" ? "Delivery" : "Service"}</span>
+                  <span>{formatPrice(fee)}</span>
                 </div>
               </div>
               <div className="mt-7 flex items-end justify-between">

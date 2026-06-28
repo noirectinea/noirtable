@@ -141,6 +141,7 @@ function FullMenuCard({
         type="button"
         onClick={() => onView(entry)}
         className="menu-card-image-wrap relative"
+        style={{ aspectRatio: "16 / 9", height: 174 }}
         aria-label={`View ${item.name}`}
       >
         <Image
@@ -152,6 +153,7 @@ function FullMenuCard({
           loading={entry.index <= 4 ? "eager" : "lazy"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
           className="menu-card-image transition-opacity duration-300 hover:opacity-90"
+          style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </button>
 
