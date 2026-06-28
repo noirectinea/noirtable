@@ -30,6 +30,7 @@ export function CartPage() {
             sizes="(min-width: 1024px) 42vw, 100vw"
             quality={72}
             className="object-cover object-center"
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,16,13,0.08)_0%,rgba(17,16,13,0.45)_100%)]" />
           <div className="absolute bottom-8 left-6 right-6 text-[#f6efe4] sm:left-10 sm:right-10 lg:bottom-12 lg:left-16 lg:right-16">
@@ -88,6 +89,7 @@ export function CartPage() {
                         sizes="92px"
                         quality={62}
                         className="object-cover"
+                        style={{ objectFit: "cover", objectPosition: "center" }}
                       />
                     </div>
                     <div>

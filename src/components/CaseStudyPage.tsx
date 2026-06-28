@@ -79,6 +79,7 @@ export function CaseStudyPage() {
             sizes="100vw"
             quality={72}
             className="object-cover"
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
           <div className="absolute inset-0 bg-[#e7dfd2]/72" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(231,223,210,0.97)_0%,rgba(231,223,210,0.88)_45%,rgba(231,223,210,0.44)_100%)]" />
@@ -171,6 +172,7 @@ export function CaseStudyPage() {
               sizes="(min-width: 1024px) 46vw, 100vw"
               quality={72}
               className="object-cover"
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
 

@@ -67,6 +67,7 @@ function MenuCard({
           sizes="(min-width: 1024px) 18vw, (min-width: 640px) 42vw, 100vw"
           quality={68}
           className="object-cover"
+          style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </div>
 
@@ -174,6 +175,7 @@ export function FoodOrderingPage() {
             sizes="100vw"
             quality={76}
             className="object-cover object-center"
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
           <div className="absolute inset-0 z-10 bg-[#e7dfd2]/18" />
           <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(231,223,210,0.42)_0%,rgba(231,223,210,0.22)_42%,rgba(231,223,210,0.08)_100%)]" />
@@ -282,6 +284,7 @@ export function FoodOrderingPage() {
               sizes="(min-width: 1024px) 58vw, 100vw"
               quality={76}
               className="object-cover object-center"
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
         </section>
@@ -397,6 +400,7 @@ export function FoodOrderingPage() {
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 quality={76}
                 className="object-cover object-center"
+                style={{ objectFit: "cover", objectPosition: "center" }}
               />
             </div>
           </div>

@@ -89,6 +89,10 @@ function getItem(entry: FullMenuEntry) {
   return item;
 }
 
+function getDetailImage(image: string) {
+  return image.replace("/images/menu-card-fast/", "/images/menu-dishes-fast/");
+}
+
 function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
@@ -147,8 +151,8 @@ function FullMenuCard({
         <img
           src={item.image ?? entry.image}
           alt={item.name}
-          width={720}
-          height={720}
+          width={1200}
+          height={675}
           loading={entry.index <= 4 ? "eager" : "lazy"}
           decoding={entry.index <= 4 ? "sync" : "async"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
@@ -261,12 +265,13 @@ function DetailModal({
       <article className="relative grid max-h-[calc(100dvh-32px)] w-full max-w-[860px] overflow-y-auto border border-[#2d261f]/20 bg-[#e7dfd2] shadow-2xl shadow-[#11100d]/30 sm:max-h-[620px] sm:grid-cols-[46%_54%] sm:overflow-hidden">
         <div className="dish-modal-image-wrap relative">
           <Image
-            src={item.image ?? entry.image}
+            src={getDetailImage(item.image ?? entry.image)}
             alt={item.name}
             fill
             sizes="(min-width: 640px) 390px, 100vw"
             quality={72}
             className="dish-modal-image"
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
         </div>
         <div className="grid content-between gap-10 px-5 py-6 sm:min-h-[500px] sm:px-7 sm:py-8">
