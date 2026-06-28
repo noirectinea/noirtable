@@ -54,7 +54,7 @@ export function CheckoutPage() {
       };
 
       if (!response.ok) {
-        setStatus(result.message ?? "Order rejected.");
+        setStatus(result.message ?? "Could not send the order.");
         return;
       }
 
@@ -92,11 +92,10 @@ export function CheckoutPage() {
             A final note, before the kitchen.
           </h1>
           <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
-            Enter your details and confirm the order. Payment is simulated for
-            this portfolio project.
+            Enter your details. The room receives the order quietly.
           </p>
           <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
-            Demo payment / pickup order / staff desk handoff
+            Pickup / Noirtable / Demo
           </div>
         </div>
 
@@ -137,7 +136,7 @@ export function CheckoutPage() {
                 disabled={isSubmitting}
                 className="mt-5 h-14 w-full bg-[#c2a16e] text-[9px] font-semibold uppercase tracking-[0.34em] disabled:opacity-60"
               >
-                {isSubmitting ? "Sending" : "Place order / pay"}
+                {isSubmitting ? "Sending" : "Place order"}
               </button>
 
               {status ? (

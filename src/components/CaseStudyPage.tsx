@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/lib/cart";
+import { NoirtableMark } from "@/components/NoirtableMark";
 
 const projectMeta = [
   ["Project type", "Full-stack restaurant website"],
@@ -36,22 +36,25 @@ const journeySteps = [
   ["05 Staff desk", "Order lands with staff"],
 ];
 
-function Sidebar({ itemCount }: { itemCount: number }) {
+function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
-      <Link
-        href="/"
-        className="absolute left-0 right-0 top-10 text-center text-[9px] font-semibold uppercase tracking-[0.42em] text-[#15120f]"
-      >
-        Noirtable
-      </Link>
+      <div className="absolute left-0 right-0 top-10 grid justify-items-center gap-3 text-[#15120f]">
+        <Link
+          href="/"
+          className="text-center text-[9px] font-semibold uppercase tracking-[0.42em]"
+        >
+          Noirtable
+        </Link>
+        <NoirtableMark className="h-6 w-6" />
+      </div>
 
       <nav className="absolute left-0 right-0 top-[22vh] grid gap-7 text-center text-[8px] font-semibold uppercase tracking-[0.32em] text-[#1c1712]">
         <Link href="/#room">Room</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/#reserve">Reserve</Link>
         <Link href="/case-study">Journal</Link>
-        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
+        <Link href="/#room">About</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -62,11 +65,9 @@ function Sidebar({ itemCount }: { itemCount: number }) {
 }
 
 export function CaseStudyPage() {
-  const { itemCount } = useCart();
-
   return (
     <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar itemCount={itemCount} />
+      <Sidebar />
 
       <div className="lg:pl-[104px]">
         <section className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0">
@@ -95,9 +96,8 @@ export function CaseStudyPage() {
               Restaurant site with ordering.
             </h1>
             <p className="mt-8 max-w-md text-sm leading-7 text-[#1f1a15]/72 sm:text-base">
-              A premium Noirtable experience: editorial dining room, full menu,
-              cart, guest checkout with pseudo payment, and a staff desk for
-              service.
+              A small restaurant site with menu, cart, checkout, demo payment,
+              and a staff view for the evening.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -156,9 +156,8 @@ export function CaseStudyPage() {
               Keep commerce inside the room.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Noirtable keeps the ordering flow inside the same quiet editorial
-              restaurant world: menu, cart, checkout and staff desk all share
-              one visual system.
+              Noirtable keeps the order close to the room: menu, cart, checkout,
+              and staff desk stay in the same quiet tone.
             </p>
           </div>
         </section>
@@ -296,7 +295,7 @@ export function CaseStudyPage() {
         <section className="px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
           <div className="border-y border-[#2d261f]/15 py-12 text-center">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Built as a full-stack portfolio concept
+              Built as a restaurant ordering build
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
               An editorial restaurant website with menu, cart, checkout,
