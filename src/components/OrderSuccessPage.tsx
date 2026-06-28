@@ -20,11 +20,14 @@ export function OrderSuccessPage() {
       <section className="grid min-h-[calc(100vh-73px)] place-items-center px-6 py-12 sm:px-10">
         <div className="w-full max-w-[980px] border-y border-[#2d261f]/15 py-12">
           <p className="text-center text-[9px] font-semibold uppercase tracking-[0.42em] text-[#1f1a15]/55">
-            Thank you
+            Order received
           </p>
           <h1 className="mx-auto mt-7 max-w-2xl text-center font-serif text-6xl leading-[0.92] sm:text-8xl">
-            Payment received. The kitchen has your order.
+            The kitchen has it.
           </h1>
+          <p className="mx-auto mt-7 max-w-sm text-center text-sm leading-7 text-[#1f1a15]/68">
+            The room will call if anything needs confirming.
+          </p>
 
           <div className="mx-auto mt-12 grid max-w-2xl divide-y divide-[#2d261f]/12 border-y border-[#2d261f]/15">
             <div className="flex items-center justify-between py-5">

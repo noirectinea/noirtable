@@ -6,6 +6,7 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
+import { NoirtableMark } from "@/components/NoirtableMark";
 
 const previewItems = menuItems.slice(0, 4);
 const previewImages = [
@@ -15,15 +16,18 @@ const previewImages = [
   "/images/menu-dishes-fast/dish-04-charred-octopus.jpg",
 ];
 
-function Sidebar({ itemCount }: { itemCount: number }) {
+function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
-      <Link
-        href="/"
-        className="absolute left-0 right-0 top-10 text-center text-[9px] font-semibold uppercase tracking-[0.42em] text-[#15120f]"
-      >
-        Noirtable
-      </Link>
+      <div className="absolute left-0 right-0 top-10 grid justify-items-center gap-3 text-[#15120f]">
+        <Link
+          href="/"
+          className="text-center text-[9px] font-semibold uppercase tracking-[0.42em]"
+        >
+          Noirtable
+        </Link>
+        <NoirtableMark className="h-6 w-6" />
+      </div>
 
       <nav className="absolute left-0 right-0 top-[22vh] grid gap-7 text-center text-[8px] font-semibold uppercase tracking-[0.32em] text-[#1c1712]">
         <a href="#room">Room</a>
@@ -31,7 +35,6 @@ function Sidebar({ itemCount }: { itemCount: number }) {
         <a href="#reserve">Reserve</a>
         <Link href="/case-study">Journal</Link>
         <a href="#room">About</a>
-        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -159,7 +162,7 @@ export function FoodOrderingPage() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar itemCount={itemCount} />
+      <Sidebar />
 
       <div className="lg:pl-[104px]">
         <section className="relative min-h-screen border-b border-[#2d261f]/15">
@@ -402,7 +405,7 @@ export function FoodOrderingPage() {
         <footer className="flex flex-wrap items-center justify-between gap-5 px-6 py-9 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] lg:px-16">
           <span>Noirtable</span>
           <nav className="flex flex-wrap gap-7">
-            <Link href="/cart">Cart {itemCount}</Link>
+            <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
             <a href="#reserve">Reserve</a>
             <Link href="/staff">Staff desk</Link>
             <Link href="/case-study">Case study</Link>
