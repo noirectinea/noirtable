@@ -27,6 +27,31 @@ const sectionOrder: MenuSection[] = [
   "Drinks",
 ];
 
+function CartLineIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 18 18"
+      className="h-3.5 w-3.5"
+      fill="none"
+    >
+      <path
+        d="M3 4.75h1.85l1.05 6.1h7.1l1.05-4.2H5.25"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
+      <path
+        d="M7 14.25h.01M12.5 14.25h.01"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 const fullMenuEntries: FullMenuEntry[] = [
   { index: 1, section: "Starters", itemId: 1, badge: "Fresh", image: "/images/menu-dishes-fast/dish-01-oyster-royale.jpg", displayTime: "10 min" },
   { index: 2, section: "Starters", itemId: 2, badge: "Chef pick", image: "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg", displayTime: "12 min" },
@@ -105,7 +130,7 @@ function FullMenuCard({
   onView: (entry: FullMenuEntry) => void;
 }) {
   return (
-    <article className="border border-[#2d261f]/18 bg-[#e7dfd2]">
+    <article className="border border-[#2d261f]/18 bg-[#e7dfd2] transition-colors duration-300 hover:border-[#2d261f]/32">
       <button
         type="button"
         onClick={() => onView(entry)}
@@ -120,7 +145,7 @@ function FullMenuCard({
           quality={68}
           loading={entry.index <= 4 ? "eager" : "lazy"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
-          className="menu-card-image"
+          className="menu-card-image transition-opacity duration-300 hover:opacity-90"
         />
       </button>
 
@@ -146,7 +171,7 @@ function FullMenuCard({
           <button
             type="button"
             onClick={() => onView(entry)}
-            className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]"
+            className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d] transition-colors duration-300 hover:border-[#9b7c4d] hover:text-[#9b7c4d]"
           >
             View
           </button>
@@ -278,8 +303,9 @@ export function FullMenuPage() {
         <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
-            className="inline-flex h-12 items-center border border-[#11100d]/45 bg-[#e7dfd2]/94 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+            className="inline-flex h-12 items-center gap-2 border border-[#11100d]/45 bg-[#e7dfd2]/94 px-5 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
           >
+            <CartLineIcon />
             {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
           </Link>
         </div>
@@ -323,7 +349,7 @@ export function FullMenuPage() {
             <button
               type="button"
               onClick={() => setActiveSection("All")}
-              className={`pb-2 ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
+              className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
             >
               All
             </button>
@@ -332,7 +358,7 @@ export function FullMenuPage() {
                 key={section}
                 type="button"
                 onClick={() => setActiveSection(section)}
-                className={`pb-2 ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
+                className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
               >
                 {section}
               </button>
