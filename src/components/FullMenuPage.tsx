@@ -53,30 +53,30 @@ function CartLineIcon() {
 }
 
 const fullMenuEntries: FullMenuEntry[] = [
-  { index: 1, section: "Starters", itemId: 1, badge: "Fresh", image: "/images/menu-dishes-fast/dish-01-oyster-royale.jpg", displayTime: "10 min" },
-  { index: 2, section: "Starters", itemId: 2, badge: "Chef pick", image: "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg", displayTime: "12 min" },
-  { index: 3, section: "Starters", itemId: 3, image: "/images/menu-dishes-fast/dish-03-burrata-noir.jpg", displayTime: "9 min" },
-  { index: 4, section: "Starters", itemId: 4, image: "/images/menu-dishes-fast/dish-04-charred-octopus.jpg", displayTime: "12 min" },
-  { index: 5, section: "Mains", itemId: 14, image: "/images/menu-dishes-fast/dish-05-gold-leaf-risotto.jpg", displayTime: "24 min" },
-  { index: 6, section: "Mains", itemId: 15, image: "/images/menu-dishes-fast/dish-06-lamb-crown.jpg", displayTime: "30 min" },
-  { index: 7, section: "Mains", itemId: 16, image: "/images/menu-dishes-fast/dish-07-noir-burger.jpg", displayTime: "19 min" },
-  { index: 8, section: "Mains", itemId: 17, badge: "Premium", image: "/images/menu-dishes-fast/dish-08-private-table-steak.jpg", displayTime: "27 min" },
-  { index: 9, section: "Pasta", itemId: 18, badge: "Chef pick", image: "/images/menu-dishes-fast/dish-09-saffron-lobster-pasta.jpg", displayTime: "22 min" },
-  { index: 10, section: "Pasta", itemId: 19, image: "/images/menu-dishes-fast/dish-10-porcini-tagliatelle.jpg", displayTime: "20 min" },
-  { index: 11, section: "Pasta", itemId: 20, image: "/images/menu-dishes-fast/dish-11-short-rib-pappardelle.jpg", displayTime: "20 min" },
-  { index: 12, section: "Pasta", itemId: 51, image: "/images/menu-dishes-fast/dish-12-cacio-e-pepe.jpg", displayTime: "18 min" },
-  { index: 13, section: "Sides", itemId: 52, image: "/images/menu-dishes-fast/dish-13-broccolini.jpg", displayTime: "8 min" },
-  { index: 14, section: "Sides", itemId: 53, image: "/images/menu-dishes-fast/dish-14-roasted-mushrooms.jpg", displayTime: "8 min" },
-  { index: 15, section: "Sides", itemId: 54, image: "/images/menu-dishes-fast/dish-15-truffle-fries.jpg", displayTime: "9 min" },
-  { index: 16, section: "Sides", itemId: 55, image: "/images/menu-dishes-fast/dish-16-house-bread.jpg", displayTime: "-" },
-  { index: 17, section: "Desserts", itemId: 56, image: "/images/menu-dishes-fast/dish-17-dark-chocolate-torte.jpg", displayTime: "10 min" },
-  { index: 18, section: "Desserts", itemId: 57, image: "/images/menu-dishes-fast/dish-18-panna-cotta.jpg", displayTime: "10 min" },
-  { index: 19, section: "Desserts", itemId: 39, image: "/images/menu-dishes-fast/dish-19-tiramisu-24k.jpg", displayTime: "12 min" },
-  { index: 20, section: "Desserts", itemId: 58, image: "/images/menu-dishes-fast/dish-20-seasonal-gelato.jpg", displayTime: "8 min" },
-  { index: 21, section: "Drinks", itemId: 59, image: "/images/menu-dishes-fast/dish-21-reserve-negroni.jpg", displayTime: "5 min" },
-  { index: 22, section: "Drinks", itemId: 60, image: "/images/menu-dishes-fast/dish-22-white-by-the-glass.jpg", displayTime: "5 min" },
-  { index: 23, section: "Drinks", itemId: 61, image: "/images/menu-dishes-fast/dish-23-red-by-the-glass.jpg", displayTime: "5 min" },
-  { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-dishes-fast/dish-24-reserve-water.jpg", displayTime: "2 min" },
+  { index: 1, section: "Starters", itemId: 1, badge: "Fresh", image: "/images/menu-card-fast/dish-01-oyster-royale.jpg", displayTime: "10 min" },
+  { index: 2, section: "Starters", itemId: 2, badge: "Chef pick", image: "/images/menu-card-fast/dish-02-truffle-beef-tartare.jpg", displayTime: "12 min" },
+  { index: 3, section: "Starters", itemId: 3, image: "/images/menu-card-fast/dish-03-burrata-noir.jpg", displayTime: "9 min" },
+  { index: 4, section: "Starters", itemId: 4, image: "/images/menu-card-fast/dish-04-charred-octopus.jpg", displayTime: "12 min" },
+  { index: 5, section: "Mains", itemId: 14, image: "/images/menu-card-fast/dish-05-gold-leaf-risotto.jpg", displayTime: "24 min" },
+  { index: 6, section: "Mains", itemId: 15, image: "/images/menu-card-fast/dish-06-lamb-crown.jpg", displayTime: "30 min" },
+  { index: 7, section: "Mains", itemId: 16, image: "/images/menu-card-fast/dish-07-noir-burger.jpg", displayTime: "19 min" },
+  { index: 8, section: "Mains", itemId: 17, badge: "Premium", image: "/images/menu-card-fast/dish-08-private-table-steak.jpg", displayTime: "27 min" },
+  { index: 9, section: "Pasta", itemId: 18, badge: "Chef pick", image: "/images/menu-card-fast/dish-09-saffron-lobster-pasta.jpg", displayTime: "22 min" },
+  { index: 10, section: "Pasta", itemId: 19, image: "/images/menu-card-fast/dish-10-porcini-tagliatelle.jpg", displayTime: "20 min" },
+  { index: 11, section: "Pasta", itemId: 20, image: "/images/menu-card-fast/dish-11-short-rib-pappardelle.jpg", displayTime: "20 min" },
+  { index: 12, section: "Pasta", itemId: 51, image: "/images/menu-card-fast/dish-12-cacio-e-pepe.jpg", displayTime: "18 min" },
+  { index: 13, section: "Sides", itemId: 52, image: "/images/menu-card-fast/dish-13-broccolini.jpg", displayTime: "8 min" },
+  { index: 14, section: "Sides", itemId: 53, image: "/images/menu-card-fast/dish-14-roasted-mushrooms.jpg", displayTime: "8 min" },
+  { index: 15, section: "Sides", itemId: 54, image: "/images/menu-card-fast/dish-15-truffle-fries.jpg", displayTime: "9 min" },
+  { index: 16, section: "Sides", itemId: 55, image: "/images/menu-card-fast/dish-16-house-bread.jpg", displayTime: "-" },
+  { index: 17, section: "Desserts", itemId: 56, image: "/images/menu-card-fast/dish-17-dark-chocolate-torte.jpg", displayTime: "10 min" },
+  { index: 18, section: "Desserts", itemId: 57, image: "/images/menu-card-fast/dish-18-panna-cotta.jpg", displayTime: "10 min" },
+  { index: 19, section: "Desserts", itemId: 39, image: "/images/menu-card-fast/dish-19-tiramisu-24k.jpg", displayTime: "12 min" },
+  { index: 20, section: "Desserts", itemId: 58, image: "/images/menu-card-fast/dish-20-seasonal-gelato.jpg", displayTime: "8 min" },
+  { index: 21, section: "Drinks", itemId: 59, image: "/images/menu-card-fast/dish-21-reserve-negroni.jpg", displayTime: "5 min" },
+  { index: 22, section: "Drinks", itemId: 60, image: "/images/menu-card-fast/dish-22-white-by-the-glass.jpg", displayTime: "5 min" },
+  { index: 23, section: "Drinks", itemId: 61, image: "/images/menu-card-fast/dish-23-red-by-the-glass.jpg", displayTime: "5 min" },
+  { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-card-fast/dish-24-reserve-water.jpg", displayTime: "2 min" },
 ];
 
 function getItem(entry: FullMenuEntry) {
@@ -144,13 +144,13 @@ function FullMenuCard({
         style={{ aspectRatio: "16 / 9", height: 174 }}
         aria-label={`View ${item.name}`}
       >
-        <Image
+        <img
           src={item.image ?? entry.image}
           alt={item.name}
-          fill
-          sizes="(min-width: 1280px) 21vw, (min-width: 768px) 44vw, 100vw"
-          quality={68}
+          width={720}
+          height={720}
           loading={entry.index <= 4 ? "eager" : "lazy"}
+          decoding={entry.index <= 4 ? "sync" : "async"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
           className="menu-card-image transition-opacity duration-300 hover:opacity-90"
           style={{ objectFit: "cover", objectPosition: "center" }}

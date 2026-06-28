@@ -155,6 +155,7 @@ body {
   width: 100%;
   aspect-ratio: 16 / 9;
   height: 174px;
+  min-height: 174px;
   padding: 0;
   overflow: hidden;
   border: 0;
@@ -179,6 +180,7 @@ body {
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
+  min-width: 100%;
   object-fit: cover;
   object-position: center;
   backface-visibility: hidden;
