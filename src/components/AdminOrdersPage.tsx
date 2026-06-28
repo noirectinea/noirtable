@@ -216,7 +216,7 @@ export function AdminOrdersPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
               Orders
             </p>
-            <h2 className="mt-3 font-serif text-5xl leading-none">Orders</h2>
+            <h2 className="mt-3 font-serif text-5xl leading-none">Order queue</h2>
           </div>
           <div className="flex gap-2 overflow-x-auto">
             {orderFilters.map((filter) => {

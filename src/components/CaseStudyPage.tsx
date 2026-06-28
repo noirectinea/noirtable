@@ -6,10 +6,10 @@ import { NoirtableMark } from "@/components/NoirtableMark";
 import { StableImageFrame } from "@/components/StableImageFrame";
 
 const projectMeta = [
-  ["Project type", "Full-stack restaurant website"],
-  ["Role", "Design / Frontend / Ordering flow / Staff desk"],
-  ["Stack", "Next.js / Vercel / Supabase-ready"],
-  ["Features", "Menu / Cart / Checkout / Simulated payment / Staff Desk"],
+  ["Project type", "Restaurant ordering website"],
+  ["Role", "Design, frontend, cart flow, staff view"],
+  ["Stack", "Next.js, Vercel, ready for Supabase"],
+  ["Features", "Menu, cart, checkout, staff desk"],
 ];
 
 const buildNotes = [
@@ -17,7 +17,7 @@ const buildNotes = [
   "Filtered menu",
   "Cart state",
   "Guest data form",
-  "Simulated payment",
+  "Demo checkout",
   "Staff order desk",
 ];
 
@@ -225,7 +225,7 @@ export function CaseStudyPage() {
                 href="/checkout"
                 className="border border-[#2d261f]/18 px-5 py-4 text-center text-[8px] font-semibold uppercase tracking-[0.26em]"
               >
-                Payment
+                Checkout
               </Link>
               <Link
                 href="/staff"
@@ -291,7 +291,7 @@ export function CaseStudyPage() {
                 Flow
               </p>
               <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
-                Guest to staff, without leaving the tone.
+                Guest order to staff view.
               </h2>
             </div>
             <div className="grid gap-0 border-y border-[#2d261f]/15">
@@ -315,11 +315,10 @@ export function CaseStudyPage() {
         <section className="px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
           <div className="border-y border-[#2d261f]/15 py-12 text-center">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Built as a restaurant ordering build
+              Restaurant ordering website
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
-              An editorial restaurant website with menu, cart, checkout,
-              simulated payment and staff desk.
+              Menu, cart, checkout, and staff desk for a small evening room.
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link

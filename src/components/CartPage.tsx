@@ -71,9 +71,12 @@ export function CartPage() {
                 <p className="font-serif text-4xl leading-none sm:text-5xl">
                   Nothing here yet.
                 </p>
+                <p className="mt-5 text-sm leading-7 text-[#1f1a15]/62">
+                  Start with the menu.
+                </p>
                 <Link
                   href="/menu"
-                  className="mt-8 inline-block border border-[#2d261f]/22 px-6 py-4 text-[9px] font-semibold uppercase tracking-[0.3em]"
+                  className="mt-8 inline-block border border-[#11100d]/48 bg-[#d7c09a]/45 px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.3em] transition-colors duration-300 hover:bg-[#d7c09a]"
                 >
                   Back to menu
                 </Link>

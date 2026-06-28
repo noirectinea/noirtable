@@ -412,7 +412,7 @@ export function FullMenuPage() {
             <button
               type="button"
               onClick={() => setActiveSection("All")}
-              className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === "All" ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/58"}`}
+              className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === "All" ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/42"}`}
             >
               All
             </button>
@@ -421,7 +421,7 @@ export function FullMenuPage() {
                 key={section}
                 type="button"
                 onClick={() => setActiveSection(section)}
-                className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === section ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/58"}`}
+                className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === section ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/42"}`}
               >
                 {section}
               </button>
