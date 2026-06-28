@@ -272,7 +272,22 @@ export function FullMenuPage() {
       />
 
       <div className="lg:pl-[104px]">
-        <header className="grid gap-12 border-b border-[#2d261f]/15 px-6 pb-8 pt-8 lg:grid-cols-[1fr_auto] lg:px-16 lg:pb-10">
+        <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
+          <Link
+            href="/#reserve"
+            className="hidden h-12 items-center border border-[#11100d]/45 bg-[#e7dfd2]/92 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a] lg:inline-flex"
+          >
+            Reserve
+          </Link>
+          <Link
+            href="/cart"
+            className="inline-flex h-12 items-center border border-[#11100d]/45 bg-[#e7dfd2]/94 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+          >
+            {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
+          </Link>
+        </div>
+
+        <header className="grid gap-10 border-b border-[#2d261f]/15 px-6 pb-7 pt-7 lg:grid-cols-[1fr_auto] lg:px-16 lg:pb-8">
           <div>
             <Link
               href="/"
@@ -280,18 +295,18 @@ export function FullMenuPage() {
             >
               Noirtable
             </Link>
-            <p className="mt-12 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.32em] lg:mt-0">
+            <p className="mt-10 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.32em] lg:mt-0">
               The menu
             </p>
-            <h1 className="mt-8 max-w-xl font-serif text-6xl leading-[0.95] text-[#11100d] sm:text-7xl">
+            <h1 className="mt-7 max-w-xl font-serif text-6xl leading-[0.95] text-[#11100d] sm:text-7xl">
               Six tables.
               <br />
               Late plates.
               <br />
               Quiet service.
             </h1>
-            <span className="mt-10 block h-px w-24 bg-[#2d261f]/20" />
-            <p className="mt-8 max-w-[310px] text-sm leading-7 text-[#11100d]/68">
+            <span className="mt-8 block h-px w-24 bg-[#2d261f]/20" />
+            <p className="mt-7 max-w-[310px] text-sm leading-7 text-[#11100d]/68">
               A small kitchen, a short list,
               <br />
               and the time to do it right.
@@ -300,7 +315,7 @@ export function FullMenuPage() {
 
           <Link
             href="/#reserve"
-            className="h-fit justify-self-start border border-[#11100d]/45 px-7 py-5 text-[9px] font-semibold uppercase tracking-[0.32em] transition hover:bg-[#11100d] hover:text-[#e7dfd2] lg:justify-self-end"
+            className="h-12 justify-self-start border border-[#11100d]/45 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] transition-colors duration-300 hover:bg-[#d7c09a] lg:invisible lg:justify-self-end"
           >
             Reserve
           </Link>
@@ -352,7 +367,7 @@ export function FullMenuPage() {
         <footer className="flex flex-wrap items-center justify-between gap-5 border-t border-[#2d261f]/15 px-6 py-9 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] lg:px-16">
           <span>Noirtable</span>
           <nav className="flex flex-wrap gap-7">
-            <Link href="/cart">Cart {itemCount}</Link>
+            <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
             <Link href="/#reserve">Reserve</Link>
             <Link href="/staff">Staff desk</Link>
             <Link href="/case-study">Case study</Link>
