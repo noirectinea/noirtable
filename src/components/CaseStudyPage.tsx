@@ -3,7 +3,7 @@ import Link from "next/link";
 import { NoirtableMark } from "@/components/NoirtableMark";
 
 const projectMeta = [
-  ["Project type", "Restaurant ordering build"],
+  ["Project type", "Restaurant ordering concept"],
   ["Role", "Design / frontend / cart flow / staff desk"],
   ["Build", "Menu / cart / pseudo payment / staff order view"],
   ["Stack", "Next.js / Vercel / Supabase-ready"],
@@ -141,8 +141,8 @@ export function CaseStudyPage() {
               Ordering often breaks the room.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Most restaurant ordering pages borrow from delivery apps: loud
-              buttons, heavy cards, and a room that disappears.
+              Most restaurant ordering pages feel like delivery apps: loud
+              buttons, generic cards, and a broken atmosphere.
             </p>
           </div>
 
@@ -154,8 +154,8 @@ export function CaseStudyPage() {
               Keep commerce inside the room.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Noirtable keeps the order close to the room: the menu, cart,
-              checkout, and staff desk all feel cut from the same cloth.
+              Noirtable keeps the order close to the room: menu, cart, checkout,
+              and staff desk use the same calm language.
             </p>
           </div>
         </section>
@@ -224,8 +224,8 @@ export function CaseStudyPage() {
               Tonight&apos;s room, kept in order.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Orders and table requests land in one internal sheet, where the
-              team can confirm, prepare, and close service.
+              Orders and table requests land in a quiet internal view, where the
+              team can confirm, prepare, and close the order.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -293,7 +293,7 @@ export function CaseStudyPage() {
         <section className="px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
           <div className="border-y border-[#2d261f]/15 py-12 text-center">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Built as a restaurant ordering build
+              Built as a restaurant ordering concept
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
               A restaurant site with menu, cart, checkout, demo payment and a
