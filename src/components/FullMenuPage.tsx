@@ -124,10 +124,16 @@ function FullMenuCard({
   entry,
   item,
   onView,
+  onAdd,
+  onRemove,
+  quantity,
 }: {
   entry: FullMenuEntry;
   item: MenuItem;
   onView: (entry: FullMenuEntry) => void;
+  onAdd: (item: MenuItem) => void;
+  onRemove: (itemId: number) => void;
+  quantity: number;
 }) {
   return (
     <article className="border border-[#2d261f]/18 bg-[#e7dfd2] transition-colors duration-300 hover:border-[#2d261f]/32">
@@ -168,13 +174,46 @@ function FullMenuCard({
         </p>
         <div className="mt-4 flex items-end justify-between gap-4">
           <p className="text-sm text-[#11100d]">{formatPrice(item.price)}</p>
-          <button
-            type="button"
-            onClick={() => onView(entry)}
-            className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d] transition-colors duration-300 hover:border-[#9b7c4d] hover:text-[#9b7c4d]"
-          >
-            View
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => onView(entry)}
+              className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d] transition-colors duration-300 hover:border-[#9b7c4d] hover:text-[#9b7c4d]"
+            >
+              View
+            </button>
+            {quantity > 0 ? (
+              <div className="flex h-8 items-center border border-[#2d261f]/18 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#11100d]">
+                <button
+                  type="button"
+                  onClick={() => onRemove(item.id)}
+                  className="grid h-full w-8 place-items-center transition-colors duration-300 hover:bg-[#d7c09a]"
+                  aria-label={`Remove one ${item.name}`}
+                >
+                  -
+                </button>
+                <span className="min-w-7 border-x border-[#2d261f]/12 px-2 text-center">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => onAdd(item)}
+                  className="grid h-full w-8 place-items-center transition-colors duration-300 hover:bg-[#d7c09a]"
+                  aria-label={`Add one ${item.name}`}
+                >
+                  +
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onAdd(item)}
+                className="border border-[#2d261f]/18 px-3 py-2 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+              >
+                Add
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </article>
@@ -277,7 +316,7 @@ function DetailModal({
 export function FullMenuPage() {
   const [selectedEntry, setSelectedEntry] = useState<FullMenuEntry | null>(null);
   const [activeSection, setActiveSection] = useState<"All" | MenuSection>("All");
-  const { addItem, itemCount } = useCart();
+  const { addItem, removeItem, items, itemCount } = useCart();
 
   const selectedItem = selectedEntry ? getItem(selectedEntry) : null;
   const visibleEntries = useMemo(
@@ -286,6 +325,13 @@ export function FullMenuPage() {
         ? fullMenuEntries
         : fullMenuEntries.filter((entry) => entry.section === activeSection),
     [activeSection],
+  );
+  const quantitiesById = useMemo(
+    () =>
+      new Map(
+        items.map((item) => [item.id, item.quantity] as const),
+      ),
+    [items],
   );
 
   return (
@@ -303,7 +349,7 @@ export function FullMenuPage() {
         <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
-            className="inline-flex h-12 items-center gap-2 border border-[#11100d]/45 bg-[#e7dfd2]/94 px-5 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+            className="inline-flex h-[54px] items-center gap-2 border border-[#11100d]/60 bg-[#e7dfd2]/96 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
           >
             <CartLineIcon />
             {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
@@ -382,6 +428,9 @@ export function FullMenuPage() {
                 entry={entry}
                 item={getItem(entry)}
                 onView={setSelectedEntry}
+                onAdd={addItem}
+                onRemove={removeItem}
+                quantity={quantitiesById.get(entry.itemId) ?? 0}
               />
             ))}
           </div>
