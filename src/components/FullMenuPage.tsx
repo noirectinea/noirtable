@@ -457,7 +457,6 @@ export function FullMenuPage() {
           <span>Noirtable</span>
           <nav className="flex flex-wrap gap-7">
             <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
-            <Link href="/#reserve">Reserve</Link>
             <Link href="/staff">Staff desk</Link>
             <Link href="/case-study">Case study</Link>
           </nav>

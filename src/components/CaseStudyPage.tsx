@@ -9,7 +9,7 @@ const projectMeta = [
   ["Project type", "Full-stack restaurant website"],
   ["Role", "Design / Frontend / Ordering flow / Staff desk"],
   ["Stack", "Next.js / Vercel / Supabase-ready"],
-  ["Features", "Menu / Cart / Checkout / Pseudo payment / Staff Desk"],
+  ["Features", "Menu / Cart / Checkout / Simulated payment / Staff Desk"],
 ];
 
 const buildNotes = [
@@ -17,7 +17,7 @@ const buildNotes = [
   "Filtered menu",
   "Cart state",
   "Guest data form",
-  "Pseudo payment",
+  "Simulated payment",
   "Staff order desk",
 ];
 
@@ -110,7 +110,7 @@ export function CaseStudyPage() {
               Restaurant site with ordering.
             </h1>
             <p className="mt-8 max-w-md text-sm leading-7 text-[#1f1a15]/72 sm:text-base">
-              A small restaurant site with menu, cart, checkout, demo payment,
+              A small restaurant site with menu, cart, checkout, simulated payment,
               and a staff view for the evening.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -246,8 +246,8 @@ export function CaseStudyPage() {
               Tonight&apos;s room, kept in order.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Orders and table requests land in a quiet internal view, where the
-              team can confirm, prepare, and complete service.
+              Orders and table requests for the evening team. Confirm, prepare,
+              and mark the room ready.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -319,7 +319,7 @@ export function CaseStudyPage() {
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
               An editorial restaurant website with menu, cart, checkout,
-              pseudo payment and staff desk.
+              simulated payment and staff desk.
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link
