@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   title: "Noirtable | Restaurant Ordering System",
   description:
     "A restaurant website with menu ordering, reservations, checkout, and staff desk.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
