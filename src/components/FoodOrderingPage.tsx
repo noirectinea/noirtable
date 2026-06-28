@@ -5,14 +5,15 @@ import type { FormEvent } from "react";
 import { useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
+import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
 
 const previewItems = menuItems.slice(0, 4);
 const previewImages = [
-  "/images/menu-dishes-fast/dish-01-oyster-royale.jpg",
-  "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg",
-  "/images/menu-dishes-fast/dish-03-burrata-noir.jpg",
-  "/images/menu-dishes-fast/dish-04-charred-octopus.jpg",
+  "/images/menu-card-fast/dish-01-oyster-royale.jpg",
+  "/images/menu-card-fast/dish-02-truffle-beef-tartare.jpg",
+  "/images/menu-card-fast/dish-03-burrata-noir.jpg",
+  "/images/menu-card-fast/dish-04-charred-octopus.jpg",
 ];
 
 function Sidebar() {
@@ -59,8 +60,13 @@ function MenuCard({
   return (
     <article className="grid min-h-[320px] border border-[#2d261f]/18 bg-[#e7dfd2]">
       <div
-        className="relative h-[132px] overflow-hidden border-b border-[#2d261f]/14"
-        style={{ height: 132, overflow: "hidden", position: "relative" }}
+        className="relative overflow-hidden border-b border-[#2d261f]/14"
+        style={{
+          aspectRatio: "16 / 9",
+          overflow: "hidden",
+          position: "relative",
+          width: "100%",
+        }}
       >
         <img
           src={image}
@@ -173,17 +179,25 @@ export function FoodOrderingPage() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
       <Sidebar />
+      <MobileNav
+        links={[
+          { href: "/#room", label: "Room" },
+          { href: "/menu", label: "Menu" },
+          { href: "/#reserve", label: "Reserve" },
+          { href: "/case-study", label: "Journal" },
+        ]}
+      />
 
-      <div className="lg:pl-[104px]">
+      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
         <section
           className="relative min-h-screen border-b border-[#2d261f]/15"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
         >
           <img
-            src="/images/hero/noirtable-hero-wide.jpg"
+            src="/images/home-crops/noirtable-hero-1600x900.jpg"
             alt=""
-            width={1672}
-            height={941}
+            width={1600}
+            height={900}
             fetchPriority="high"
             decoding="sync"
             className="object-cover object-center"
@@ -198,10 +212,7 @@ export function FoodOrderingPage() {
           />
           <div className="absolute inset-0 z-10 bg-[#e7dfd2]/18" />
           <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(231,223,210,0.42)_0%,rgba(231,223,210,0.22)_42%,rgba(231,223,210,0.08)_100%)]" />
-          <header className="absolute left-0 right-0 top-0 z-20 grid grid-cols-[1fr_auto_1fr] items-start px-5 py-7 lg:px-16">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.36em] lg:hidden">
-              Noirtable
-            </div>
+          <header className="absolute left-0 right-0 top-0 z-20 hidden grid-cols-[1fr_auto_1fr] items-start px-5 py-7 lg:grid lg:px-16">
             <Link href="/" className="col-start-2 text-center">
               <span className="block font-serif text-lg leading-none tracking-[0.18em]">
                 Noirtable
@@ -300,9 +311,9 @@ export function FoodOrderingPage() {
             style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
           >
             <img
-              src="/images/hero/noirtable-room.jpg"
+              src="/images/home-crops/noirtable-room-panel-877x1023.jpg"
               alt="Noirtable dining room"
-              width={1537}
+              width={877}
               height={1023}
               loading="lazy"
               decoding="async"
@@ -427,9 +438,9 @@ export function FoodOrderingPage() {
               style={{ minHeight: 320, overflow: "hidden", position: "relative" }}
             >
               <img
-                src="/images/hero/noirtable-reservation-still-life.jpg"
+                src="/images/home-crops/noirtable-reserve-panel-1280x1023.jpg"
                 alt="Noirtable table setting"
-                width={1537}
+                width={1280}
                 height={1023}
                 loading="lazy"
                 decoding="async"

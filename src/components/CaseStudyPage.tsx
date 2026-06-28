@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
 
 const projectMeta = [
@@ -67,8 +68,16 @@ export function CaseStudyPage() {
   return (
     <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
       <Sidebar />
+      <MobileNav
+        links={[
+          { href: "/#room", label: "Room" },
+          { href: "/menu", label: "Menu" },
+          { href: "/cart", label: "Cart" },
+          { href: "/staff", label: "Staff" },
+        ]}
+      />
 
-      <div className="lg:pl-[104px]">
+      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
         <section
           className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}

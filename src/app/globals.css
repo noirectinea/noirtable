@@ -54,8 +54,15 @@
 
 html {
   scroll-behavior: auto;
+  scroll-padding-top: 64px;
   overflow-x: clip;
   width: 100%;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 0;
+  }
 }
 
 body {

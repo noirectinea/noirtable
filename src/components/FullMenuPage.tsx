@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
+import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
 
 type MenuSection = "Starters" | "Mains" | "Pasta" | "Sides" | "Desserts" | "Drinks";
@@ -364,6 +365,14 @@ export function FullMenuPage() {
   return (
     <main id="top" className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
       <Sidebar />
+      <MobileNav
+        links={[
+          { href: "/#room", label: "Room" },
+          { href: "/menu", label: "Menu" },
+          { href: "/#reserve", label: "Reserve" },
+          { href: "/cart", label: itemCount > 0 ? `Cart ${itemCount}` : "Cart" },
+        ]}
+      />
 
       <DetailModal
         entry={selectedEntry}
@@ -372,7 +381,7 @@ export function FullMenuPage() {
         onAdd={addItem}
       />
 
-      <div className="lg:pl-[104px]">
+      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
         <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
@@ -387,7 +396,7 @@ export function FullMenuPage() {
           <div>
             <Link
               href="/"
-              className="text-[9px] font-semibold uppercase tracking-[0.36em] lg:hidden"
+              className="hidden text-[9px] font-semibold uppercase tracking-[0.36em]"
             >
               Noirtable
             </Link>
