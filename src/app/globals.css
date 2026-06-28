@@ -154,8 +154,8 @@ body {
   appearance: none;
   width: 100%;
   aspect-ratio: 16 / 9;
-  height: 174px;
-  min-height: 174px;
+  height: auto;
+  min-height: 0;
   padding: 0;
   overflow: hidden;
   border: 0;

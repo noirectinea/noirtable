@@ -148,8 +148,6 @@ function FullMenuCard({
         style={{
           aspectRatio: "16 / 9",
           display: "block",
-          height: 174,
-          minHeight: 174,
           overflow: "hidden",
           position: "relative",
           width: "100%",
