@@ -70,7 +70,10 @@ export function CaseStudyPage() {
       <Sidebar />
 
       <div className="lg:pl-[104px]">
-        <section className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0">
+        <section
+          className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
+          style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
+        >
           <Image
             src="/images/hero/noirtable-room.jpg"
             alt="Noirtable dining room"
@@ -164,7 +167,10 @@ export function CaseStudyPage() {
         </section>
 
         <section className="grid border-b border-[#2d261f]/15 lg:min-h-[66vh] lg:grid-cols-[46%_54%]">
-          <div className="relative min-h-[300px] border-b border-[#2d261f]/15 sm:min-h-[360px] lg:min-h-[66vh] lg:border-b-0 lg:border-r">
+          <div
+            className="relative min-h-[300px] border-b border-[#2d261f]/15 sm:min-h-[360px] lg:min-h-[66vh] lg:border-b-0 lg:border-r"
+            style={{ minHeight: 300, overflow: "hidden", position: "relative" }}
+          >
             <Image
               src="/images/case-study/order-system-detail.jpg"
               alt="Restaurant ordering interface mood"

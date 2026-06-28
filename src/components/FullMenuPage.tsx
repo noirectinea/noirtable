@@ -145,7 +145,15 @@ function FullMenuCard({
         type="button"
         onClick={() => onView(entry)}
         className="menu-card-image-wrap relative"
-        style={{ aspectRatio: "16 / 9", height: 174 }}
+        style={{
+          aspectRatio: "16 / 9",
+          display: "block",
+          height: 174,
+          minHeight: 174,
+          overflow: "hidden",
+          position: "relative",
+          width: "100%",
+        }}
         aria-label={`View ${item.name}`}
       >
         <img
@@ -157,7 +165,13 @@ function FullMenuCard({
           decoding={entry.index <= 4 ? "sync" : "async"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
           className="menu-card-image transition-opacity duration-300 hover:opacity-90"
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{
+            display: "block",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            width: "100%",
+          }}
         />
       </button>
 
@@ -263,7 +277,10 @@ function DetailModal({
         onClick={onClose}
       />
       <article className="relative grid max-h-[calc(100dvh-32px)] w-full max-w-[860px] overflow-y-auto border border-[#2d261f]/20 bg-[#e7dfd2] shadow-2xl shadow-[#11100d]/30 sm:max-h-[620px] sm:grid-cols-[46%_54%] sm:overflow-hidden">
-        <div className="dish-modal-image-wrap relative">
+        <div
+          className="dish-modal-image-wrap relative"
+          style={{ minHeight: 260, overflow: "hidden", position: "relative" }}
+        >
           <Image
             src={getDetailImage(item.image ?? entry.image)}
             alt={item.name}

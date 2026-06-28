@@ -21,7 +21,10 @@ export function CartPage() {
       </header>
 
       <section className="grid min-h-[calc(100vh-73px)] lg:grid-cols-[42%_58%]">
-        <div className="relative min-h-[420px] overflow-hidden border-b border-[#2d261f]/15 lg:min-h-full lg:border-b-0 lg:border-r">
+        <div
+          className="relative min-h-[420px] overflow-hidden border-b border-[#2d261f]/15 lg:min-h-full lg:border-b-0 lg:border-r"
+          style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
+        >
           <Image
             src="/images/hero/noirtable-reservation-still-life.jpg"
             alt="Noirtable table setting"
@@ -81,7 +84,15 @@ export function CartPage() {
                     key={item.id}
                     className="grid grid-cols-[76px_1fr] gap-4 py-5 sm:grid-cols-[92px_1fr_auto] sm:items-center"
                   >
-                    <div className="relative h-[92px] overflow-hidden border border-[#2d261f]/14 bg-[#d8cebf]">
+                    <div
+                      className="relative h-[92px] overflow-hidden border border-[#2d261f]/14 bg-[#d8cebf]"
+                      style={{
+                        height: 92,
+                        overflow: "hidden",
+                        position: "relative",
+                        width: 92,
+                      }}
+                    >
                       <Image
                         src={item.image ?? "/images/hero/template-dish.jpg"}
                         alt={item.name}

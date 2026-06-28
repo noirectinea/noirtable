@@ -59,7 +59,10 @@ function MenuCard({
 
   return (
     <article className="grid min-h-[320px] border border-[#2d261f]/18 bg-[#e7dfd2]">
-      <div className="relative h-[132px] overflow-hidden border-b border-[#2d261f]/14">
+      <div
+        className="relative h-[132px] overflow-hidden border-b border-[#2d261f]/14"
+        style={{ height: 132, overflow: "hidden", position: "relative" }}
+      >
         <Image
           src={image}
           alt={item.name}
@@ -166,7 +169,10 @@ export function FoodOrderingPage() {
       <Sidebar />
 
       <div className="lg:pl-[104px]">
-        <section className="relative min-h-screen border-b border-[#2d261f]/15">
+        <section
+          className="relative min-h-screen border-b border-[#2d261f]/15"
+          style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
+        >
           <Image
             src="/images/hero/noirtable-hero-wide.jpg"
             alt=""
@@ -276,7 +282,10 @@ export function FoodOrderingPage() {
               ))}
             </dl>
           </div>
-          <div className="relative min-h-[420px] overflow-hidden lg:min-h-screen">
+          <div
+            className="relative min-h-[420px] overflow-hidden lg:min-h-screen"
+            style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
+          >
             <Image
               src="/images/hero/noirtable-room.jpg"
               alt="Noirtable dining room"
@@ -392,7 +401,10 @@ export function FoodOrderingPage() {
               ) : null}
             </form>
 
-            <div className="relative min-h-[320px] overflow-hidden">
+            <div
+              className="relative min-h-[320px] overflow-hidden"
+              style={{ minHeight: 320, overflow: "hidden", position: "relative" }}
+            >
               <Image
                 src="/images/hero/noirtable-reservation-still-life.jpg"
                 alt="Noirtable table setting"
