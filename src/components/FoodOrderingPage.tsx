@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
@@ -63,14 +62,21 @@ function MenuCard({
         className="relative h-[132px] overflow-hidden border-b border-[#2d261f]/14"
         style={{ height: 132, overflow: "hidden", position: "relative" }}
       >
-        <Image
+        <img
           src={image}
           alt={item.name}
-          fill
-          sizes="(min-width: 1024px) 18vw, (min-width: 640px) 42vw, 100vw"
-          quality={68}
+          width={1200}
+          height={675}
+          loading="lazy"
+          decoding="async"
           className="object-cover"
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{
+            display: "block",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            width: "100%",
+          }}
         />
       </div>
 
@@ -173,15 +179,22 @@ export function FoodOrderingPage() {
           className="relative min-h-screen border-b border-[#2d261f]/15"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
         >
-          <Image
+          <img
             src="/images/hero/noirtable-hero-wide.jpg"
             alt=""
-            fill
-            preload
-            sizes="100vw"
-            quality={76}
+            width={1672}
+            height={941}
+            fetchPriority="high"
+            decoding="sync"
             className="object-cover object-center"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{
+              height: "100%",
+              inset: 0,
+              objectFit: "cover",
+              objectPosition: "center",
+              position: "absolute",
+              width: "100%",
+            }}
           />
           <div className="absolute inset-0 z-10 bg-[#e7dfd2]/18" />
           <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(231,223,210,0.42)_0%,rgba(231,223,210,0.22)_42%,rgba(231,223,210,0.08)_100%)]" />
@@ -286,14 +299,22 @@ export function FoodOrderingPage() {
             className="relative min-h-[420px] overflow-hidden lg:min-h-screen"
             style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
           >
-            <Image
+            <img
               src="/images/hero/noirtable-room.jpg"
               alt="Noirtable dining room"
-              fill
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              quality={76}
+              width={1537}
+              height={1023}
+              loading="lazy"
+              decoding="async"
               className="object-cover object-center"
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              style={{
+                height: "100%",
+                inset: 0,
+                objectFit: "cover",
+                objectPosition: "center",
+                position: "absolute",
+                width: "100%",
+              }}
             />
           </div>
         </section>
@@ -405,14 +426,22 @@ export function FoodOrderingPage() {
               className="relative min-h-[320px] overflow-hidden"
               style={{ minHeight: 320, overflow: "hidden", position: "relative" }}
             >
-              <Image
+              <img
                 src="/images/hero/noirtable-reservation-still-life.jpg"
                 alt="Noirtable table setting"
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                quality={76}
+                width={1537}
+                height={1023}
+                loading="lazy"
+                decoding="async"
                 className="object-cover object-center"
-                style={{ objectFit: "cover", objectPosition: "center" }}
+                style={{
+                  height: "100%",
+                  inset: 0,
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  position: "absolute",
+                  width: "100%",
+                }}
               />
             </div>
           </div>

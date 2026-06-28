@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
@@ -279,14 +278,20 @@ function DetailModal({
           className="dish-modal-image-wrap relative"
           style={{ minHeight: 260, overflow: "hidden", position: "relative" }}
         >
-          <Image
+          <img
             src={getDetailImage(item.image ?? entry.image)}
             alt={item.name}
-            fill
-            sizes="(min-width: 640px) 390px, 100vw"
-            quality={72}
+            width={1600}
+            height={1600}
+            loading="eager"
+            decoding="sync"
             className="dish-modal-image"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              width: "100%",
+            }}
           />
         </div>
         <div className="grid content-between gap-10 px-5 py-6 sm:min-h-[500px] sm:px-7 sm:py-8">

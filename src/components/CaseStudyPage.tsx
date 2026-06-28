@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { NoirtableMark } from "@/components/NoirtableMark";
 
@@ -74,15 +73,22 @@ export function CaseStudyPage() {
           className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
         >
-          <Image
+          <img
             src="/images/hero/noirtable-room.jpg"
             alt="Noirtable dining room"
-            fill
-            priority
-            sizes="100vw"
-            quality={72}
+            width={1537}
+            height={1023}
+            fetchPriority="high"
+            decoding="sync"
             className="object-cover"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{
+              height: "100%",
+              inset: 0,
+              objectFit: "cover",
+              objectPosition: "center",
+              position: "absolute",
+              width: "100%",
+            }}
           />
           <div className="absolute inset-0 bg-[#e7dfd2]/72" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(231,223,210,0.97)_0%,rgba(231,223,210,0.88)_45%,rgba(231,223,210,0.44)_100%)]" />
@@ -171,14 +177,22 @@ export function CaseStudyPage() {
             className="relative min-h-[300px] border-b border-[#2d261f]/15 sm:min-h-[360px] lg:min-h-[66vh] lg:border-b-0 lg:border-r"
             style={{ minHeight: 300, overflow: "hidden", position: "relative" }}
           >
-            <Image
+            <img
               src="/images/case-study/order-system-detail.jpg"
               alt="Restaurant ordering interface mood"
-              fill
-              sizes="(min-width: 1024px) 46vw, 100vw"
-              quality={72}
+              width={1537}
+              height={1023}
+              loading="lazy"
+              decoding="async"
               className="object-cover"
-              style={{ objectFit: "cover", objectPosition: "center" }}
+              style={{
+                height: "100%",
+                inset: 0,
+                objectFit: "cover",
+                objectPosition: "center",
+                position: "absolute",
+                width: "100%",
+              }}
             />
           </div>
 

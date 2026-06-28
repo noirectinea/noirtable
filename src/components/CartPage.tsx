@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { formatPrice, useCart } from "@/lib/cart";
 
@@ -25,15 +24,22 @@ export function CartPage() {
           className="relative min-h-[420px] overflow-hidden border-b border-[#2d261f]/15 lg:min-h-full lg:border-b-0 lg:border-r"
           style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
         >
-          <Image
+          <img
             src="/images/hero/noirtable-reservation-still-life.jpg"
             alt="Noirtable table setting"
-            fill
-            priority
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            quality={72}
+            width={1537}
+            height={1023}
+            fetchPriority="high"
+            decoding="sync"
             className="object-cover object-center"
-            style={{ objectFit: "cover", objectPosition: "center" }}
+            style={{
+              height: "100%",
+              inset: 0,
+              objectFit: "cover",
+              objectPosition: "center",
+              position: "absolute",
+              width: "100%",
+            }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,16,13,0.08)_0%,rgba(17,16,13,0.45)_100%)]" />
           <div className="absolute bottom-8 left-6 right-6 text-[#f6efe4] sm:left-10 sm:right-10 lg:bottom-12 lg:left-16 lg:right-16">
@@ -93,14 +99,20 @@ export function CartPage() {
                         width: 92,
                       }}
                     >
-                      <Image
+                      <img
                         src={item.image ?? "/images/hero/template-dish.jpg"}
                         alt={item.name}
-                        fill
-                        sizes="92px"
-                        quality={62}
+                        width={1200}
+                        height={675}
+                        loading="lazy"
+                        decoding="async"
                         className="object-cover"
-                        style={{ objectFit: "cover", objectPosition: "center" }}
+                        style={{
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          width: "100%",
+                        }}
                       />
                     </div>
                     <div>
