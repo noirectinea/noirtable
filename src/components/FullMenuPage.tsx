@@ -356,7 +356,7 @@ export function FullMenuPage() {
           </Link>
         </div>
 
-        <header className="grid gap-10 border-b border-[#2d261f]/15 px-6 pb-7 pt-7 lg:grid-cols-[1fr_auto] lg:px-16 lg:pb-8">
+        <header className="border-b border-[#2d261f]/15 px-6 pb-6 pt-6 lg:px-16 lg:pb-7">
           <div>
             <Link
               href="/"
@@ -367,27 +367,21 @@ export function FullMenuPage() {
             <p className="mt-10 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.32em] lg:mt-0">
               The menu
             </p>
-            <h1 className="mt-7 max-w-xl font-serif text-6xl leading-[0.95] text-[#11100d] sm:text-7xl">
+            <h1 className="mt-6 max-w-xl font-serif text-6xl leading-[0.95] text-[#11100d] sm:text-7xl">
               Six tables.
               <br />
               Late plates.
               <br />
               Quiet service.
             </h1>
-            <span className="mt-8 block h-px w-24 bg-[#2d261f]/20" />
-            <p className="mt-7 max-w-[310px] text-sm leading-7 text-[#11100d]/68">
+            <span className="mt-7 block h-px w-24 bg-[#2d261f]/20" />
+            <p className="mt-6 max-w-[310px] text-sm leading-7 text-[#11100d]/68">
               A small kitchen, a short list,
               <br />
               and the time to do it right.
             </p>
           </div>
 
-          <Link
-            href="/#reserve"
-            className="h-12 justify-self-start border border-[#11100d]/45 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] transition-colors duration-300 hover:bg-[#d7c09a] lg:justify-self-end"
-          >
-            Reserve
-          </Link>
         </header>
 
         <section className="grid gap-8 border-b border-[#2d261f]/15 px-6 py-8 lg:grid-cols-[1fr_auto] lg:px-16">
@@ -395,7 +389,7 @@ export function FullMenuPage() {
             <button
               type="button"
               onClick={() => setActiveSection("All")}
-              className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
+              className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === "All" ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/58"}`}
             >
               All
             </button>
@@ -404,7 +398,7 @@ export function FullMenuPage() {
                 key={section}
                 type="button"
                 onClick={() => setActiveSection(section)}
-                className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
+                className={`pb-2 transition-colors duration-300 hover:text-[#9b7c4d] ${activeSection === section ? "border-b border-[#11100d] text-[#11100d]" : "text-[#11100d]/58"}`}
               >
                 {section}
               </button>
