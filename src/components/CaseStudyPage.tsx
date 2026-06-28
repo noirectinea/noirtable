@@ -12,10 +12,10 @@ const projectMeta = [
 const buildNotes = [
   "Editorial homepage",
   "Filtered menu",
-  "Cart memory",
-  "Guest details",
-  "Demo payment",
-  "Staff sheet",
+  "Cart state",
+  "Guest data form",
+  "Pseudo payment",
+  "Staff order desk",
 ];
 
 const staffFeatures = [
@@ -29,8 +29,8 @@ const staffFeatures = [
 const flowSteps = [
   ["01 Menu", "Guest chooses plates"],
   ["02 Cart", "Order is reviewed"],
-  ["03 Checkout", "Name and phone are taken"],
-  ["04 Success", "The kitchen gets the note"],
+  ["03 Checkout", "Guest data is collected"],
+  ["04 Success", "Demo payment confirmation"],
   ["05 Staff desk", "Order lands with staff"],
 ];
 

@@ -54,7 +54,7 @@ export function CheckoutPage() {
       };
 
       if (!response.ok) {
-        setStatus(result.message ?? "Could not send the order.");
+        setStatus(result.message ?? "Order rejected.");
         return;
       }
 
@@ -95,7 +95,7 @@ export function CheckoutPage() {
             Enter your details. The room receives the order quietly.
           </p>
           <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
-            Pickup / Noirtable / Demo
+            Pickup / Noirtable / Demo payment
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export function CheckoutPage() {
                 disabled={isSubmitting}
                 className="mt-5 h-14 w-full bg-[#c2a16e] text-[9px] font-semibold uppercase tracking-[0.34em] disabled:opacity-60"
               >
-                {isSubmitting ? "Sending" : "Place order"}
+                {isSubmitting ? "Sending" : "Place order / pay"}
               </button>
 
               {status ? (
