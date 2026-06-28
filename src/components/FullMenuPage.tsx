@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
-import { NoirtableMark } from "@/components/NoirtableMark";
 
 type MenuSection = "Starters" | "Mains" | "Pasta" | "Sides" | "Desserts" | "Drinks";
 
@@ -64,18 +63,15 @@ function getItem(entry: FullMenuEntry) {
   return item;
 }
 
-function Sidebar() {
+function Sidebar({ itemCount }: { itemCount: number }) {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
-      <div className="absolute left-0 right-0 top-10 grid justify-items-center gap-3 text-[#15120f]">
-        <Link
-          href="/"
-          className="text-center text-[9px] font-semibold uppercase tracking-[0.42em]"
-        >
-          Noirtable
-        </Link>
-        <NoirtableMark className="h-6 w-6" />
-      </div>
+      <Link
+        href="/"
+        className="absolute left-0 right-0 top-10 text-center text-[9px] font-semibold uppercase tracking-[0.42em] text-[#15120f]"
+      >
+        Noirtable
+      </Link>
 
       <nav className="absolute left-0 right-0 top-[22vh] grid gap-7 text-center text-[8px] font-semibold uppercase tracking-[0.32em] text-[#1c1712]">
         <Link href="/#room">Room</Link>
@@ -86,6 +82,7 @@ function Sidebar() {
         <Link href="/#reserve">Reserve</Link>
         <Link href="/case-study">Journal</Link>
         <Link href="/#room">About</Link>
+        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -105,7 +102,7 @@ function FullMenuCard({
   onView: (entry: FullMenuEntry) => void;
 }) {
   return (
-    <article className="border border-[#2d261f]/18 bg-[#e7dfd2] transition-colors duration-300 hover:border-[#2d261f]/32">
+    <article className="border border-[#2d261f]/18 bg-[#e7dfd2]">
       <button
         type="button"
         onClick={() => onView(entry)}
@@ -120,7 +117,7 @@ function FullMenuCard({
           quality={68}
           loading={entry.index <= 4 ? "eager" : "lazy"}
           fetchPriority={entry.index <= 4 ? "high" : "auto"}
-          className="menu-card-image transition-opacity duration-300 hover:opacity-90"
+          className="menu-card-image"
         />
       </button>
 
@@ -265,7 +262,7 @@ export function FullMenuPage() {
 
   return (
     <main id="top" className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar />
+      <Sidebar itemCount={itemCount} />
 
       <DetailModal
         entry={selectedEntry}
@@ -276,6 +273,12 @@ export function FullMenuPage() {
 
       <div className="lg:pl-[104px]">
         <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
+          <Link
+            href="/#reserve"
+            className="hidden h-12 items-center border border-[#11100d]/45 bg-[#e7dfd2]/92 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a] lg:inline-flex"
+          >
+            Reserve
+          </Link>
           <Link
             href="/cart"
             className="inline-flex h-12 items-center border border-[#11100d]/45 bg-[#e7dfd2]/94 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
@@ -312,7 +315,7 @@ export function FullMenuPage() {
 
           <Link
             href="/#reserve"
-            className="h-12 justify-self-start border border-[#11100d]/45 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] transition-colors duration-300 hover:bg-[#d7c09a] lg:justify-self-end"
+            className="h-12 justify-self-start border border-[#11100d]/45 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] transition-colors duration-300 hover:bg-[#d7c09a] lg:invisible lg:justify-self-end"
           >
             Reserve
           </Link>
@@ -323,7 +326,7 @@ export function FullMenuPage() {
             <button
               type="button"
               onClick={() => setActiveSection("All")}
-              className={`pb-2 transition-opacity duration-300 hover:opacity-60 ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
+              className={`pb-2 ${activeSection === "All" ? "border-b border-[#11100d]" : ""}`}
             >
               All
             </button>
@@ -332,7 +335,7 @@ export function FullMenuPage() {
                 key={section}
                 type="button"
                 onClick={() => setActiveSection(section)}
-                className={`pb-2 transition-opacity duration-300 hover:opacity-60 ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
+                className={`pb-2 ${activeSection === section ? "border-b border-[#11100d]" : ""}`}
               >
                 {section}
               </button>

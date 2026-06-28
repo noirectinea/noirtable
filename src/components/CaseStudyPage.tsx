@@ -1,12 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { NoirtableMark } from "@/components/NoirtableMark";
+import { useCart } from "@/lib/cart";
 
 const projectMeta = [
-  ["Project type", "Restaurant ordering concept"],
-  ["Role", "Design / frontend / cart flow / staff desk"],
-  ["Build", "Menu / cart / pseudo payment / staff order view"],
+  ["Project type", "Full-stack restaurant website"],
+  ["Role", "Design / Frontend / Ordering flow / Staff desk"],
   ["Stack", "Next.js / Vercel / Supabase-ready"],
+  ["Features", "Menu / Cart / Checkout / Pseudo payment / Staff Desk"],
 ];
 
 const buildNotes = [
@@ -26,7 +28,7 @@ const staffFeatures = [
   "Staff actions",
 ];
 
-const flowSteps = [
+const journeySteps = [
   ["01 Menu", "Guest chooses plates"],
   ["02 Cart", "Order is reviewed"],
   ["03 Checkout", "Guest data is collected"],
@@ -34,25 +36,22 @@ const flowSteps = [
   ["05 Staff desk", "Order lands with staff"],
 ];
 
-function Sidebar() {
+function Sidebar({ itemCount }: { itemCount: number }) {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
-      <div className="absolute left-0 right-0 top-10 grid justify-items-center gap-3 text-[#15120f]">
-        <Link
-          href="/"
-          className="text-center text-[9px] font-semibold uppercase tracking-[0.42em]"
-        >
-          Noirtable
-        </Link>
-        <NoirtableMark className="h-6 w-6" />
-      </div>
+      <Link
+        href="/"
+        className="absolute left-0 right-0 top-10 text-center text-[9px] font-semibold uppercase tracking-[0.42em] text-[#15120f]"
+      >
+        Noirtable
+      </Link>
 
       <nav className="absolute left-0 right-0 top-[22vh] grid gap-7 text-center text-[8px] font-semibold uppercase tracking-[0.32em] text-[#1c1712]">
         <Link href="/#room">Room</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/#reserve">Reserve</Link>
         <Link href="/case-study">Journal</Link>
-        <Link href="/#room">About</Link>
+        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -63,9 +62,11 @@ function Sidebar() {
 }
 
 export function CaseStudyPage() {
+  const { itemCount } = useCart();
+
   return (
     <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar />
+      <Sidebar itemCount={itemCount} />
 
       <div className="lg:pl-[104px]">
         <section className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0">
@@ -94,8 +95,9 @@ export function CaseStudyPage() {
               Restaurant site with ordering.
             </h1>
             <p className="mt-8 max-w-md text-sm leading-7 text-[#1f1a15]/72 sm:text-base">
-              A small restaurant site with a menu, cart, checkout, demo payment,
-              and a staff view for the evening.
+              A premium Noirtable experience: editorial dining room, full menu,
+              cart, guest checkout with pseudo payment, and a staff desk for
+              service.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -138,7 +140,7 @@ export function CaseStudyPage() {
               Problem
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              Ordering often breaks the room.
+              Ordering often breaks the atmosphere.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
               Most restaurant ordering pages feel like delivery apps: loud
@@ -154,8 +156,9 @@ export function CaseStudyPage() {
               Keep commerce inside the room.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Noirtable keeps the order close to the room: menu, cart, checkout,
-              and staff desk use the same calm language.
+              Noirtable keeps the ordering flow inside the same quiet editorial
+              restaurant world: menu, cart, checkout and staff desk all share
+              one visual system.
             </p>
           </div>
         </section>
@@ -225,7 +228,7 @@ export function CaseStudyPage() {
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
               Orders and table requests land in a quiet internal view, where the
-              team can confirm, prepare, and close the order.
+              team can confirm, prepare, and complete service.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -254,7 +257,7 @@ export function CaseStudyPage() {
                     {feature}
                   </span>
                   <span className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/52">
-                    Sheet
+                    Staff
                   </span>
                 </div>
               ))}
@@ -269,11 +272,11 @@ export function CaseStudyPage() {
                 Flow
               </p>
               <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
-                From menu to staff desk.
+                Guest to staff, without leaving the tone.
               </h2>
             </div>
             <div className="grid gap-0 border-y border-[#2d261f]/15">
-              {flowSteps.map(([label, text]) => (
+              {journeySteps.map(([label, text]) => (
                 <div
                   key={label}
                   className="grid gap-3 border-b border-[#2d261f]/12 py-5 last:border-b-0 sm:grid-cols-[180px_1fr]"
@@ -293,11 +296,11 @@ export function CaseStudyPage() {
         <section className="px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
           <div className="border-y border-[#2d261f]/15 py-12 text-center">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Built as a restaurant ordering concept
+              Built as a full-stack portfolio concept
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
-              A restaurant site with menu, cart, checkout, demo payment and a
-              staff sheet.
+              An editorial restaurant website with menu, cart, checkout,
+              pseudo payment and staff desk.
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link

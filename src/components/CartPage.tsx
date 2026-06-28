@@ -40,7 +40,7 @@ export function CartPage() {
               Held for the kitchen.
             </h1>
             <p className="mt-6 max-w-sm text-sm leading-7 text-[#f6efe4]/82">
-              Review the plates before sending them through.
+              Review the plates, then send the note through when you are ready.
             </p>
           </div>
         </div>
@@ -53,7 +53,7 @@ export function CartPage() {
                   Cart
                 </p>
                 <h2 className="mt-4 font-serif text-5xl leading-none sm:text-6xl">
-                  Your plates
+                  Order list
                 </h2>
               </div>
               <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1f1a15]/55">

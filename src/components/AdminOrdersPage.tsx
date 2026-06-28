@@ -174,7 +174,7 @@ export function AdminOrdersPage() {
             Tonight&apos;s room, kept in order.
           </h1>
           <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
-            Orders and table requests for the evening team.
+            Orders, reservations, and menu notes in one calm service screen.
           </p>
         </div>
 
@@ -216,7 +216,7 @@ export function AdminOrdersPage() {
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
               Orders
             </p>
-            <h2 className="mt-3 font-serif text-5xl leading-none">Orders</h2>
+            <h2 className="mt-3 font-serif text-5xl leading-none">Kitchen flow</h2>
           </div>
           <div className="flex gap-2 overflow-x-auto">
             {orderFilters.map((filter) => {
