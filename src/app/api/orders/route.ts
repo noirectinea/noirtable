@@ -47,7 +47,11 @@ export async function PATCH(request: Request) {
       throw new Error("Order id and status are required.");
     }
 
-    if (!["new", "accepted", "preparing", "completed"].includes(body.status)) {
+    if (
+      !["new", "accepted", "preparing", "completed", "canceled"].includes(
+        body.status,
+      )
+    ) {
       throw new Error("Unsupported order status.");
     }
 

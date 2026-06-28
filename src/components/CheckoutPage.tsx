@@ -5,26 +5,22 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { formatPrice, useCart } from "@/lib/cart";
 
-type Fulfillment = "Delivery" | "Pickup";
-
 export function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
-  const [fulfillment, setFulfillment] = useState<Fulfillment>("Delivery");
   const [guestName, setGuestName] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
   const [note, setNote] = useState("");
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const serviceFee = items.length > 0 ? Math.round(subtotal * 0.08) : 0;
-  const deliveryFee = items.length > 0 && fulfillment === "Delivery" ? 6 : 0;
-  const total = subtotal + serviceFee + deliveryFee;
+  const total = subtotal + serviceFee;
 
   async function submitOrder() {
     if (items.length === 0) {
-      setStatus("Your cart is empty.");
+      setStatus("Add at least one dish before confirming.");
       return;
     }
 
@@ -40,9 +36,10 @@ export function CheckoutPage() {
         body: JSON.stringify({
           guestName,
           phone,
-          address,
-          fulfillment,
-          note,
+          fulfillment: "Pickup",
+          note: [pickupTime ? `Preferred pickup: ${pickupTime}` : "", note]
+            .filter(Boolean)
+            .join(" / "),
           items: items.map((item) => ({
             id: item.id,
             quantity: item.quantity,
@@ -64,7 +61,7 @@ export function CheckoutPage() {
       const successParams = new URLSearchParams({
         order: result.orderId ?? "NT",
         total: String(result.total ?? total),
-        type: fulfillment,
+        type: pickupTime ? `Pickup ${pickupTime}` : "Pickup",
       });
 
       clearCart();
@@ -77,130 +74,122 @@ export function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#241b15] text-[#ede4d4]">
-      <header className="mx-auto flex max-w-[1480px] items-center justify-between px-4 py-5 sm:px-8 sm:py-7">
-        <Link href="/" className="text-xs uppercase tracking-[0.28em] text-white sm:text-sm sm:tracking-[0.44em]">
-          Noirtable
-        </Link>
-        <Link
-          href="/cart"
-          className="text-[11px] uppercase tracking-[0.28em] text-[#b4a895] hover:text-white"
-        >
-          Cart
-        </Link>
+    <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
+      <header className="flex items-center justify-between border-b border-[#2d261f]/15 px-6 py-6 text-[9px] font-semibold uppercase tracking-[0.36em] sm:px-10 lg:px-16">
+        <Link href="/">Noirtable</Link>
+        <nav className="flex gap-7">
+          <Link href="/cart">Cart</Link>
+          <Link href="/staff">Staff</Link>
+        </nav>
       </header>
 
-      <section className="mx-auto grid max-w-[1480px] gap-6 px-4 pb-20 pt-2 sm:gap-8 sm:px-8 sm:pt-8 lg:grid-cols-[1fr_0.72fr]">
-        <div className="border-y border-[#614b39] bg-[#2b2119] px-4 py-6 sm:px-6 sm:py-8">
-          <p className="text-[10px] uppercase tracking-[0.36em] text-[#c2ad83]">
-            Guest details
+      <section className="grid min-h-[calc(100vh-73px)] lg:grid-cols-[42%_58%]">
+        <div className="flex flex-col justify-center border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
+            Checkout
           </p>
-          <h1 className="mt-5 font-serif text-4xl uppercase leading-[0.9] tracking-[0.04em] text-white sm:text-7xl">
-            Confirm the order.
+          <h1 className="mt-8 max-w-md font-serif text-6xl leading-[0.92] sm:text-7xl">
+            A final note, before the kitchen.
           </h1>
-
-          <div className="mt-8 grid gap-3 sm:mt-12 sm:grid-cols-2">
-            {(["Delivery", "Pickup"] as Fulfillment[]).map((option) => (
-              <button
-                key={option}
-                onClick={() => setFulfillment(option)}
-                className={`border px-5 py-4 text-[10px] uppercase tracking-[0.24em] sm:text-[11px] sm:tracking-[0.28em] ${
-                  fulfillment === option
-                    ? "border-[#e4d3b3] bg-[#e4d3b3] text-black"
-                    : "border-[#30261d] text-white hover:border-white"
-                }`}
-              >
-                {option}
-              </button>
-            ))}
+          <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
+            Enter your details and confirm the order. Payment is simulated for
+            this portfolio project.
+          </p>
+          <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
+            Demo payment / pickup order / staff desk handoff
           </div>
-
-          <div className="mt-8 grid gap-4">
-            <input
-              value={guestName}
-              onChange={(event) => setGuestName(event.target.value)}
-              placeholder="Name"
-              className="border border-[#30261d] bg-transparent px-5 py-4 text-sm text-white outline-none placeholder:text-[#716552] focus:border-[#8f806b]"
-            />
-            <input
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-              placeholder="Phone"
-              className="border border-[#30261d] bg-transparent px-5 py-4 text-sm text-white outline-none placeholder:text-[#716552] focus:border-[#8f806b]"
-            />
-            {fulfillment === "Delivery" ? (
-              <input
-                value={address}
-                onChange={(event) => setAddress(event.target.value)}
-                placeholder="Address"
-                className="border border-[#30261d] bg-transparent px-5 py-4 text-sm text-white outline-none placeholder:text-[#716552] focus:border-[#8f806b]"
-              />
-            ) : null}
-            <textarea
-              value={note}
-              onChange={(event) => setNote(event.target.value)}
-              placeholder="Note"
-              rows={4}
-              className="resize-none border border-[#30261d] bg-transparent px-5 py-4 text-sm text-white outline-none placeholder:text-[#716552] focus:border-[#8f806b]"
-            />
-          </div>
-
-          <button
-            onClick={submitOrder}
-            disabled={isSubmitting}
-            className="mt-6 w-full border border-[#e4d3b3] bg-[#e4d3b3] px-6 py-5 text-[10px] uppercase tracking-[0.24em] text-black hover:bg-white disabled:opacity-60 sm:text-[11px] sm:tracking-[0.28em]"
-          >
-            {isSubmitting ? "Sending" : "Place order"}
-          </button>
-
-          {status ? (
-            <div className="mt-5 border border-[#30261d] px-5 py-4 text-sm text-[#c2ad83]">
-              <p>{status}</p>
-              <Link
-                href="/admin/orders"
-                className="mt-3 inline-block text-[10px] uppercase tracking-[0.24em] text-white hover:text-[#e4d3b3]"
-              >
-                Staff desk
-              </Link>
-            </div>
-          ) : null}
         </div>
 
-        <aside className="order-first border-y border-[#614b39] bg-[#2b2119] py-6 lg:sticky lg:top-6 lg:order-none lg:self-start">
-          <div className="px-5 sm:px-7">
-            <p className="text-[10px] uppercase tracking-[0.34em] text-[#c2ad83]">
-              Order total
-            </p>
-            <div className="mt-5 flex items-end justify-between gap-5 border-b border-[#614b39] pb-6">
-              <span className="text-[10px] uppercase tracking-[0.28em] text-[#8f806b]">
-                Total
-              </span>
-              <span className="font-serif text-4xl leading-none text-white sm:text-6xl">
-                {formatPrice(total)}
-              </span>
+        <div className="grid content-center px-6 py-10 sm:px-10 lg:px-16">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.72fr]">
+            <div>
+              <div className="grid gap-4">
+                <input
+                  value={guestName}
+                  onChange={(event) => setGuestName(event.target.value)}
+                  placeholder="Name"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                />
+                <input
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  placeholder="Phone"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                />
+                <input
+                  value={pickupTime}
+                  onChange={(event) => setPickupTime(event.target.value)}
+                  placeholder="Preferred pickup time"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                />
+                <textarea
+                  value={note}
+                  onChange={(event) => setNote(event.target.value)}
+                  placeholder="Comment / note"
+                  rows={5}
+                  className="resize-none border border-[#2d261f]/18 bg-transparent px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={submitOrder}
+                disabled={isSubmitting}
+                className="mt-5 h-14 w-full bg-[#c2a16e] text-[9px] font-semibold uppercase tracking-[0.34em] disabled:opacity-60"
+              >
+                {isSubmitting ? "Sending" : "Place order / pay"}
+              </button>
+
+              {status ? (
+                <p className="mt-5 border border-[#2d261f]/18 px-5 py-4 text-sm leading-6 text-[#1f1a15]/68">
+                  {status}
+                </p>
+              ) : null}
             </div>
 
-            <div className="mt-6 space-y-3 text-sm text-[#d0c6b8]">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>{formatPrice(subtotal)}</span>
+            <aside className="border-y border-[#2d261f]/15 py-6">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.34em] text-[#1f1a15]/55">
+                Order summary
+              </p>
+              <div className="mt-5 divide-y divide-[#2d261f]/12">
+                {items.length === 0 ? (
+                  <p className="py-5 text-sm text-[#1f1a15]/60">
+                    Your cart is empty.
+                  </p>
+                ) : (
+                  items.map((item) => (
+                    <div key={item.id} className="flex justify-between py-4">
+                      <span className="pr-5 font-serif text-2xl leading-none">
+                        {item.name}
+                      </span>
+                      <span className="text-sm">
+                        {formatPrice(item.price * item.quantity)}
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
-              <div className="flex justify-between">
-                <span>Service</span>
-                <span>{formatPrice(serviceFee)}</span>
+              <div className="mt-6 grid gap-3 border-t border-[#2d261f]/15 pt-5 text-sm text-[#1f1a15]/66">
+                <div className="flex justify-between">
+                  <span>Subtotal</span>
+                  <span>{formatPrice(subtotal)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Service</span>
+                  <span>{formatPrice(serviceFee)}</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>{fulfillment}</span>
-                <span>{formatPrice(deliveryFee)}</span>
+              <div className="mt-7 flex items-end justify-between">
+                <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1f1a15]/52">
+                  Total
+                </span>
+                <span className="font-serif text-5xl leading-none">
+                  {formatPrice(total)}
+                </span>
               </div>
-            </div>
-
-            <div className="mt-7 border border-[#30261d] px-4 py-4 text-xs leading-5 text-[#9f8d76]">
-              After confirmation, the order is held for the kitchen and copied
-              to the staff desk.
-            </div>
+            </aside>
           </div>
-        </aside>
+        </div>
       </section>
     </main>
   );

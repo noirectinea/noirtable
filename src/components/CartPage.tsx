@@ -2,151 +2,167 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { formatPrice, useCart } from "@/lib/cart";
 
 export function CartPage() {
   const { items, itemCount, subtotal, addItem, removeItem, clearCart } =
     useCart();
-  const [cartHeroSrc, setCartHeroSrc] = useState("/images/hero/cart-lounge.webp");
   const serviceFee = items.length > 0 ? Math.round(subtotal * 0.08) : 0;
   const estimatedTotal = subtotal + serviceFee;
 
   return (
-    <main className="min-h-screen bg-[#241b15] text-[#ede4d4]">
-      <header className="mx-auto flex max-w-[1480px] items-center justify-between px-4 py-5 sm:px-8 sm:py-7">
-        <Link href="/" className="text-xs uppercase tracking-[0.28em] text-white sm:text-sm sm:tracking-[0.44em]">
-          Noirtable
-        </Link>
-        <Link
-          href="/"
-          className="text-[11px] uppercase tracking-[0.28em] text-[#b4a895] hover:text-white"
-        >
-          Menu
-        </Link>
+    <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
+      <header className="flex items-center justify-between border-b border-[#2d261f]/15 px-6 py-6 text-[9px] font-semibold uppercase tracking-[0.36em] sm:px-10 lg:px-16">
+        <Link href="/">Noirtable</Link>
+        <nav className="flex gap-7">
+          <Link href="/menu">Menu</Link>
+          <Link href="/staff">Staff</Link>
+        </nav>
       </header>
 
-      <section className="mx-auto grid max-w-[1480px] gap-6 px-4 pb-20 pt-2 sm:gap-8 sm:px-8 sm:pt-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="relative min-h-[320px] overflow-hidden bg-black sm:min-h-[620px]">
+      <section className="grid min-h-[calc(100vh-73px)] lg:grid-cols-[42%_58%]">
+        <div className="relative min-h-[420px] overflow-hidden border-b border-[#2d261f]/15 lg:min-h-full lg:border-b-0 lg:border-r">
           <Image
-            src={cartHeroSrc}
-            alt="Warm restaurant lounge"
+            src="/images/hero/noirtable-reservation-still-life.jpg"
+            alt="Noirtable table setting"
             fill
             priority
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            className="object-cover object-[58%_50%] opacity-82"
-            onError={() => setCartHeroSrc("/images/hero/lounge.png")}
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            quality={72}
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/86 via-black/18 to-black/5" />
-          <div className="absolute bottom-6 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8">
-            <p className="text-[10px] uppercase tracking-[0.36em] text-[#c2ad83]">
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,16,13,0.08)_0%,rgba(17,16,13,0.45)_100%)]" />
+          <div className="absolute bottom-8 left-6 right-6 text-[#f6efe4] sm:left-10 sm:right-10 lg:bottom-12 lg:left-16 lg:right-16">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
               Your order
             </p>
-            <h1 className="mt-4 max-w-xs font-serif text-4xl leading-[0.9] text-white sm:max-w-none sm:text-7xl">
+            <h1 className="mt-5 max-w-md font-serif text-5xl leading-[0.92] sm:text-7xl">
               Held for the kitchen.
             </h1>
-            <p className="mt-4 max-w-xs text-sm leading-6 text-[#c8b295]">
+            <p className="mt-6 max-w-sm text-sm leading-7 text-[#f6efe4]/82">
               Review the plates, then send the note through when you are ready.
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col justify-between border-y border-[#614b39] bg-[#2b2119] px-4 py-6 sm:px-6 sm:py-8">
-          {items.length === 0 ? (
-            <div>
-              <p className="font-serif text-3xl uppercase tracking-[0.04em] text-white sm:text-5xl">
-                Nothing here yet.
+        <div className="flex flex-col justify-between px-6 py-10 sm:px-10 lg:px-16 lg:py-14">
+          <div>
+            <div className="flex items-end justify-between gap-5 border-b border-[#2d261f]/15 pb-6">
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
+                  Cart
+                </p>
+                <h2 className="mt-4 font-serif text-5xl leading-none sm:text-6xl">
+                  Order list
+                </h2>
+              </div>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1f1a15]/55">
+                {itemCount} items
               </p>
-              <Link
-                href="/#menu"
-                className="mt-8 inline-block border border-[#6f604c] px-5 py-4 text-[10px] uppercase tracking-[0.24em] text-white hover:border-white sm:text-[11px] sm:tracking-[0.28em]"
-              >
-                Back to menu
-              </Link>
             </div>
-          ) : (
-            <div className="space-y-5">
-              {items.map((item) => (
-                <div
-                  key={item.id}
-                    className="grid grid-cols-[68px_1fr] gap-4 border-b border-[#614b39] pb-5 sm:grid-cols-[88px_1fr_auto] sm:items-center"
-                >
-                  <div className="relative h-[88px] min-h-[88px] overflow-hidden bg-black sm:h-28">
-                    <Image
-                      src={item.image ?? "/images/dishes/tasting-menu.jpg"}
-                      alt={item.name}
-                      fill
-                      sizes="88px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-menu text-[1.6rem] leading-none text-white sm:text-3xl">
-                      {item.name}
-                    </p>
-                    <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-[#8f806b]">
-                      {formatPrice(item.price)} x {item.quantity}
-                    </p>
-                    <div className="mt-4 flex items-center gap-3">
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="h-9 w-9 border border-[#3a2f25] text-white hover:border-white"
-                        aria-label={`Remove one ${item.name}`}
-                      >
-                        -
-                      </button>
-                      <button
-                        onClick={() => addItem(item)}
-                        className="h-9 w-9 border border-[#3a2f25] text-white hover:border-white"
-                        aria-label={`Add one ${item.name}`}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <p className="col-span-2 text-right text-sm text-[#c2ad83] sm:col-span-1">
-                    {formatPrice(item.price * item.quantity)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
 
-          <div className="mt-10 border-t border-[#614b39] pt-6">
-            <div className="space-y-3 text-sm text-[#b4a895]">
+            {items.length === 0 ? (
+              <div className="py-14">
+                <p className="font-serif text-4xl leading-none sm:text-5xl">
+                  Nothing here yet.
+                </p>
+                <Link
+                  href="/menu"
+                  className="mt-8 inline-block border border-[#2d261f]/22 px-6 py-4 text-[9px] font-semibold uppercase tracking-[0.3em]"
+                >
+                  Back to menu
+                </Link>
+              </div>
+            ) : (
+              <div className="divide-y divide-[#2d261f]/12">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="grid grid-cols-[76px_1fr] gap-4 py-5 sm:grid-cols-[92px_1fr_auto] sm:items-center"
+                  >
+                    <div className="relative h-[92px] overflow-hidden border border-[#2d261f]/14 bg-[#d8cebf]">
+                      <Image
+                        src={item.image ?? "/images/hero/template-dish.jpg"}
+                        alt={item.name}
+                        fill
+                        sizes="92px"
+                        quality={62}
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-serif text-3xl leading-none">
+                        {item.name}
+                      </p>
+                      <p className="mt-3 text-[9px] font-semibold uppercase tracking-[0.26em] text-[#1f1a15]/54">
+                        {formatPrice(item.price)} x {item.quantity}
+                      </p>
+                      <div className="mt-4 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="h-9 w-9 border border-[#2d261f]/18 text-sm"
+                          aria-label={`Remove one ${item.name}`}
+                        >
+                          -
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => addItem(item)}
+                          className="h-9 w-9 border border-[#2d261f]/18 text-sm"
+                          aria-label={`Add one ${item.name}`}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <p className="col-span-2 text-right text-sm sm:col-span-1">
+                      {formatPrice(item.price * item.quantity)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mt-10 border-t border-[#2d261f]/15 pt-7">
+            <div className="grid gap-3 text-sm text-[#1f1a15]/66">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span>Service</span>
+                <span>Service fee</span>
                 <span>{formatPrice(serviceFee)}</span>
               </div>
             </div>
-            <div className="mt-6 flex items-end justify-between">
+            <div className="mt-7 flex flex-wrap items-end justify-between gap-6">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-[#8f806b]">
-                  Items {itemCount}
+                <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-[#1f1a15]/52">
+                  Total
                 </p>
-                <p className="mt-2 font-serif text-3xl text-white sm:text-5xl">
+                <p className="mt-2 font-serif text-5xl leading-none">
                   {formatPrice(estimatedTotal)}
                 </p>
               </div>
-              <Link
-                href={items.length > 0 ? "/checkout" : "/#menu"}
-                className="border border-[#e4d3b3] px-5 py-4 text-[10px] uppercase tracking-[0.24em] text-white hover:bg-[#e4d3b3] hover:text-black sm:px-6 sm:text-[11px] sm:tracking-[0.28em]"
-              >
-                {items.length > 0 ? "Place order" : "Menu"}
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                {items.length > 0 ? (
+                  <button
+                    type="button"
+                    onClick={clearCart}
+                    className="border border-[#2d261f]/18 px-5 py-4 text-[9px] font-semibold uppercase tracking-[0.28em]"
+                  >
+                    Clear order
+                  </button>
+                ) : null}
+                <Link
+                  href={items.length > 0 ? "/checkout" : "/menu"}
+                  className="bg-[#c2a16e] px-6 py-4 text-[9px] font-semibold uppercase tracking-[0.3em]"
+                >
+                  {items.length > 0 ? "Place order" : "Menu"}
+                </Link>
+              </div>
             </div>
-            {items.length > 0 ? (
-              <button
-                onClick={clearCart}
-                className="mt-5 text-[10px] uppercase tracking-[0.24em] text-[#8f806b] hover:text-white"
-              >
-                Clear order
-              </button>
-            ) : null}
           </div>
         </div>
       </section>

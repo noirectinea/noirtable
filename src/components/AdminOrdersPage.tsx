@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { menuItems } from "@/data/menu";
 import { formatPrice } from "@/lib/cart";
 import type { OrderStatus, StoredOrder } from "@/server/orders";
 import type {
@@ -11,9 +12,10 @@ import type {
 
 const orderStatusLabels: Record<OrderStatus, string> = {
   new: "New",
-  accepted: "Accepted",
+  accepted: "Confirmed",
   preparing: "Preparing",
-  completed: "Completed",
+  completed: "Ready",
+  canceled: "Canceled",
 };
 
 const reservationStatusLabels: Record<ReservationStatus, string> = {
@@ -22,13 +24,20 @@ const reservationStatusLabels: Record<ReservationStatus, string> = {
   declined: "Declined",
 };
 
-const orderFlow: OrderStatus[] = ["new", "accepted", "preparing", "completed"];
 const orderFilters: Array<"all" | OrderStatus> = [
   "all",
   "new",
   "accepted",
   "preparing",
   "completed",
+  "canceled",
+];
+
+const orderActions: Array<{ label: string; status: OrderStatus }> = [
+  { label: "Confirm", status: "accepted" },
+  { label: "Preparing", status: "preparing" },
+  { label: "Ready", status: "completed" },
+  { label: "Cancel", status: "canceled" },
 ];
 
 function formatServiceTime(value: string) {
@@ -45,7 +54,7 @@ export function AdminOrdersPage() {
   const [reservations, setReservations] = useState<StoredReservation[]>([]);
   const [activeOrderFilter, setActiveOrderFilter] =
     useState<"all" | OrderStatus>("all");
-  const [status, setStatus] = useState("Loading orders...");
+  const [status, setStatus] = useState("Loading staff desk...");
   const [updatingId, setUpdatingId] = useState("");
 
   useEffect(() => {
@@ -138,139 +147,81 @@ export function AdminOrdersPage() {
     }
   }
 
-  const newOrders = orders.filter((order) => order.status === "new").length;
-  const acceptedOrders = orders.filter(
-    (order) => order.status === "accepted",
-  ).length;
-  const preparingOrders = orders.filter(
-    (order) => order.status === "preparing",
-  ).length;
-  const completedOrders = orders.filter(
-    (order) => order.status === "completed",
-  ).length;
   const visibleOrders =
     activeOrderFilter === "all"
       ? orders
       : orders.filter((order) => order.status === activeOrderFilter);
+  const revenue = orders
+    .filter((order) => order.status !== "canceled")
+    .reduce((sum, order) => sum + order.total, 0);
 
   return (
-    <main className="min-h-screen bg-[#241b15] px-4 py-6 text-[#eee8dc] sm:px-8 sm:py-8">
-      <header className="mx-auto flex max-w-[1500px] items-center justify-between border-b border-[#4a382b] pb-5">
-        <Link href="/" className="text-xs font-semibold uppercase tracking-[0.34em] sm:text-sm sm:tracking-[0.44em]">
-          Noirtable
-        </Link>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8f8374]">
-          Staff desk
-        </p>
+    <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
+      <header className="flex items-center justify-between border-b border-[#2d261f]/15 px-6 py-6 text-[9px] font-semibold uppercase tracking-[0.36em] sm:px-10 lg:px-16">
+        <Link href="/">Noirtable</Link>
+        <nav className="flex gap-7">
+          <Link href="/menu">Menu</Link>
+          <Link href="/case-study">Journal</Link>
+        </nav>
       </header>
 
-      <section className="mx-auto max-w-[1500px] py-10">
-        <div className="grid gap-6 lg:grid-cols-[0.55fr_1.45fr] lg:items-end">
-          <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.42em] text-[#a79b88]">
-              Back of house
-            </p>
-            <h1 className="mt-4 font-serif text-6xl leading-none text-white sm:text-9xl">
-              Service
-            </h1>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-[#a79b88]">
-              Orders and table requests for the evening room.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 border border-[#4a382b] text-center lg:grid-cols-4">
-            <div className="border-b border-r border-[#4a382b] p-4 sm:p-5 lg:border-b-0">
-              <p className="font-serif text-4xl text-white sm:text-5xl">{orders.length}</p>
-              <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-[#8f8374]">
-                Orders
-              </p>
-            </div>
-            <div className="border-b border-[#4a382b] p-4 sm:p-5 lg:border-b-0 lg:border-r">
-              <p className="font-serif text-4xl text-white sm:text-5xl">
-                {formatPrice(orders.reduce((sum, order) => sum + order.total, 0))}
-              </p>
-              <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-[#8f8374]">
-                Revenue
-              </p>
-            </div>
-            <div className="border-r border-[#4a382b] p-4 sm:p-5">
-              <p className="font-serif text-4xl text-white sm:text-5xl">{newOrders}</p>
-              <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-[#8f8374]">
-                New
-              </p>
-            </div>
-            <div className="p-4 sm:p-5">
-              <p className="font-serif text-4xl text-white sm:text-5xl">{reservations.length}</p>
-              <p className="mt-2 text-[10px] uppercase tracking-[0.24em] text-[#8f8374]">
-                Requests
-              </p>
-            </div>
-          </div>
+      <section className="grid border-b border-[#2d261f]/15 lg:min-h-[68vh] lg:grid-cols-[38%_62%]">
+        <div className="flex flex-col justify-center border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.38em] text-[#1f1a15]/55">
+            Staff desk
+          </p>
+          <h1 className="mt-8 max-w-md font-serif text-6xl leading-[0.92] sm:text-8xl">
+            Tonight&apos;s room, kept in order.
+          </h1>
+          <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
+            Orders, reservations, and menu notes in one calm service screen.
+          </p>
         </div>
 
-        {status ? (
-          <p className="mt-10 border border-[#241d17] p-5 text-sm text-[#a79b88]">
-            {status}
-          </p>
-        ) : null}
-
-        <div className="mt-10 grid gap-4">
-          {reservations.length > 0 ? (
-            <section className="mb-6 grid gap-4 border-y border-[#4a382b] py-6">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#8f8374]">
-                Table requests
-              </p>
-              <div className="grid gap-3 lg:grid-cols-3">
-                {reservations.slice(0, 6).map((reservation) => (
-                  <article
-                    key={reservation.id}
-                    className="border border-[#4a382b] bg-[#2b2119] p-4"
-                  >
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#8f8374]">
-                      {reservation.id}
-                    </p>
-                    <p className="mt-3 font-serif text-3xl text-white">
-                      {reservation.guestName}
-                    </p>
-                    <p className="mt-2 text-sm text-[#a79b88]">
-                      {reservation.phone}
-                    </p>
-                    <p className="mt-3 inline-block border border-[#3a3027] px-3 py-2 text-[9px] uppercase tracking-[0.22em] text-[#d9ccb7]">
-                      {reservationStatusLabels[reservation.status]}
-                    </p>
-                    <div className="mt-4 flex justify-between border-t border-[#241d17] pt-3 text-xs text-[#d9ccb7]">
-                      <span>{reservation.partySize}</span>
-                      <span>{reservation.preferredTime}</span>
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {(["confirmed", "declined"] as ReservationStatus[]).map(
-                        (nextStatus) => (
-                          <button
-                            key={nextStatus}
-                            onClick={() =>
-                              updateReservation(reservation.id, nextStatus)
-                            }
-                            disabled={updatingId === reservation.id}
-                            className={`border px-3 py-2 text-[9px] uppercase tracking-[0.2em] transition disabled:opacity-50 ${
-                              reservation.status === nextStatus
-                                ? "border-[#d9ccb7] bg-[#d9ccb7] text-black"
-                                : "border-[#3a3027] text-[#a79b88] hover:border-white hover:text-white"
-                            }`}
-                          >
-                            {reservationStatusLabels[nextStatus]}
-                          </button>
-                        ),
-                      )}
-                    </div>
-                  </article>
-                ))}
+        <div className="grid content-center gap-4 px-6 py-10 sm:px-10 lg:px-16">
+          <div className="grid border border-[#2d261f]/15 text-center sm:grid-cols-4">
+            {[
+              ["Orders", orders.length],
+              ["Revenue", formatPrice(revenue)],
+              ["Reservations", reservations.length],
+              [
+                "Open",
+                orders.filter((order) =>
+                  ["new", "accepted", "preparing"].includes(order.status),
+                ).length,
+              ],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="border-b border-[#2d261f]/15 p-5 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
+              >
+                <p className="font-serif text-4xl leading-none">{value}</p>
+                <p className="mt-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/52">
+                  {label}
+                </p>
               </div>
-            </section>
+            ))}
+          </div>
+          {status ? (
+            <p className="border border-[#2d261f]/15 px-5 py-4 text-sm text-[#1f1a15]/68">
+              {status}
+            </p>
           ) : null}
+        </div>
+      </section>
 
-          <div className="flex gap-2 overflow-x-auto border-y border-[#4a382b] py-4">
+      <section className="border-b border-[#2d261f]/15 px-6 py-10 sm:px-10 lg:px-16">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
+              Orders
+            </p>
+            <h2 className="mt-3 font-serif text-5xl leading-none">Kitchen flow</h2>
+          </div>
+          <div className="flex gap-2 overflow-x-auto">
             {orderFilters.map((filter) => {
               const label =
-                filter === "all" ? "All orders" : orderStatusLabels[filter];
+                filter === "all" ? "All" : orderStatusLabels[filter];
               const count =
                 filter === "all"
                   ? orders.length
@@ -279,27 +230,24 @@ export function AdminOrdersPage() {
               return (
                 <button
                   key={filter}
+                  type="button"
                   onClick={() => setActiveOrderFilter(filter)}
-                  className={`shrink-0 border px-4 py-3 text-[9px] uppercase tracking-[0.22em] transition ${
+                  className={`shrink-0 border px-4 py-3 text-[8px] font-semibold uppercase tracking-[0.24em] ${
                     activeOrderFilter === filter
-                      ? "border-[#d9ccb7] bg-[#d9ccb7] text-black"
-                      : "border-[#3a3027] text-[#a79b88] hover:border-white hover:text-white"
+                      ? "border-[#11100d] bg-[#11100d] text-[#e7dfd2]"
+                      : "border-[#2d261f]/18 text-[#1f1a15]/58"
                   }`}
                 >
-                  {label} · {count}
+                  {label} {count}
                 </button>
               );
             })}
           </div>
+        </div>
 
-          {orders.length === 0 && !status ? (
-            <p className="border border-[#241d17] p-5 text-sm text-[#a79b88]">
-              No orders yet. Place a test order or reservation to see it here.
-            </p>
-          ) : null}
-
-          {orders.length > 0 && visibleOrders.length === 0 ? (
-            <p className="border border-[#4a382b] bg-[#2b2119] p-5 text-sm text-[#a79b88]">
+        <div className="mt-8 grid gap-4">
+          {visibleOrders.length === 0 ? (
+            <p className="border border-[#2d261f]/15 p-5 text-sm text-[#1f1a15]/64">
               No orders in this stage right now.
             </p>
           ) : null}
@@ -307,101 +255,76 @@ export function AdminOrdersPage() {
           {visibleOrders.map((order) => (
             <article
               key={order.id}
-              className="grid gap-6 border border-[#4a382b] bg-[#2b2119] p-4 sm:p-5 lg:grid-cols-[220px_1fr_180px]"
+              className="grid gap-6 border border-[#2d261f]/15 p-5 lg:grid-cols-[220px_1fr_190px]"
             >
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8f8374]">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1f1a15]/52">
                   {order.id}
                 </p>
-                <p className="mt-4 font-serif text-3xl text-white">
+                <p className="mt-4 font-serif text-3xl leading-none">
                   {order.guestName}
                 </p>
-                <p className="mt-2 text-sm text-[#a79b88]">{order.phone}</p>
-                <p className="mt-2 text-sm text-[#a79b88]">
+                <p className="mt-3 text-sm text-[#1f1a15]/62">{order.phone}</p>
+                <p className="mt-2 text-sm text-[#1f1a15]/62">
                   {formatServiceTime(order.createdAt)}
                 </p>
               </div>
 
               <div>
                 <div className="flex flex-wrap gap-2">
-                  <span className="border border-[#3a3027] px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-[#d9ccb7]">
+                  <span className="border border-[#2d261f]/15 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#1f1a15]/62">
                     {order.fulfillment}
                   </span>
-                  <span className="border border-[#3a3027] px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-[#d9ccb7]">
+                  <span className="border border-[#2d261f]/15 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#1f1a15]/62">
                     {orderStatusLabels[order.status]}
                   </span>
                 </div>
 
-                <div className="mt-5 grid grid-cols-4 gap-2">
-                  {orderFlow.map((statusStep) => {
-                    const isActive =
-                      orderFlow.indexOf(statusStep) <= orderFlow.indexOf(order.status);
-
-                    return (
-                      <div key={statusStep} className="grid gap-2">
-                        <span
-                          className={`h-px ${
-                            isActive ? "bg-[#d9ccb7]" : "bg-[#3a3027]"
-                          }`}
-                        />
-                        <span
-                          className={`text-[8px] uppercase tracking-[0.18em] ${
-                            isActive ? "text-[#d9ccb7]" : "text-[#6f6255]"
-                          }`}
-                        >
-                          {orderStatusLabels[statusStep]}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {(["accepted", "preparing", "completed"] as OrderStatus[]).map(
-                    (nextStatus) => (
-                      <button
-                        key={nextStatus}
-                        onClick={() => updateOrder(order.id, nextStatus)}
-                        disabled={updatingId === order.id}
-                        className={`border px-3 py-2 text-[9px] uppercase tracking-[0.2em] transition disabled:opacity-50 ${
-                          order.status === nextStatus
-                            ? "border-[#d9ccb7] bg-[#d9ccb7] text-black"
-                            : "border-[#3a3027] text-[#a79b88] hover:border-white hover:text-white"
-                        }`}
-                        >
-                        {orderStatusLabels[nextStatus]}
-                      </button>
-                    ),
-                  )}
-                </div>
-                {order.address ? (
-                  <p className="mt-4 text-sm text-[#a79b88]">{order.address}</p>
-                ) : null}
-                {order.note ? (
-                  <p className="mt-2 text-sm text-[#a79b88]">{order.note}</p>
-                ) : null}
                 <div className="mt-5 grid gap-2">
                   {order.items.map((item) => (
                     <div
                       key={`${order.id}-${item.id}`}
-                      className="flex justify-between border-b border-[#241d17] py-2 text-sm"
+                      className="flex justify-between border-b border-[#2d261f]/10 py-2 text-sm"
                     >
                       <span>
                         {item.name} x {item.quantity}
                       </span>
-                      <span className="text-[#d9ccb7]">
-                        {formatPrice(item.lineTotal)}
-                      </span>
+                      <span>{formatPrice(item.lineTotal)}</span>
                     </div>
+                  ))}
+                </div>
+
+                {order.address ? (
+                  <p className="mt-4 text-sm text-[#1f1a15]/62">{order.address}</p>
+                ) : null}
+                {order.note ? (
+                  <p className="mt-2 text-sm text-[#1f1a15]/62">{order.note}</p>
+                ) : null}
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {orderActions.map((action) => (
+                    <button
+                      key={action.status}
+                      type="button"
+                      onClick={() => updateOrder(order.id, action.status)}
+                      disabled={updatingId === order.id}
+                      className={`border px-3 py-2 text-[8px] font-semibold uppercase tracking-[0.22em] disabled:opacity-50 ${
+                        order.status === action.status
+                          ? "border-[#11100d] bg-[#11100d] text-[#e7dfd2]"
+                          : "border-[#2d261f]/18 text-[#1f1a15]/62"
+                      }`}
+                    >
+                      {action.label}
+                    </button>
                   ))}
                 </div>
               </div>
 
               <div className="grid content-between">
-                <p className="font-serif text-5xl text-white">
+                <p className="font-serif text-5xl leading-none">
                   {formatPrice(order.total)}
                 </p>
-                <div className="mt-5 space-y-2 text-sm text-[#a79b88]">
+                <div className="mt-5 grid gap-2 text-sm text-[#1f1a15]/62">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
                     <span>{formatPrice(order.subtotal)}</span>
@@ -420,17 +343,100 @@ export function AdminOrdersPage() {
           ))}
         </div>
       </section>
-      <section className="mx-auto grid max-w-[1500px] gap-3 border-t border-[#4a382b] py-8 text-[10px] uppercase tracking-[0.24em] text-[#8f8374] sm:grid-cols-4">
-        <p>Accepted orders: {acceptedOrders}</p>
-        <p>Preparing: {preparingOrders}</p>
-        <p>Completed orders: {completedOrders}</p>
-        <p>Open reservations: {reservations.filter((item) => item.status === "new").length}</p>
+
+      <section className="grid border-b border-[#2d261f]/15 lg:grid-cols-2">
+        <div className="border-b border-[#2d261f]/15 px-6 py-10 sm:px-10 lg:border-b-0 lg:border-r lg:px-16">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
+            Reservations
+          </p>
+          <h2 className="mt-3 font-serif text-5xl leading-none">
+            Table requests
+          </h2>
+          <div className="mt-8 grid gap-4">
+            {reservations.length === 0 ? (
+              <p className="border border-[#2d261f]/15 p-5 text-sm text-[#1f1a15]/64">
+                No table requests yet.
+              </p>
+            ) : null}
+            {reservations.slice(0, 6).map((reservation) => (
+              <article key={reservation.id} className="border border-[#2d261f]/15 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/52">
+                      {reservation.id}
+                    </p>
+                    <p className="mt-3 font-serif text-3xl leading-none">
+                      {reservation.guestName}
+                    </p>
+                    <p className="mt-2 text-sm text-[#1f1a15]/62">
+                      {reservation.phone}
+                    </p>
+                  </div>
+                  <span className="border border-[#2d261f]/15 px-3 py-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#1f1a15]/58">
+                    {reservationStatusLabels[reservation.status]}
+                  </span>
+                </div>
+                <div className="mt-5 flex justify-between border-t border-[#2d261f]/10 pt-4 text-sm text-[#1f1a15]/62">
+                  <span>{reservation.partySize}</span>
+                  <span>{reservation.preferredTime}</span>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {(["confirmed", "declined"] as ReservationStatus[]).map(
+                    (nextStatus) => (
+                      <button
+                        key={nextStatus}
+                        type="button"
+                        onClick={() =>
+                          updateReservation(reservation.id, nextStatus)
+                        }
+                        disabled={updatingId === reservation.id}
+                        className={`border px-3 py-2 text-[8px] font-semibold uppercase tracking-[0.22em] disabled:opacity-50 ${
+                          reservation.status === nextStatus
+                            ? "border-[#11100d] bg-[#11100d] text-[#e7dfd2]"
+                            : "border-[#2d261f]/18 text-[#1f1a15]/62"
+                        }`}
+                      >
+                        {reservationStatusLabels[nextStatus]}
+                      </button>
+                    ),
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="px-6 py-10 sm:px-10 lg:px-16">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/55">
+            Menu items
+          </p>
+          <h2 className="mt-3 font-serif text-5xl leading-none">
+            Tonight&apos;s list
+          </h2>
+          <div className="mt-8 divide-y divide-[#2d261f]/12 border-y border-[#2d261f]/15">
+            {menuItems.slice(0, 10).map((item) => (
+              <div key={item.id} className="grid grid-cols-[1fr_auto] gap-4 py-4">
+                <div>
+                  <p className="font-serif text-2xl leading-none">{item.name}</p>
+                  <p className="mt-2 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#1f1a15]/50">
+                    {item.category}
+                  </p>
+                </div>
+                <p className="text-sm">{formatPrice(item.price)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
-      <div className="mx-auto max-w-[1500px] pb-8 text-[10px] uppercase tracking-[0.24em] text-[#8f8374]">
-        <Link href="/case-study" className="hover:text-white">
-          View portfolio case study
-        </Link>
-      </div>
+
+      <footer className="flex flex-wrap items-center justify-between gap-5 px-6 py-8 text-[9px] font-semibold uppercase tracking-[0.32em] sm:px-10 lg:px-16">
+        <span>Noirtable</span>
+        <nav className="flex flex-wrap gap-7">
+          <Link href="/cart">Cart</Link>
+          <Link href="/menu">Menu</Link>
+          <Link href="/case-study">Journal</Link>
+        </nav>
+      </footer>
     </main>
   );
 }

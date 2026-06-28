@@ -29,12 +29,39 @@ export const menuCategories: Array<"All" | MenuCategory> = [
   "Drinks",
 ];
 
-const menuImageCycle = [
-  "/images/generated-dishes/pasta.png",
-  "/images/generated-dishes/beef.png",
-  "/images/generated-dishes/seafood.png",
-  "/images/generated-dishes/dessert.png",
-  "/images/generated-dishes/drink.png",
+const menuImageById: Record<number, string> = {
+  1: "/images/menu-dishes-fast/dish-01-oyster-royale.jpg",
+  2: "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg",
+  3: "/images/menu-dishes-fast/dish-03-burrata-noir.jpg",
+  4: "/images/menu-dishes-fast/dish-04-charred-octopus.jpg",
+  14: "/images/menu-dishes-fast/dish-05-gold-leaf-risotto.jpg",
+  15: "/images/menu-dishes-fast/dish-06-lamb-crown.jpg",
+  16: "/images/menu-dishes-fast/dish-07-noir-burger.jpg",
+  17: "/images/menu-dishes-fast/dish-08-private-table-steak.jpg",
+  18: "/images/menu-dishes-fast/dish-09-saffron-lobster-pasta.jpg",
+  19: "/images/menu-dishes-fast/dish-10-porcini-tagliatelle.jpg",
+  20: "/images/menu-dishes-fast/dish-11-short-rib-pappardelle.jpg",
+  51: "/images/menu-dishes-fast/dish-12-cacio-e-pepe.jpg",
+  52: "/images/menu-dishes-fast/dish-13-broccolini.jpg",
+  53: "/images/menu-dishes-fast/dish-14-roasted-mushrooms.jpg",
+  54: "/images/menu-dishes-fast/dish-15-truffle-fries.jpg",
+  55: "/images/menu-dishes-fast/dish-16-house-bread.jpg",
+  56: "/images/menu-dishes-fast/dish-17-dark-chocolate-torte.jpg",
+  57: "/images/menu-dishes-fast/dish-18-panna-cotta.jpg",
+  39: "/images/menu-dishes-fast/dish-19-tiramisu-24k.jpg",
+  58: "/images/menu-dishes-fast/dish-20-seasonal-gelato.jpg",
+  59: "/images/menu-dishes-fast/dish-21-reserve-negroni.jpg",
+  60: "/images/menu-dishes-fast/dish-22-white-by-the-glass.jpg",
+  61: "/images/menu-dishes-fast/dish-23-red-by-the-glass.jpg",
+  50: "/images/menu-dishes-fast/dish-24-reserve-water.jpg",
+};
+
+const fallbackMenuImages = [
+  "/images/generated-dishes-fast/pasta.jpg",
+  "/images/generated-dishes-fast/beef.jpg",
+  "/images/generated-dishes-fast/seafood.jpg",
+  "/images/generated-dishes-fast/dessert.jpg",
+  "/images/generated-dishes-fast/drink.jpg",
 ];
 
 const rawMenuItems: Omit<MenuItem, "image">[] = [
@@ -544,5 +571,5 @@ const rawMenuItems: Omit<MenuItem, "image">[] = [
 
 export const menuItems: MenuItem[] = rawMenuItems.map((item, index) => ({
   ...item,
-  image: menuImageCycle[index % menuImageCycle.length],
+  image: menuImageById[item.id] ?? fallbackMenuImages[index % fallbackMenuImages.length],
 }));

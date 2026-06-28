@@ -27,30 +27,30 @@ const sectionOrder: MenuSection[] = [
 ];
 
 const fullMenuEntries: FullMenuEntry[] = [
-  { index: 1, section: "Starters", itemId: 1, badge: "Fresh", image: "/images/menu-generated/menu-01.png", displayTime: "10 min" },
-  { index: 2, section: "Starters", itemId: 2, badge: "Chef pick", image: "/images/menu-generated/menu-02.png", displayTime: "12 min" },
-  { index: 3, section: "Starters", itemId: 3, image: "/images/menu-generated/menu-03.png", displayTime: "9 min" },
-  { index: 4, section: "Starters", itemId: 4, image: "/images/menu-generated/menu-04.png", displayTime: "12 min" },
-  { index: 5, section: "Mains", itemId: 14, image: "/images/menu-generated/menu-05.png", displayTime: "24 min" },
-  { index: 6, section: "Mains", itemId: 15, image: "/images/menu-generated/menu-06.png", displayTime: "30 min" },
-  { index: 7, section: "Mains", itemId: 16, image: "/images/menu-generated/menu-07.png", displayTime: "19 min" },
-  { index: 8, section: "Mains", itemId: 17, badge: "Premium", image: "/images/menu-generated/menu-08.png", displayTime: "27 min" },
-  { index: 9, section: "Pasta", itemId: 18, badge: "Chef pick", image: "/images/menu-generated/menu-09.png", displayTime: "22 min" },
-  { index: 10, section: "Pasta", itemId: 19, image: "/images/menu-generated/menu-10.png", displayTime: "20 min" },
-  { index: 11, section: "Pasta", itemId: 20, image: "/images/menu-generated/menu-11.png", displayTime: "20 min" },
-  { index: 12, section: "Pasta", itemId: 51, image: "/images/menu-generated/menu-12.png", displayTime: "18 min" },
-  { index: 13, section: "Sides", itemId: 52, image: "/images/menu-generated/menu-13.png", displayTime: "8 min" },
-  { index: 14, section: "Sides", itemId: 53, image: "/images/menu-generated/menu-14.png", displayTime: "8 min" },
-  { index: 15, section: "Sides", itemId: 54, image: "/images/menu-generated/menu-15.png", displayTime: "9 min" },
-  { index: 16, section: "Sides", itemId: 55, image: "/images/menu-generated/menu-16.png", displayTime: "-" },
-  { index: 17, section: "Desserts", itemId: 56, image: "/images/menu-generated/menu-17.png", displayTime: "10 min" },
-  { index: 18, section: "Desserts", itemId: 57, image: "/images/menu-generated/menu-18.png", displayTime: "10 min" },
-  { index: 19, section: "Desserts", itemId: 39, image: "/images/menu-generated/menu-19.png", displayTime: "12 min" },
-  { index: 20, section: "Desserts", itemId: 58, image: "/images/menu-generated/menu-20.png", displayTime: "8 min" },
-  { index: 21, section: "Drinks", itemId: 59, image: "/images/menu-generated/menu-21.png", displayTime: "5 min" },
-  { index: 22, section: "Drinks", itemId: 60, image: "/images/menu-generated/menu-22.png", displayTime: "5 min" },
-  { index: 23, section: "Drinks", itemId: 61, image: "/images/menu-generated/menu-23.png", displayTime: "5 min" },
-  { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-generated/menu-24.png", displayTime: "2 min" },
+  { index: 1, section: "Starters", itemId: 1, badge: "Fresh", image: "/images/menu-dishes-fast/dish-01-oyster-royale.jpg", displayTime: "10 min" },
+  { index: 2, section: "Starters", itemId: 2, badge: "Chef pick", image: "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg", displayTime: "12 min" },
+  { index: 3, section: "Starters", itemId: 3, image: "/images/menu-dishes-fast/dish-03-burrata-noir.jpg", displayTime: "9 min" },
+  { index: 4, section: "Starters", itemId: 4, image: "/images/menu-dishes-fast/dish-04-charred-octopus.jpg", displayTime: "12 min" },
+  { index: 5, section: "Mains", itemId: 14, image: "/images/menu-dishes-fast/dish-05-gold-leaf-risotto.jpg", displayTime: "24 min" },
+  { index: 6, section: "Mains", itemId: 15, image: "/images/menu-dishes-fast/dish-06-lamb-crown.jpg", displayTime: "30 min" },
+  { index: 7, section: "Mains", itemId: 16, image: "/images/menu-dishes-fast/dish-07-noir-burger.jpg", displayTime: "19 min" },
+  { index: 8, section: "Mains", itemId: 17, badge: "Premium", image: "/images/menu-dishes-fast/dish-08-private-table-steak.jpg", displayTime: "27 min" },
+  { index: 9, section: "Pasta", itemId: 18, badge: "Chef pick", image: "/images/menu-dishes-fast/dish-09-saffron-lobster-pasta.jpg", displayTime: "22 min" },
+  { index: 10, section: "Pasta", itemId: 19, image: "/images/menu-dishes-fast/dish-10-porcini-tagliatelle.jpg", displayTime: "20 min" },
+  { index: 11, section: "Pasta", itemId: 20, image: "/images/menu-dishes-fast/dish-11-short-rib-pappardelle.jpg", displayTime: "20 min" },
+  { index: 12, section: "Pasta", itemId: 51, image: "/images/menu-dishes-fast/dish-12-cacio-e-pepe.jpg", displayTime: "18 min" },
+  { index: 13, section: "Sides", itemId: 52, image: "/images/menu-dishes-fast/dish-13-broccolini.jpg", displayTime: "8 min" },
+  { index: 14, section: "Sides", itemId: 53, image: "/images/menu-dishes-fast/dish-14-roasted-mushrooms.jpg", displayTime: "8 min" },
+  { index: 15, section: "Sides", itemId: 54, image: "/images/menu-dishes-fast/dish-15-truffle-fries.jpg", displayTime: "9 min" },
+  { index: 16, section: "Sides", itemId: 55, image: "/images/menu-dishes-fast/dish-16-house-bread.jpg", displayTime: "-" },
+  { index: 17, section: "Desserts", itemId: 56, image: "/images/menu-dishes-fast/dish-17-dark-chocolate-torte.jpg", displayTime: "10 min" },
+  { index: 18, section: "Desserts", itemId: 57, image: "/images/menu-dishes-fast/dish-18-panna-cotta.jpg", displayTime: "10 min" },
+  { index: 19, section: "Desserts", itemId: 39, image: "/images/menu-dishes-fast/dish-19-tiramisu-24k.jpg", displayTime: "12 min" },
+  { index: 20, section: "Desserts", itemId: 58, image: "/images/menu-dishes-fast/dish-20-seasonal-gelato.jpg", displayTime: "8 min" },
+  { index: 21, section: "Drinks", itemId: 59, image: "/images/menu-dishes-fast/dish-21-reserve-negroni.jpg", displayTime: "5 min" },
+  { index: 22, section: "Drinks", itemId: 60, image: "/images/menu-dishes-fast/dish-22-white-by-the-glass.jpg", displayTime: "5 min" },
+  { index: 23, section: "Drinks", itemId: 61, image: "/images/menu-dishes-fast/dish-23-red-by-the-glass.jpg", displayTime: "5 min" },
+  { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-dishes-fast/dish-24-reserve-water.jpg", displayTime: "2 min" },
 ];
 
 function getItem(entry: FullMenuEntry) {
@@ -63,7 +63,7 @@ function getItem(entry: FullMenuEntry) {
   return item;
 }
 
-function Sidebar() {
+function Sidebar({ itemCount }: { itemCount: number }) {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
       <Link
@@ -82,6 +82,7 @@ function Sidebar() {
         <Link href="/#reserve">Reserve</Link>
         <Link href="/case-study">Journal</Link>
         <Link href="/#room">About</Link>
+        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -105,15 +106,18 @@ function FullMenuCard({
       <button
         type="button"
         onClick={() => onView(entry)}
-        className="relative block h-[174px] w-full overflow-hidden border-b border-[#2d261f]/15 bg-[#11100d] text-left"
+        className="menu-card-image-wrap relative"
         aria-label={`View ${item.name}`}
       >
         <Image
-          src={entry.image}
+          src={item.image ?? entry.image}
           alt={item.name}
           fill
-          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 44vw, 100vw"
-          className="scale-[1.35] object-cover object-center"
+          sizes="(min-width: 1280px) 21vw, (min-width: 768px) 44vw, 100vw"
+          quality={68}
+          loading={entry.index <= 4 ? "eager" : "lazy"}
+          fetchPriority={entry.index <= 4 ? "high" : "auto"}
+          className="menu-card-image"
         />
       </button>
 
@@ -178,24 +182,25 @@ function DetailModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[80] grid place-items-end bg-[#11100d]/35 px-3 py-3 sm:place-items-center sm:px-6">
+    <div className="fixed inset-0 z-[80] grid place-items-center bg-[#11100d]/45 px-3 py-4 sm:px-6 sm:py-8">
       <button
         type="button"
         aria-label="Close dish detail"
         className="absolute inset-0 cursor-default"
         onClick={onClose}
       />
-      <article className="relative grid w-full max-w-3xl border border-[#2d261f]/20 bg-[#e7dfd2] sm:grid-cols-[1fr_1fr]">
-        <div className="relative min-h-[260px] border-b border-[#2d261f]/15 sm:min-h-[420px] sm:border-b-0 sm:border-r">
+      <article className="relative grid max-h-[calc(100dvh-32px)] w-full max-w-[860px] overflow-y-auto border border-[#2d261f]/20 bg-[#e7dfd2] shadow-2xl shadow-[#11100d]/30 sm:max-h-[620px] sm:grid-cols-[46%_54%] sm:overflow-hidden">
+        <div className="dish-modal-image-wrap relative">
           <Image
-            src={entry.image}
+            src={item.image ?? entry.image}
             alt={item.name}
             fill
-            sizes="(min-width: 640px) 45vw, 100vw"
-            className="scale-[1.35] object-cover object-center"
+            sizes="(min-width: 640px) 390px, 100vw"
+            quality={72}
+            className="dish-modal-image"
           />
         </div>
-        <div className="grid content-between gap-10 px-5 py-6 sm:px-7 sm:py-8">
+        <div className="grid content-between gap-10 px-5 py-6 sm:min-h-[500px] sm:px-7 sm:py-8">
           <div>
             <div className="flex items-start justify-between gap-4">
               <p className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]/56">
@@ -257,7 +262,7 @@ export function FullMenuPage() {
 
   return (
     <main id="top" className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar />
+      <Sidebar itemCount={itemCount} />
 
       <DetailModal
         entry={selectedEntry}
@@ -349,7 +354,7 @@ export function FullMenuPage() {
           <nav className="flex flex-wrap gap-7">
             <Link href="/cart">Cart {itemCount}</Link>
             <Link href="/#reserve">Reserve</Link>
-            <Link href="/admin/orders">Staff desk</Link>
+            <Link href="/staff">Staff desk</Link>
             <Link href="/case-study">Case study</Link>
           </nav>
         </footer>

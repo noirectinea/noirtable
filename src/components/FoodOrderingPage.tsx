@@ -8,21 +8,14 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
 
 const previewItems = menuItems.slice(0, 4);
+const previewImages = [
+  "/images/menu-dishes-fast/dish-01-oyster-royale.jpg",
+  "/images/menu-dishes-fast/dish-02-truffle-beef-tartare.jpg",
+  "/images/menu-dishes-fast/dish-03-burrata-noir.jpg",
+  "/images/menu-dishes-fast/dish-04-charred-octopus.jpg",
+];
 
-function ImagePlaceholder({ label }: { label?: string }) {
-  return (
-    <div className="relative h-full min-h-full w-full overflow-hidden bg-[#cfc4b4]">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.24),transparent_38%),linear-gradient(0deg,rgba(80,66,49,0.08),transparent)]" />
-      {label ? (
-        <span className="absolute bottom-5 left-5 text-[9px] uppercase tracking-[0.28em] text-[#332b22]/45">
-          {label}
-        </span>
-      ) : null}
-    </div>
-  );
-}
-
-function Sidebar() {
+function Sidebar({ itemCount }: { itemCount: number }) {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
       <Link
@@ -38,6 +31,7 @@ function Sidebar() {
         <a href="#reserve">Reserve</a>
         <Link href="/case-study">Journal</Link>
         <a href="#room">About</a>
+        <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
@@ -58,7 +52,7 @@ function MenuCard({
 }) {
   const tags = ["Fresh", "Chef pick", "", ""];
   const prepTimes = ["10 min", "12 min", "9 min", "12 min"];
-  const image = `/images/menu-generated/menu-${String(index + 1).padStart(2, "0")}.png`;
+  const image = item.image ?? previewImages[index];
 
   return (
     <article className="grid min-h-[320px] border border-[#2d261f]/18 bg-[#e7dfd2]">
@@ -67,7 +61,8 @@ function MenuCard({
           src={image}
           alt={item.name}
           fill
-          sizes="(min-width: 1024px) 18vw, 100vw"
+          sizes="(min-width: 1024px) 18vw, (min-width: 640px) 42vw, 100vw"
+          quality={68}
           className="object-cover"
         />
       </div>
@@ -164,10 +159,21 @@ export function FoodOrderingPage() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#e7dfd2] text-[#11100d]">
-      <Sidebar />
+      <Sidebar itemCount={itemCount} />
 
       <div className="lg:pl-[104px]">
-        <section className="relative min-h-[720px] border-b border-[#2d261f]/15 lg:min-h-[74vh]">
+        <section className="relative min-h-screen border-b border-[#2d261f]/15">
+          <Image
+            src="/images/hero/noirtable-hero-wide.jpg"
+            alt=""
+            fill
+            preload
+            sizes="100vw"
+            quality={76}
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 z-10 bg-[#e7dfd2]/18" />
+          <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(231,223,210,0.42)_0%,rgba(231,223,210,0.22)_42%,rgba(231,223,210,0.08)_100%)]" />
           <header className="absolute left-0 right-0 top-0 z-20 grid grid-cols-[1fr_auto_1fr] items-start px-5 py-7 lg:px-16">
             <div className="text-[9px] font-semibold uppercase tracking-[0.36em] lg:hidden">
               Noirtable
@@ -188,7 +194,7 @@ export function FoodOrderingPage() {
             </a>
           </header>
 
-          <div className="grid min-h-[720px] lg:min-h-[74vh] lg:grid-cols-[42%_58%]">
+          <div className="grid min-h-screen lg:grid-cols-[42%_58%]">
             <div className="relative z-10 grid content-center px-6 pb-12 pt-36 lg:px-16">
               <h1 className="font-serif text-6xl leading-[0.95] tracking-[-0.01em] text-[#11100d] sm:text-7xl lg:text-[5.6rem]">
                 Noirtable
@@ -209,8 +215,7 @@ export function FoodOrderingPage() {
               </a>
             </div>
 
-            <div className="relative min-h-[360px] border-t border-[#2d261f]/15 lg:border-l lg:border-t-0">
-              <ImagePlaceholder label="photo placeholder" />
+            <div className="relative min-h-[360px] border-t border-[#2d261f]/15 lg:border-t-0">
               <div className="absolute bottom-16 right-6 w-[260px] border border-[#2d261f]/14 bg-[#e7dfd2]/72 px-6 py-5 text-[#11100d] lg:right-16">
                 <div className="flex justify-between border-b border-[#2d261f]/16 pb-4 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]/62">
                   <span>Tonight</span>
@@ -235,7 +240,7 @@ export function FoodOrderingPage() {
 
         <section
           id="room"
-          className="grid border-b border-[#2d261f]/15 lg:min-h-[520px] lg:grid-cols-[42%_58%]"
+          className="grid border-b border-[#2d261f]/15 lg:min-h-screen lg:grid-cols-[42%_58%]"
         >
           <div className="grid content-center border-b border-[#2d261f]/15 px-6 py-16 lg:border-b-0 lg:border-r lg:px-16">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
@@ -266,115 +271,131 @@ export function FoodOrderingPage() {
               ))}
             </dl>
           </div>
-          <div className="min-h-[420px]">
-            <ImagePlaceholder label="room photo placeholder" />
+          <div className="relative min-h-[420px] overflow-hidden lg:min-h-screen">
+            <Image
+              src="/images/hero/noirtable-room.jpg"
+              alt="Noirtable dining room"
+              fill
+              sizes="(min-width: 1024px) 58vw, 100vw"
+              quality={76}
+              className="object-cover object-center"
+            />
           </div>
         </section>
 
-        <section
-          id="menu"
-          className="grid border-b border-[#2d261f]/15 px-6 py-10 lg:grid-cols-[24%_76%] lg:px-0 lg:py-0"
-        >
-          <div className="grid content-center pb-10 lg:border-r lg:border-[#2d261f]/15 lg:px-16 lg:py-16">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
-              The menu
-            </p>
-            <h2 className="mt-10 font-serif text-5xl leading-[1.02] text-[#11100d]">
-              Six tables.
-              <br />
-              Late plates.
-              <br />
-              Quiet service.
-            </h2>
-            <span className="mt-10 h-px w-24 bg-[#2d261f]/22" />
-            <Link
-              href="/menu"
-              className="mt-8 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.28em]"
-            >
-              View full menu
-            </Link>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-4 lg:gap-4 lg:p-10">
-            {previewItems.map((item, index) => (
-              <MenuCard
-                key={item.id}
-                item={item}
-                index={index}
-                onAdd={addItem}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section
-          id="reserve"
-          className="grid border-b border-[#2d261f]/15 lg:grid-cols-[24%_36%_40%]"
-        >
-          <div className="px-6 py-14 lg:px-16">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
-              Reservations
-            </p>
-            <h2 className="mt-10 font-serif text-4xl leading-[1.02] text-[#11100d] lg:text-5xl">
-              A table request,
-              <br />
-              kept simple.
-            </h2>
-            <p className="mt-7 max-w-[270px] text-sm leading-7 text-[#11100d]/68">
-              Send a name, a number, and the hour you have in mind. The room
-              confirms every table by phone.
-            </p>
-          </div>
-
-          <form
-            onSubmit={submitReservation}
-            className="grid content-center gap-3 border-y border-[#2d261f]/15 px-6 py-10 lg:border-x lg:border-y-0 lg:px-8"
+        <section className="grid border-b border-[#2d261f]/15 lg:min-h-screen lg:grid-rows-[1fr_1fr]">
+          <div
+            id="menu"
+            className="grid px-6 py-10 lg:grid-cols-[24%_76%] lg:px-0 lg:py-0"
           >
-            <div className="grid gap-3 sm:grid-cols-2">
-              <input
-                value={reservationName}
-                onChange={(event) => setReservationName(event.target.value)}
-                placeholder="Name"
-                className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
-              />
-              <input
-                value={reservationPhone}
-                onChange={(event) => setReservationPhone(event.target.value)}
-                placeholder="Phone"
-                className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
-              />
-              <input
-                value={reservationTime}
-                onChange={(event) => setReservationTime(event.target.value)}
-                placeholder="Preferred time"
-                className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
-              />
-              <select
-                value={reservationParty}
-                onChange={(event) => setReservationParty(event.target.value)}
-                className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none focus:border-[#11100d]/45"
-              >
-                <option>2 guests</option>
-                <option>3 guests</option>
-                <option>4 guests</option>
-                <option>6 guests</option>
-              </select>
-            </div>
-            <button
-              disabled={isReservationSubmitting}
-              className="h-14 bg-[#c2a16e] text-[9px] font-semibold uppercase tracking-[0.34em] text-[#11100d] transition hover:bg-[#b9935f] disabled:opacity-60"
-            >
-              {isReservationSubmitting ? "Sending" : "Request a table"}
-            </button>
-            {reservationStatus ? (
-              <p className="border border-[#2d261f]/18 px-5 py-4 text-xs leading-5 text-[#11100d]/68">
-                {reservationStatus}
+            <div className="grid content-center pb-10 lg:border-r lg:border-[#2d261f]/15 lg:px-16 lg:py-10">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
+                The menu
               </p>
-            ) : null}
-          </form>
+              <h2 className="mt-10 font-serif text-5xl leading-[1.02] text-[#11100d]">
+                Six tables.
+                <br />
+                Late plates.
+                <br />
+                Quiet service.
+              </h2>
+              <span className="mt-10 h-px w-24 bg-[#2d261f]/22" />
+              <Link
+                href="/menu"
+                className="mt-8 w-fit border-b border-[#11100d] pb-2 text-[9px] font-semibold uppercase tracking-[0.28em]"
+              >
+                View full menu
+              </Link>
+            </div>
 
-          <div className="min-h-[320px]">
-            <ImagePlaceholder label="reservation photo placeholder" />
+            <div className="grid gap-4 lg:grid-cols-4 lg:gap-4 lg:p-10">
+              {previewItems.map((item, index) => (
+                <MenuCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  onAdd={addItem}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div
+            id="reserve"
+            className="grid border-t border-[#2d261f]/15 lg:grid-cols-[24%_36%_40%]"
+          >
+            <div className="px-6 py-14 lg:px-16 lg:py-10">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.36em]">
+                Reservations
+              </p>
+              <h2 className="mt-10 font-serif text-4xl leading-[1.02] text-[#11100d] lg:text-5xl">
+                A table request,
+                <br />
+                kept simple.
+              </h2>
+              <p className="mt-7 max-w-[270px] text-sm leading-7 text-[#11100d]/68">
+                Send a name, a number, and the hour you have in mind. The room
+                confirms every table by phone.
+              </p>
+            </div>
+
+            <form
+              onSubmit={submitReservation}
+              className="grid content-center gap-3 border-y border-[#2d261f]/15 px-6 py-10 lg:border-x lg:border-y-0 lg:px-8"
+            >
+              <div className="grid gap-3 sm:grid-cols-2">
+                <input
+                  value={reservationName}
+                  onChange={(event) => setReservationName(event.target.value)}
+                  placeholder="Name"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
+                />
+                <input
+                  value={reservationPhone}
+                  onChange={(event) => setReservationPhone(event.target.value)}
+                  placeholder="Phone"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
+                />
+                <input
+                  value={reservationTime}
+                  onChange={(event) => setReservationTime(event.target.value)}
+                  placeholder="Preferred time"
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
+                />
+                <select
+                  value={reservationParty}
+                  onChange={(event) => setReservationParty(event.target.value)}
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none focus:border-[#11100d]/45"
+                >
+                  <option>2 guests</option>
+                  <option>3 guests</option>
+                  <option>4 guests</option>
+                  <option>6 guests</option>
+                </select>
+              </div>
+              <button
+                disabled={isReservationSubmitting}
+                className="h-14 bg-[#c2a16e] text-[9px] font-semibold uppercase tracking-[0.34em] text-[#11100d] transition hover:bg-[#b9935f] disabled:opacity-60"
+              >
+                {isReservationSubmitting ? "Sending" : "Request a table"}
+              </button>
+              {reservationStatus ? (
+                <p className="border border-[#2d261f]/18 px-5 py-4 text-xs leading-5 text-[#11100d]/68">
+                  {reservationStatus}
+                </p>
+              ) : null}
+            </form>
+
+            <div className="relative min-h-[320px] overflow-hidden">
+              <Image
+                src="/images/hero/noirtable-reservation-still-life.jpg"
+                alt="Noirtable table setting"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                quality={76}
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         </section>
 
@@ -383,7 +404,7 @@ export function FoodOrderingPage() {
           <nav className="flex flex-wrap gap-7">
             <Link href="/cart">Cart {itemCount}</Link>
             <a href="#reserve">Reserve</a>
-            <Link href="/admin/orders">Staff desk</Link>
+            <Link href="/staff">Staff desk</Link>
             <Link href="/case-study">Case study</Link>
           </nav>
         </footer>

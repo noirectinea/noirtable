@@ -41,7 +41,12 @@ export type StoredOrder = {
   total: number;
 };
 
-export type OrderStatus = "new" | "accepted" | "preparing" | "completed";
+export type OrderStatus =
+  | "new"
+  | "accepted"
+  | "preparing"
+  | "completed"
+  | "canceled";
 
 const ordersPath = path.join(process.cwd(), ".data", "orders.json");
 
