@@ -6,6 +6,7 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
 import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
+import { StableImageFrame } from "@/components/StableImageFrame";
 
 type MenuSection = "Starters" | "Mains" | "Pasta" | "Sides" | "Desserts" | "Drinks";
 
@@ -154,20 +155,12 @@ function FullMenuCard({
         }}
         aria-label={`View ${item.name}`}
       >
-        <img
+        <StableImageFrame
           src={item.image ?? entry.image}
           alt={item.name}
-          width={1200}
-          height={675}
-          loading={entry.index <= 4 ? "eager" : "lazy"}
-          decoding={entry.index <= 4 ? "sync" : "async"}
-          fetchPriority={entry.index <= 4 ? "high" : "auto"}
           className="menu-card-image transition-opacity duration-300 hover:opacity-90"
           style={{
-            display: "block",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
             width: "100%",
           }}
         />
@@ -279,18 +272,12 @@ function DetailModal({
           className="dish-modal-image-wrap relative"
           style={{ minHeight: 260, overflow: "hidden", position: "relative" }}
         >
-          <img
+          <StableImageFrame
             src={getDetailImage(item.image ?? entry.image)}
             alt={item.name}
-            width={1600}
-            height={1600}
-            loading="eager"
-            decoding="sync"
             className="dish-modal-image"
             style={{
               height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
               width: "100%",
             }}
           />
@@ -382,10 +369,10 @@ export function FullMenuPage() {
       />
 
       <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
-        <div className="fixed bottom-5 right-5 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
+        <div className="fixed bottom-4 right-4 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
-            className="inline-flex h-[54px] items-center gap-2 border border-[#11100d]/60 bg-[#e7dfd2]/96 px-6 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+            className="inline-flex h-12 min-w-[116px] items-center justify-center gap-2 border border-[#11100d]/70 bg-[#e7dfd2] px-5 text-[9px] font-semibold uppercase tracking-[0.3em] text-[#11100d] shadow-[0_10px_24px_rgba(17,16,13,0.08)] transition-colors duration-300 hover:bg-[#d7c09a] lg:h-[54px] lg:min-w-0 lg:px-6 lg:tracking-[0.32em]"
           >
             <CartLineIcon />
             {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}

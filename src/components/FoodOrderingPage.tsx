@@ -7,6 +7,7 @@ import { menuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
 import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
+import { StableImageFrame } from "@/components/StableImageFrame";
 
 const previewItems = menuItems.slice(0, 4);
 const previewImages = [
@@ -68,19 +69,12 @@ function MenuCard({
           width: "100%",
         }}
       >
-        <img
+        <StableImageFrame
           src={image}
           alt={item.name}
-          width={1200}
-          height={675}
-          loading="lazy"
-          decoding="async"
           className="object-cover"
           style={{
-            display: "block",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
             width: "100%",
           }}
         />
@@ -193,19 +187,13 @@ export function FoodOrderingPage() {
           className="relative min-h-screen border-b border-[#2d261f]/15"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
         >
-          <img
+          <StableImageFrame
             src="/images/home-crops/noirtable-hero-1600x900.jpg"
             alt=""
-            width={1600}
-            height={900}
-            fetchPriority="high"
-            decoding="sync"
             className="object-cover object-center"
             style={{
               height: "100%",
               inset: 0,
-              objectFit: "cover",
-              objectPosition: "center",
               position: "absolute",
               width: "100%",
             }}
@@ -310,19 +298,13 @@ export function FoodOrderingPage() {
             className="relative min-h-[420px] overflow-hidden lg:min-h-screen"
             style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
           >
-            <img
+            <StableImageFrame
               src="/images/home-crops/noirtable-room-panel-877x1023.jpg"
               alt="Noirtable dining room"
-              width={877}
-              height={1023}
-              loading="lazy"
-              decoding="async"
               className="object-cover object-center"
               style={{
                 height: "100%",
                 inset: 0,
-                objectFit: "cover",
-                objectPosition: "center",
                 position: "absolute",
                 width: "100%",
               }}
@@ -437,19 +419,13 @@ export function FoodOrderingPage() {
               className="relative min-h-[320px] overflow-hidden"
               style={{ minHeight: 320, overflow: "hidden", position: "relative" }}
             >
-              <img
+              <StableImageFrame
                 src="/images/home-crops/noirtable-reserve-panel-1280x1023.jpg"
                 alt="Noirtable table setting"
-                width={1280}
-                height={1023}
-                loading="lazy"
-                decoding="async"
                 className="object-cover object-center"
                 style={{
                   height: "100%",
                   inset: 0,
-                  objectFit: "cover",
-                  objectPosition: "center",
                   position: "absolute",
                   width: "100%",
                 }}

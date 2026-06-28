@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
+import { StableImageFrame } from "@/components/StableImageFrame";
 
 const projectMeta = [
   ["Project type", "Full-stack restaurant website"],
@@ -32,7 +33,7 @@ const journeySteps = [
   ["01 Menu", "Guest chooses plates"],
   ["02 Cart", "Order is reviewed"],
   ["03 Checkout", "Guest data is collected"],
-  ["04 Success", "Demo payment confirmation"],
+  ["04 Success", "Order confirmation"],
   ["05 Staff desk", "Order lands with staff"],
 ];
 
@@ -82,19 +83,13 @@ export function CaseStudyPage() {
           className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
           style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
         >
-          <img
+          <StableImageFrame
             src="/images/hero/noirtable-room.jpg"
             alt="Noirtable dining room"
-            width={1537}
-            height={1023}
-            fetchPriority="high"
-            decoding="sync"
             className="object-cover"
             style={{
               height: "100%",
               inset: 0,
-              objectFit: "cover",
-              objectPosition: "center",
               position: "absolute",
               width: "100%",
             }}
@@ -186,19 +181,13 @@ export function CaseStudyPage() {
             className="relative min-h-[300px] border-b border-[#2d261f]/15 sm:min-h-[360px] lg:min-h-[66vh] lg:border-b-0 lg:border-r"
             style={{ minHeight: 300, overflow: "hidden", position: "relative" }}
           >
-            <img
+            <StableImageFrame
               src="/images/case-study/order-system-detail.jpg"
               alt="Restaurant ordering interface mood"
-              width={1537}
-              height={1023}
-              loading="lazy"
-              decoding="async"
               className="object-cover"
               style={{
                 height: "100%",
                 inset: 0,
-                objectFit: "cover",
-                objectPosition: "center",
                 position: "absolute",
                 width: "100%",
               }}

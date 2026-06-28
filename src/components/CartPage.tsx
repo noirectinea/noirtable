@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { formatPrice, useCart } from "@/lib/cart";
+import { StableImageFrame } from "@/components/StableImageFrame";
 
 export function CartPage() {
   const { items, itemCount, subtotal, addItem, removeItem, clearCart } =
@@ -24,19 +25,13 @@ export function CartPage() {
           className="relative min-h-[420px] overflow-hidden border-b border-[#2d261f]/15 lg:min-h-full lg:border-b-0 lg:border-r"
           style={{ minHeight: 420, overflow: "hidden", position: "relative" }}
         >
-          <img
+          <StableImageFrame
             src="/images/hero/noirtable-reservation-still-life.jpg"
             alt="Noirtable table setting"
-            width={1537}
-            height={1023}
-            fetchPriority="high"
-            decoding="sync"
             className="object-cover object-center"
             style={{
               height: "100%",
               inset: 0,
-              objectFit: "cover",
-              objectPosition: "center",
               position: "absolute",
               width: "100%",
             }}
@@ -99,18 +94,12 @@ export function CartPage() {
                         width: 92,
                       }}
                     >
-                      <img
+                      <StableImageFrame
                         src={item.image ?? "/images/hero/template-dish.jpg"}
                         alt={item.name}
-                        width={1200}
-                        height={675}
-                        loading="lazy"
-                        decoding="async"
                         className="object-cover"
                         style={{
                           height: "100%",
-                          objectFit: "cover",
-                          objectPosition: "center",
                           width: "100%",
                         }}
                       />

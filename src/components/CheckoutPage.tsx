@@ -107,10 +107,10 @@ export function CheckoutPage() {
             A final note, before the kitchen.
           </h1>
           <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
-            Enter your details. The room receives the order quietly.
+            Leave your details. The kitchen gets the note.
           </p>
           <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
-            {serviceMethod} / Noirtable / Demo
+            {serviceMethod} / Noirtable
           </div>
         </div>
 
