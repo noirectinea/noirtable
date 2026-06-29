@@ -9,13 +9,13 @@ import {
 import { requireStaffAuth } from "@/server/staff-auth";
 
 export async function GET(request: Request) {
-  const authResponse = await requireStaffAuth(request);
+  const auth = await requireStaffAuth(request);
 
-  if (authResponse) {
-    return authResponse;
+  if (auth.response) {
+    return auth.response;
   }
 
-  const orders = await listOrders();
+  const orders = await listOrders(auth.accessToken);
 
   return NextResponse.json({ orders });
 }
@@ -45,10 +45,10 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
-    const authResponse = await requireStaffAuth(request);
+    const auth = await requireStaffAuth(request);
 
-    if (authResponse) {
-      return authResponse;
+    if (auth.response) {
+      return auth.response;
     }
 
     const body = (await request.json()) as {
@@ -68,7 +68,7 @@ export async function PATCH(request: Request) {
       throw new Error("Unsupported order status.");
     }
 
-    const order = await updateOrderStatus(body.id, body.status);
+    const order = await updateOrderStatus(body.id, body.status, auth.accessToken);
 
     return NextResponse.json({ order });
   } catch (error) {

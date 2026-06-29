@@ -125,8 +125,8 @@ export async function createReservation(input: ReservationInput) {
   return reservation;
 }
 
-export async function listReservations() {
-  const supabase = getSupabaseClient();
+export async function listReservations(accessToken?: string) {
+  const supabase = getSupabaseClient(accessToken);
 
   if (!supabase) {
     return demoReservations;
@@ -150,8 +150,9 @@ export async function listReservations() {
 export async function updateReservationStatus(
   id: string,
   status: ReservationStatus,
+  accessToken?: string,
 ) {
-  const supabase = getSupabaseClient();
+  const supabase = getSupabaseClient(accessToken);
 
   if (!supabase) {
     const reservation = demoReservations.find((item) => item.id === id);

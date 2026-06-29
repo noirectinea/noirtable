@@ -42,3 +42,19 @@ Open Supabase SQL Editor and run:
 ```
 
 The SQL file creates `public.reservations` for table requests and staff status updates.
+
+## Staff auth policies
+
+Create a demo staff user in Supabase Authentication first:
+
+```text
+Authentication -> Users -> Add user
+```
+
+Use a demo email that is not your personal email. Then open Supabase SQL Editor and run:
+
+```sql
+-- supabase/staff_auth_policies.sql
+```
+
+Guests can still create orders and reservations. Reading staff data and changing statuses require a signed-in Supabase user.

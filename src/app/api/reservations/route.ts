@@ -9,13 +9,13 @@ import {
 import { requireStaffAuth } from "@/server/staff-auth";
 
 export async function GET(request: Request) {
-  const authResponse = await requireStaffAuth(request);
+  const auth = await requireStaffAuth(request);
 
-  if (authResponse) {
-    return authResponse;
+  if (auth.response) {
+    return auth.response;
   }
 
-  const reservations = await listReservations();
+  const reservations = await listReservations(auth.accessToken);
 
   return NextResponse.json({ reservations });
 }
@@ -46,10 +46,10 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
-    const authResponse = await requireStaffAuth(request);
+    const auth = await requireStaffAuth(request);
 
-    if (authResponse) {
-      return authResponse;
+    if (auth.response) {
+      return auth.response;
     }
 
     const body = (await request.json()) as {
@@ -65,7 +65,11 @@ export async function PATCH(request: Request) {
       throw new Error("Unsupported reservation status.");
     }
 
-    const reservation = await updateReservationStatus(body.id, body.status);
+    const reservation = await updateReservationStatus(
+      body.id,
+      body.status,
+      auth.accessToken,
+    );
 
     return NextResponse.json({ reservation });
   } catch (error) {

@@ -316,8 +316,8 @@ export async function createOrder(input: OrderInput) {
   return order;
 }
 
-export async function listOrders() {
-  const supabase = getSupabaseClient();
+export async function listOrders(accessToken?: string) {
+  const supabase = getSupabaseClient(accessToken);
 
   if (!supabase) {
     return demoOrders;
@@ -338,8 +338,12 @@ export async function listOrders() {
     : demoOrders;
 }
 
-export async function updateOrderStatus(id: string, status: OrderStatus) {
-  const supabase = getSupabaseClient();
+export async function updateOrderStatus(
+  id: string,
+  status: OrderStatus,
+  accessToken?: string,
+) {
+  const supabase = getSupabaseClient(accessToken);
 
   if (!supabase) {
     const order = demoOrders.find((item) => item.id === id);

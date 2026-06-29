@@ -76,6 +76,9 @@ export function StaffLoginPage() {
         <p className="mt-6 max-w-sm text-sm leading-7 text-[#11100d]/66">
           Orders and table requests for the team.
         </p>
+        <p className="mt-4 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/45">
+          Use the staff account created in Supabase.
+        </p>
 
         <form onSubmit={submitLogin} className="mt-10 grid gap-3">
           <input
