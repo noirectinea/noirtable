@@ -6,8 +6,15 @@ import {
   type ReservationStatus,
   updateReservationStatus,
 } from "@/server/reservations";
+import { requireStaffAuth } from "@/server/staff-auth";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const authResponse = await requireStaffAuth(request);
+
+  if (authResponse) {
+    return authResponse;
+  }
+
   const reservations = await listReservations();
 
   return NextResponse.json({ reservations });
@@ -39,6 +46,12 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
+    const authResponse = await requireStaffAuth(request);
+
+    if (authResponse) {
+      return authResponse;
+    }
+
     const body = (await request.json()) as {
       id?: string;
       status?: ReservationStatus;

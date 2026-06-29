@@ -6,8 +6,15 @@ import {
   type OrderInput,
   type OrderStatus,
 } from "@/server/orders";
+import { requireStaffAuth } from "@/server/staff-auth";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const authResponse = await requireStaffAuth(request);
+
+  if (authResponse) {
+    return authResponse;
+  }
+
   const orders = await listOrders();
 
   return NextResponse.json({ orders });
@@ -38,6 +45,12 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   try {
+    const authResponse = await requireStaffAuth(request);
+
+    if (authResponse) {
+      return authResponse;
+    }
+
     const body = (await request.json()) as {
       id?: string;
       status?: OrderStatus;

@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { menuItems } from "@/data/menu";
 import { formatPrice } from "@/lib/cart";
+import { getSupabaseClient } from "@/lib/supabase/client";
 import type { OrderStatus, StoredOrder } from "@/server/orders";
 import type {
   ReservationStatus,
@@ -50,20 +52,34 @@ function formatServiceTime(value: string) {
 }
 
 export function AdminOrdersPage() {
+  const router = useRouter();
   const [orders, setOrders] = useState<StoredOrder[]>([]);
   const [reservations, setReservations] = useState<StoredReservation[]>([]);
   const [activeOrderFilter, setActiveOrderFilter] =
     useState<"all" | OrderStatus>("all");
   const [status, setStatus] = useState("Loading orders...");
   const [updatingId, setUpdatingId] = useState("");
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
-    async function loadOrders() {
+    async function loadOrders(token: string) {
       try {
         const [ordersResponse, reservationsResponse] = await Promise.all([
-          fetch("/api/orders", { cache: "no-store" }),
-          fetch("/api/reservations", { cache: "no-store" }),
+          fetch("/api/orders", {
+            cache: "no-store",
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch("/api/reservations", {
+            cache: "no-store",
+            headers: { Authorization: `Bearer ${token}` },
+          }),
         ]);
+
+        if (ordersResponse.status === 401 || reservationsResponse.status === 401) {
+          router.replace("/staff/login");
+          return;
+        }
+
         const ordersResult = (await ordersResponse.json()) as {
           orders?: StoredOrder[];
         };
@@ -79,8 +95,35 @@ export function AdminOrdersPage() {
       }
     }
 
-    loadOrders();
-  }, []);
+    async function checkStaffSession() {
+      const supabase = getSupabaseClient();
+
+      if (!supabase) {
+        setStatus("Staff login is not configured.");
+        return;
+      }
+
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+
+      if (!token) {
+        router.replace("/staff/login");
+        return;
+      }
+
+      setAccessToken(token);
+      await loadOrders(token);
+    }
+
+    checkStaffSession();
+  }, [router]);
+
+  async function signOut() {
+    const supabase = getSupabaseClient();
+
+    await supabase?.auth.signOut();
+    router.replace("/staff/login");
+  }
 
   async function updateOrder(id: string, nextStatus: OrderStatus) {
     setUpdatingId(id);
@@ -88,7 +131,10 @@ export function AdminOrdersPage() {
     try {
       const response = await fetch("/api/orders", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ id, status: nextStatus }),
       });
       const result = (await response.json()) as {
@@ -121,7 +167,10 @@ export function AdminOrdersPage() {
     try {
       const response = await fetch("/api/reservations", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ id, status: nextStatus }),
       });
       const result = (await response.json()) as {
@@ -162,6 +211,9 @@ export function AdminOrdersPage() {
         <nav className="flex gap-7">
           <Link href="/menu">Menu</Link>
           <Link href="/case-study">Journal</Link>
+          <button type="button" onClick={signOut}>
+            Logout
+          </button>
         </nav>
       </header>
 
