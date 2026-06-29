@@ -117,6 +117,10 @@ function MenuCard({
   );
 }
 
+function sanitizePhone(value: string) {
+  return value.replace(/[^\d+\-() ]/g, "");
+}
+
 export function FoodOrderingPage() {
   const [reservationName, setReservationName] = useState("");
   const [reservationPhone, setReservationPhone] = useState("");
@@ -381,14 +385,18 @@ export function FoodOrderingPage() {
                 />
                 <input
                   value={reservationPhone}
-                  onChange={(event) => setReservationPhone(event.target.value)}
+                  onChange={(event) =>
+                    setReservationPhone(sanitizePhone(event.target.value))
+                  }
                   placeholder="Phone"
+                  type="tel"
+                  inputMode="tel"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
                 />
                 <input
                   value={reservationTime}
                   onChange={(event) => setReservationTime(event.target.value)}
-                  placeholder="Preferred time"
+                  placeholder="From 19:00 to 21:00"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
                 />
                 <select

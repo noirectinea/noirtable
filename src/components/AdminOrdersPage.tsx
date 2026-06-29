@@ -203,6 +203,9 @@ export function AdminOrdersPage() {
   const revenue = orders
     .filter((order) => order.status !== "canceled")
     .reduce((sum, order) => sum + order.total, 0);
+  const activeReservations = reservations.filter(
+    (reservation) => reservation.status !== "declined",
+  );
 
   return (
     <main className="min-h-screen bg-[#e7dfd2] text-[#11100d]">
@@ -235,7 +238,7 @@ export function AdminOrdersPage() {
             {[
               ["Orders", orders.length],
               ["Revenue", formatPrice(revenue)],
-              ["Reservations", reservations.length],
+              ["Reservations", activeReservations.length],
               [
                 "Open",
                 orders.filter((order) =>
@@ -405,12 +408,12 @@ export function AdminOrdersPage() {
             Table requests
           </h2>
           <div className="mt-8 grid gap-4">
-            {reservations.length === 0 ? (
+            {activeReservations.length === 0 ? (
               <p className="border border-[#2d261f]/15 p-5 text-sm text-[#1f1a15]/64">
                 No table requests yet.
               </p>
             ) : null}
-            {reservations.slice(0, 6).map((reservation) => (
+            {activeReservations.slice(0, 6).map((reservation) => (
               <article key={reservation.id} className="border border-[#2d261f]/15 p-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>

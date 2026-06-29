@@ -13,6 +13,10 @@ function createDemoOrderId() {
   return `NT-${Date.now().toString().slice(-6)}`;
 }
 
+function sanitizePhone(value: string) {
+  return value.replace(/[^\d+\-() ]/g, "");
+}
+
 type OrderResponse = {
   orderId?: string;
   total?: number;
@@ -165,8 +169,10 @@ export function CheckoutPage() {
                 />
                 <input
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={(event) => setPhone(sanitizePhone(event.target.value))}
                   placeholder="Phone"
+                  type="tel"
+                  inputMode="tel"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
                 />
                 <div className="grid grid-cols-2 border border-[#2d261f]/18 text-[9px] font-semibold uppercase tracking-[0.3em]">
