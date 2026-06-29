@@ -22,3 +22,13 @@ Open Supabase SQL Editor and run:
 ```
 
 The SQL file creates `public.menu_items`, enables RLS, adds a public read policy for active menu items, and seeds the current Noirtable menu.
+
+## Orders
+
+Open Supabase SQL Editor and run:
+
+```sql
+-- supabase/orders.sql
+```
+
+The SQL file creates `public.orders` and `public.order_items` for the checkout and staff desk demo flow.

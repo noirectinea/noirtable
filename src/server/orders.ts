@@ -1,10 +1,12 @@
-import { mkdir, readFile, writeFile } from "fs/promises";
-import path from "path";
 import { menuItems } from "@/data/menu";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 export type OrderInputLine = {
   id: number;
   quantity: number;
+  name?: string;
+  category?: string;
+  price?: number;
 };
 
 export type OrderInput = {
@@ -47,8 +49,6 @@ export type OrderStatus =
   | "preparing"
   | "completed"
   | "canceled";
-
-const ordersPath = path.join(process.cwd(), ".data", "orders.json");
 
 const demoOrders: StoredOrder[] = [
   {
@@ -161,20 +161,54 @@ function createOrderId() {
   return `NT-${Date.now().toString(36).toUpperCase()}`;
 }
 
-async function readOrders() {
-  try {
-    const file = await readFile(ordersPath, "utf8");
-    const orders = JSON.parse(file) as StoredOrder[];
+type OrderItemRow = {
+  menu_item_id: number;
+  name: string;
+  category: string;
+  price: number | string;
+  quantity: number;
+  line_total: number | string;
+};
 
-    return orders.length > 0 ? orders : demoOrders;
-  } catch {
-    return demoOrders;
-  }
-}
+type OrderRow = {
+  id: string;
+  created_at: string;
+  status: OrderStatus;
+  guest_name: string;
+  phone: string;
+  address: string | null;
+  fulfillment: "Delivery" | "Pickup";
+  note: string | null;
+  subtotal: number | string;
+  service_fee: number | string;
+  delivery_fee: number | string;
+  total: number | string;
+  order_items?: OrderItemRow[];
+};
 
-async function writeOrders(orders: StoredOrder[]) {
-  await mkdir(path.dirname(ordersPath), { recursive: true });
-  await writeFile(ordersPath, JSON.stringify(orders, null, 2));
+function toStoredOrder(row: OrderRow): StoredOrder {
+  return {
+    id: row.id,
+    createdAt: row.created_at,
+    status: row.status,
+    guestName: row.guest_name,
+    phone: row.phone,
+    address: row.address ?? "",
+    fulfillment: row.fulfillment,
+    note: row.note ?? "",
+    items: (row.order_items ?? []).map((item) => ({
+      id: item.menu_item_id,
+      name: item.name,
+      category: item.category,
+      price: Number(item.price),
+      quantity: item.quantity,
+      lineTotal: Number(item.line_total),
+    })),
+    subtotal: Number(row.subtotal),
+    serviceFee: Number(row.service_fee),
+    deliveryFee: Number(row.delivery_fee),
+    total: Number(row.total),
+  };
 }
 
 export function prepareOrder(input: OrderInput): StoredOrder {
@@ -197,23 +231,27 @@ export function prepareOrder(input: OrderInput): StoredOrder {
     const menuItem = menuItems.find((item) => item.id === line.id);
     const quantity = Math.max(1, Math.min(20, Math.trunc(line.quantity)));
 
-    if (!menuItem) {
+    if (!menuItem && (!line.name || !line.price)) {
       throw new Error(`Unknown menu item: ${line.id}.`);
     }
 
+    const name = line.name ?? menuItem!.name;
+    const category = line.category ?? menuItem!.category;
+    const price = Number(line.price ?? menuItem!.price);
+
     return {
-      id: menuItem.id,
-      name: menuItem.name,
-      category: menuItem.category,
-      price: menuItem.price,
+      id: line.id,
+      name,
+      category,
+      price,
       quantity,
-      lineTotal: menuItem.price * quantity,
+      lineTotal: price * quantity,
     };
   });
 
   const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
-  const serviceFee = Math.round(subtotal * 0.08);
-  const deliveryFee = fulfillment === "Delivery" ? 6 : 0;
+  const serviceFee = fulfillment === "Pickup" ? 4 : 0;
+  const deliveryFee = fulfillment === "Delivery" ? 7 : 0;
 
   return {
     id: createOrderId(),
@@ -234,27 +272,95 @@ export function prepareOrder(input: OrderInput): StoredOrder {
 
 export async function createOrder(input: OrderInput) {
   const order = prepareOrder(input);
-  const orders = await readOrders();
+  const supabase = getSupabaseClient();
 
-  await writeOrders([order, ...orders].slice(0, 100));
+  if (!supabase) {
+    return order;
+  }
+
+  const { error: orderError } = await supabase.from("orders").insert({
+    id: order.id,
+    created_at: order.createdAt,
+    status: order.status,
+    guest_name: order.guestName,
+    phone: order.phone,
+    address: order.address || null,
+    fulfillment: order.fulfillment,
+    note: order.note || null,
+    subtotal: order.subtotal,
+    service_fee: order.serviceFee,
+    delivery_fee: order.deliveryFee,
+    total: order.total,
+  });
+
+  if (orderError) {
+    throw new Error(orderError.message);
+  }
+
+  const { error: itemsError } = await supabase.from("order_items").insert(
+    order.items.map((item) => ({
+      order_id: order.id,
+      menu_item_id: item.id,
+      name: item.name,
+      category: item.category,
+      price: item.price,
+      quantity: item.quantity,
+      line_total: item.lineTotal,
+    })),
+  );
+
+  if (itemsError) {
+    throw new Error(itemsError.message);
+  }
 
   return order;
 }
 
 export async function listOrders() {
-  return readOrders();
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return demoOrders;
+  }
+
+  const { data, error } = await supabase
+    .from("orders")
+    .select("*, order_items(*)")
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (error) {
+    return demoOrders;
+  }
+
+  return data.length > 0
+    ? data.map((row) => toStoredOrder(row as OrderRow))
+    : demoOrders;
 }
 
 export async function updateOrderStatus(id: string, status: OrderStatus) {
-  const orders = await readOrders();
-  const order = orders.find((item) => item.id === id);
+  const supabase = getSupabaseClient();
 
-  if (!order) {
-    throw new Error("Order not found.");
+  if (!supabase) {
+    const order = demoOrders.find((item) => item.id === id);
+
+    if (!order) {
+      throw new Error("Order not found.");
+    }
+
+    return { ...order, status };
   }
 
-  order.status = status;
-  await writeOrders(orders);
+  const { data, error } = await supabase
+    .from("orders")
+    .update({ status })
+    .eq("id", id)
+    .select("*, order_items(*)")
+    .single();
 
-  return order;
+  if (error || !data) {
+    throw new Error(error?.message ?? "Order not found.");
+  }
+
+  return toStoredOrder(data as OrderRow);
 }

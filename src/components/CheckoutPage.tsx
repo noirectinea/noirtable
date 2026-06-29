@@ -13,6 +13,19 @@ function createDemoOrderId() {
   return `NT-${Date.now().toString().slice(-6)}`;
 }
 
+type OrderResponse = {
+  orderId?: string;
+  total?: number;
+  order?: {
+    id: string;
+    total: number;
+    fulfillment: ServiceMethod;
+    address: string;
+    note: string;
+  };
+  message?: string;
+};
+
 export function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
@@ -44,7 +57,33 @@ export function CheckoutPage() {
     setStatus("");
 
     try {
-      const orderId = createDemoOrderId();
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          guestName,
+          phone,
+          address: serviceMethod === "Delivery" ? deliveryAddress : "",
+          fulfillment: serviceMethod,
+          note: [pickupTime ? `Preferred pickup: ${pickupTime}` : "", deliveryNote, note]
+            .filter(Boolean)
+            .join(" / "),
+          items: items.map((item) => ({
+            id: item.id,
+            name: item.name,
+            category: item.category,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+      const result = (await response.json()) as OrderResponse;
+
+      if (!response.ok || !result.orderId) {
+        throw new Error(result.message ?? "Could not place the order.");
+      }
+
+      const orderId = result.orderId ?? createDemoOrderId();
       const serviceDetail =
         serviceMethod === "Delivery"
           ? deliveryAddress
@@ -56,7 +95,7 @@ export function CheckoutPage() {
         LAST_ORDER_KEY,
         JSON.stringify({
           orderId,
-          total,
+          total: result.total ?? total,
           serviceMethod,
           serviceDetail,
           deliveryNote,
@@ -75,14 +114,14 @@ export function CheckoutPage() {
 
       const successParams = new URLSearchParams({
         order: orderId,
-        total: String(total),
+        total: String(result.total ?? total),
         method: serviceMethod,
       });
 
       clearCart();
       router.push(`/order/success?${successParams.toString()}`);
-    } catch {
-      setStatus("Could not prepare the order.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Could not place the order.");
     } finally {
       setIsSubmitting(false);
     }
