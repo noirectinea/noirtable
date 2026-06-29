@@ -170,7 +170,7 @@ export function CheckoutPage() {
                 <input
                   value={phone}
                   onChange={(event) => setPhone(sanitizePhone(event.target.value))}
-                  placeholder="Phone"
+                  placeholder="+1 phone number"
                   type="tel"
                   inputMode="tel"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"

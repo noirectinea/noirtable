@@ -388,17 +388,25 @@ export function FoodOrderingPage() {
                   onChange={(event) =>
                     setReservationPhone(sanitizePhone(event.target.value))
                   }
-                  placeholder="Phone"
+                  placeholder="+1 phone number"
                   type="tel"
                   inputMode="tel"
                   className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
                 />
-                <input
+                <select
                   value={reservationTime}
                   onChange={(event) => setReservationTime(event.target.value)}
-                  placeholder="From 19:00 to 21:00"
-                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none placeholder:text-[#11100d]/70 focus:border-[#11100d]/45"
-                />
+                  className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] outline-none focus:border-[#11100d]/45"
+                >
+                  <option value="">Reservation time</option>
+                  <option>17:00</option>
+                  <option>18:00</option>
+                  <option>19:00</option>
+                  <option>20:00</option>
+                  <option>21:00</option>
+                  <option>22:00</option>
+                  <option>23:00</option>
+                </select>
                 <select
                   value={reservationParty}
                   onChange={(event) => setReservationParty(event.target.value)}
