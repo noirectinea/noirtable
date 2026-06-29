@@ -1,5 +1,4 @@
-import { mkdir, readFile, writeFile } from "fs/promises";
-import path from "path";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 export type ReservationInput = {
   guestName?: string;
@@ -21,8 +20,6 @@ export type StoredReservation = {
 };
 
 export type ReservationStatus = "new" | "confirmed" | "declined";
-
-const reservationsPath = path.join(process.cwd(), ".data", "reservations.json");
 
 const demoReservations: StoredReservation[] = [
   {
@@ -61,20 +58,28 @@ function createReservationId() {
   return `RS-${Date.now().toString(36).toUpperCase()}`;
 }
 
-async function readReservations() {
-  try {
-    const file = await readFile(reservationsPath, "utf8");
-    const reservations = JSON.parse(file) as StoredReservation[];
+type ReservationRow = {
+  id: string;
+  created_at: string;
+  status: ReservationStatus;
+  guest_name: string;
+  phone: string;
+  party_size: string;
+  preferred_time: string;
+  note: string | null;
+};
 
-    return reservations.length > 0 ? reservations : demoReservations;
-  } catch {
-    return demoReservations;
-  }
-}
-
-async function writeReservations(reservations: StoredReservation[]) {
-  await mkdir(path.dirname(reservationsPath), { recursive: true });
-  await writeFile(reservationsPath, JSON.stringify(reservations, null, 2));
+function toStoredReservation(row: ReservationRow): StoredReservation {
+  return {
+    id: row.id,
+    createdAt: row.created_at,
+    status: row.status,
+    guestName: row.guest_name,
+    phone: row.phone,
+    partySize: row.party_size,
+    preferredTime: row.preferred_time,
+    note: row.note ?? "",
+  };
 }
 
 export function prepareReservation(input: ReservationInput): StoredReservation {
@@ -96,30 +101,78 @@ export function prepareReservation(input: ReservationInput): StoredReservation {
 
 export async function createReservation(input: ReservationInput) {
   const reservation = prepareReservation(input);
-  const reservations = await readReservations();
+  const supabase = getSupabaseClient();
 
-  await writeReservations([reservation, ...reservations].slice(0, 100));
+  if (!supabase) {
+    return reservation;
+  }
+
+  const { error } = await supabase.from("reservations").insert({
+    id: reservation.id,
+    created_at: reservation.createdAt,
+    status: reservation.status,
+    guest_name: reservation.guestName,
+    phone: reservation.phone,
+    party_size: reservation.partySize,
+    preferred_time: reservation.preferredTime,
+    note: reservation.note || null,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
 
   return reservation;
 }
 
 export async function listReservations() {
-  return readReservations();
+  const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return demoReservations;
+  }
+
+  const { data, error } = await supabase
+    .from("reservations")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (error) {
+    return demoReservations;
+  }
+
+  return data.length > 0
+    ? data.map((row) => toStoredReservation(row as ReservationRow))
+    : demoReservations;
 }
 
 export async function updateReservationStatus(
   id: string,
   status: ReservationStatus,
 ) {
-  const reservations = await readReservations();
-  const reservation = reservations.find((item) => item.id === id);
+  const supabase = getSupabaseClient();
 
-  if (!reservation) {
-    throw new Error("Reservation not found.");
+  if (!supabase) {
+    const reservation = demoReservations.find((item) => item.id === id);
+
+    if (!reservation) {
+      throw new Error("Reservation not found.");
+    }
+
+    return { ...reservation, status };
   }
 
-  reservation.status = status;
-  await writeReservations(reservations);
+  const { data, error } = await supabase
+    .from("reservations")
+    .update({ status })
+    .eq("id", id)
+    .select("*")
+    .single();
 
-  return reservation;
+  if (error || !data) {
+    throw new Error(error?.message ?? "Reservation not found.");
+  }
+
+  return toStoredReservation(data as ReservationRow);
 }

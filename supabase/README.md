@@ -32,3 +32,13 @@ Open Supabase SQL Editor and run:
 ```
 
 The SQL file creates `public.orders` and `public.order_items` for the checkout and staff desk demo flow.
+
+## Reservations
+
+Open Supabase SQL Editor and run:
+
+```sql
+-- supabase/reservations.sql
+```
+
+The SQL file creates `public.reservations` for table requests and staff status updates.
