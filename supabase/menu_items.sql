@@ -1,0 +1,98 @@
+create table if not exists public.menu_items (
+  id integer primary key,
+  sort_order integer not null default 0,
+  name text not null,
+  category text not null check (category in ('Starters', 'Signature', 'Pasta', 'Seafood', 'Grill', 'Desserts', 'Drinks')),
+  description text not null,
+  price numeric(10, 2) not null check (price >= 0),
+  prep_time text not null,
+  badge text,
+  image text,
+  active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.menu_items enable row level security;
+
+drop policy if exists public_menu_items_read on public.menu_items;
+create policy public_menu_items_read
+  on public.menu_items
+  for select
+  using (active = true);
+
+insert into public.menu_items (
+  id, sort_order, name, category, description, price, prep_time, badge, image, active
+) values
+  (1, 1, 'Oyster Royale', 'Starters', 'Chilled oysters, yuzu pearls, champagne mignonette.', 24.00, '10 min', 'Fresh', '/images/menu-card-fast/dish-01-oyster-royale.jpg', true),
+  (2, 2, 'Truffle Beef Tartare', 'Starters', 'Hand-cut beef, cured yolk, black truffle, grilled sourdough.', 22.00, '12 min', 'Chef pick', '/images/menu-card-fast/dish-02-truffle-beef-tartare.jpg', true),
+  (3, 3, 'Burrata Noir', 'Starters', 'Creamy burrata, fig balsamic, basil oil, toasted pistachio.', 18.00, '9 min', null, '/images/menu-card-fast/dish-03-burrata-noir.jpg', true),
+  (4, 4, 'Charred Octopus', 'Starters', 'Smoked paprika oil, potato silk, lemon ash.', 26.00, '16 min', null, '/images/menu-card-fast/dish-04-charred-octopus.jpg', true),
+  (5, 5, 'Caviar Blini', 'Starters', 'Buckwheat blini, creme fraiche, Oscietra caviar.', 38.00, '8 min', 'Luxury', '/images/generated-dishes-fast/drink.jpg', true),
+  (6, 6, 'Amber Tomato Salad', 'Starters', 'Heirloom tomatoes, smoked salt, aged sherry vinegar.', 15.00, '7 min', null, '/images/generated-dishes-fast/pasta.jpg', true),
+  (7, 7, 'Saffron Arancini', 'Starters', 'Crisp risotto, saffron, mozzarella, tomato velvet.', 16.00, '14 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (8, 8, 'Tuna Crudo', 'Starters', 'Bluefin tuna, bergamot, chili oil, shaved fennel.', 25.00, '10 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (9, 9, 'Black Garlic Hummus', 'Starters', 'Black garlic, sesame crunch, warm flatbread.', 14.00, '8 min', null, '/images/generated-dishes-fast/dessert.jpg', true),
+  (10, 10, 'Foie Gras Toast', 'Starters', 'Brioche, fig jam, sea salt, port reduction.', 29.00, '11 min', 'Limited', '/images/generated-dishes-fast/drink.jpg', true),
+  (11, 11, 'Truffle Ribeye', 'Signature', 'Dry-aged ribeye, black truffle jus, smoked sea salt.', 42.00, '28 min', 'Signature', '/images/generated-dishes-fast/pasta.jpg', true),
+  (12, 12, 'Midnight Duck', 'Signature', 'Crisp duck breast, cherry gastrique, celery root cream.', 39.00, '26 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (13, 13, 'Wagyu Slider Trio', 'Signature', 'A5 wagyu, brioche, onion jam, aged cheddar.', 34.00, '18 min', 'Popular', '/images/generated-dishes-fast/seafood.jpg', true),
+  (14, 14, 'Gold Leaf Risotto', 'Signature', 'Acquerello rice, parmesan cream, edible gold.', 31.00, '24 min', null, '/images/menu-card-fast/dish-05-gold-leaf-risotto.jpg', true),
+  (15, 15, 'Lamb Crown', 'Signature', 'Herb-crusted lamb, rosemary jus, confit garlic.', 44.00, '30 min', null, '/images/menu-card-fast/dish-06-lamb-crown.jpg', true),
+  (16, 16, 'Noir Burger', 'Signature', 'Black brioche, short rib patty, truffle aioli, comte.', 27.00, '19 min', null, '/images/menu-card-fast/dish-07-noir-burger.jpg', true),
+  (17, 17, 'Private Table Steak', 'Signature', 'Filet mignon, peppercorn sauce, potato pave.', 46.00, '27 min', 'Premium', '/images/menu-card-fast/dish-08-private-table-steak.jpg', true),
+  (18, 18, 'Saffron Lobster Pasta', 'Pasta', 'Handmade linguine, lobster butter, Calabrian chili.', 36.00, '22 min', 'Chef pick', '/images/menu-card-fast/dish-09-saffron-lobster-pasta.jpg', true),
+  (19, 19, 'Porcini Tagliatelle', 'Pasta', 'Wild porcini, brown butter, parmesan snow.', 24.00, '18 min', null, '/images/menu-card-fast/dish-10-porcini-tagliatelle.jpg', true),
+  (20, 20, 'Short Rib Pappardelle', 'Pasta', 'Slow-braised beef, red wine ragu, fresh herbs.', 28.00, '20 min', null, '/images/menu-card-fast/dish-11-short-rib-pappardelle.jpg', true),
+  (21, 21, 'Caviar Carbonara', 'Pasta', 'Guanciale, pecorino, egg yolk, caviar finish.', 33.00, '19 min', 'Luxury', '/images/generated-dishes-fast/pasta.jpg', true),
+  (22, 22, 'Pumpkin Ravioli', 'Pasta', 'Roasted pumpkin, sage butter, amaretti crumble.', 23.00, '18 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (23, 23, 'Spicy Crab Rigatoni', 'Pasta', 'Blue crab, tomato cream, chili, basil.', 29.00, '21 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (24, 24, 'Lemon Ricotta Gnocchi', 'Pasta', 'Cloud gnocchi, lemon butter, crispy capers.', 22.00, '17 min', null, '/images/generated-dishes-fast/dessert.jpg', true),
+  (25, 25, 'Charred Citrus Salmon', 'Seafood', 'Miso glaze, fennel salad, burnt orange reduction.', 29.00, '21 min', 'Popular', '/images/generated-dishes-fast/drink.jpg', true),
+  (26, 26, 'Seared Scallops', 'Seafood', 'Diver scallops, cauliflower silk, caper beurre blanc.', 32.00, '18 min', null, '/images/generated-dishes-fast/pasta.jpg', true),
+  (27, 27, 'Lobster Thermidor', 'Seafood', 'Maine lobster, mustard cream, gruyere crust.', 48.00, '30 min', 'Premium', '/images/generated-dishes-fast/beef.jpg', true),
+  (28, 28, 'Sea Bass Amandine', 'Seafood', 'Crisp sea bass, almond butter, parsley lemon.', 35.00, '24 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (29, 29, 'King Prawn Skewers', 'Seafood', 'Charcoal prawns, chili honey, lime aioli.', 26.00, '17 min', null, '/images/generated-dishes-fast/dessert.jpg', true),
+  (30, 30, 'Black Cod Miso', 'Seafood', 'Silky black cod, sweet miso, pickled cucumber.', 41.00, '25 min', null, '/images/generated-dishes-fast/drink.jpg', true),
+  (31, 31, 'Tomahawk for Two', 'Grill', 'Charcoal tomahawk, bone marrow butter, house salts.', 86.00, '35 min', 'Share', '/images/generated-dishes-fast/pasta.jpg', true),
+  (32, 32, 'Smoked Chicken Supreme', 'Grill', 'Corn-fed chicken, smoked jus, crispy skin.', 28.00, '24 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (33, 33, 'Ember Lamb Chops', 'Grill', 'Charred lamb, mint chimichurri, lemon yogurt.', 37.00, '25 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (34, 34, 'Aged Striploin', 'Grill', 'New York strip, red wine glaze, roasted shallot.', 43.00, '27 min', null, '/images/generated-dishes-fast/dessert.jpg', true),
+  (35, 35, 'Harissa Cauliflower', 'Grill', 'Whole roasted cauliflower, tahini, pomegranate.', 21.00, '23 min', null, '/images/generated-dishes-fast/drink.jpg', true),
+  (36, 36, 'Charcoal Short Ribs', 'Grill', 'Sticky short ribs, black pepper glaze, scallion.', 36.00, '29 min', null, '/images/generated-dishes-fast/pasta.jpg', true),
+  (37, 37, 'Chocolate Souffle', 'Desserts', 'Dark chocolate, vanilla cream, sea salt caramel.', 16.00, '18 min', 'Classic', '/images/generated-dishes-fast/beef.jpg', true),
+  (38, 38, 'Pistachio Paris-Brest', 'Desserts', 'Choux pastry, pistachio praline, cream.', 15.00, '12 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (39, 39, 'Tiramisu 24K', 'Desserts', 'Espresso, mascarpone, cocoa, gold dust.', 17.00, '8 min', null, '/images/menu-card-fast/dish-19-tiramisu-24k.jpg', true),
+  (40, 40, 'Burnt Basque Cheesecake', 'Desserts', 'Caramelized top, vanilla, berry compote.', 14.00, '7 min', null, '/images/generated-dishes-fast/drink.jpg', true),
+  (41, 41, 'Rose Panna Cotta', 'Desserts', 'Rose cream, raspberry glass, pistachio.', 13.00, '6 min', null, '/images/generated-dishes-fast/pasta.jpg', true),
+  (42, 42, 'Black Forest Mille-Feuille', 'Desserts', 'Cherry, chocolate cream, crisp pastry layers.', 16.00, '10 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (43, 43, 'Midnight Espresso', 'Drinks', 'Double espresso, dark chocolate aroma.', 7.00, '5 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (44, 44, 'Golden Negroni', 'Drinks', 'Gin, bitter aperitivo, white vermouth, citrus oil.', 18.00, '6 min', 'Bar', '/images/generated-dishes-fast/dessert.jpg', true),
+  (45, 45, 'Fig Old Fashioned', 'Drinks', 'Bourbon, fig syrup, walnut bitters.', 19.00, '6 min', null, '/images/generated-dishes-fast/drink.jpg', true),
+  (46, 46, 'Champagne Citrus', 'Drinks', 'Champagne, bergamot, elderflower, mint.', 21.00, '5 min', null, '/images/generated-dishes-fast/pasta.jpg', true),
+  (47, 47, 'Noir Spritz', 'Drinks', 'Aperitif, prosecco, soda, grapefruit peel.', 16.00, '5 min', null, '/images/generated-dishes-fast/beef.jpg', true),
+  (48, 48, 'Smoked Pear Sour', 'Drinks', 'Pear brandy, lemon, smoked honey, foam.', 18.00, '7 min', null, '/images/generated-dishes-fast/seafood.jpg', true),
+  (49, 49, 'Cucumber Basil Fizz', 'Drinks', 'Cucumber, basil, lime, sparkling mineral water.', 12.00, '5 min', null, '/images/generated-dishes-fast/dessert.jpg', true),
+  (50, 50, 'Reserve Water', 'Drinks', 'Still or sparkling mineral water, chilled tableside.', 6.00, '2 min', null, '/images/menu-card-fast/dish-24-reserve-water.jpg', true),
+  (51, 51, 'Cacio e Pepe', 'Pasta', 'Tonnarelli, pecorino romano, black pepper.', 22.00, '18 min', null, '/images/menu-card-fast/dish-12-cacio-e-pepe.jpg', true),
+  (52, 52, 'Broccolini', 'Starters', 'Charred broccolini, lemon, chili, olive oil.', 9.00, '8 min', null, '/images/menu-card-fast/dish-13-broccolini.jpg', true),
+  (53, 53, 'Roasted Mushrooms', 'Starters', 'Market mushrooms, garlic butter, parsley.', 9.00, '8 min', null, '/images/menu-card-fast/dish-14-roasted-mushrooms.jpg', true),
+  (54, 54, 'Truffle Fries', 'Starters', 'Thin fries, parmesan, black truffle salt.', 11.00, '9 min', null, '/images/menu-card-fast/dish-15-truffle-fries.jpg', true),
+  (55, 55, 'House Bread', 'Starters', 'Warm sliced bread, cultured butter.', 5.00, '-', null, '/images/menu-card-fast/dish-16-house-bread.jpg', true),
+  (56, 56, 'Dark Chocolate Torte', 'Desserts', 'Dense chocolate, cocoa, sea salt.', 14.00, '10 min', null, '/images/menu-card-fast/dish-17-dark-chocolate-torte.jpg', true),
+  (57, 57, 'Panna Cotta', 'Desserts', 'Vanilla cream, red fruit, light syrup.', 12.00, '10 min', null, '/images/menu-card-fast/dish-18-panna-cotta.jpg', true),
+  (58, 58, 'Seasonal Gelato', 'Desserts', 'Small-batch gelato, crumble, olive oil.', 9.00, '8 min', null, '/images/menu-card-fast/dish-20-seasonal-gelato.jpg', true),
+  (59, 59, 'Reserve Negroni', 'Drinks', 'Gin, bitter aperitivo, vermouth, orange.', 16.00, '5 min', null, '/images/menu-card-fast/dish-21-reserve-negroni.jpg', true),
+  (60, 60, 'White by the Glass', 'Drinks', 'Seasonal white wine by the glass.', 14.00, '5 min', null, '/images/menu-card-fast/dish-22-white-by-the-glass.jpg', true),
+  (61, 61, 'Red by the Glass', 'Drinks', 'Seasonal red wine by the glass.', 15.00, '5 min', null, '/images/menu-card-fast/dish-23-red-by-the-glass.jpg', true)
+on conflict (id) do update set
+  sort_order = excluded.sort_order,
+  name = excluded.name,
+  category = excluded.category,
+  description = excluded.description,
+  price = excluded.price,
+  prep_time = excluded.prep_time,
+  badge = excluded.badge,
+  image = excluded.image,
+  active = excluded.active,
+  updated_at = now();

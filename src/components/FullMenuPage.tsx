@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { menuItems, type MenuItem } from "@/data/menu";
+import { menuItems as localMenuItems, type MenuItem } from "@/data/menu";
 import { formatPrice, useCart } from "@/lib/cart";
 import { MobileNav } from "@/components/MobileNav";
 import { NoirtableMark } from "@/components/NoirtableMark";
@@ -80,8 +80,10 @@ const fullMenuEntries: FullMenuEntry[] = [
   { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-card-fast/dish-24-reserve-water.jpg", displayTime: "2 min" },
 ];
 
-function getItem(entry: FullMenuEntry) {
-  const item = menuItems.find((menuItem) => menuItem.id === entry.itemId);
+function getItem(entry: FullMenuEntry, menuItems: MenuItem[]) {
+  const item =
+    menuItems.find((menuItem) => menuItem.id === entry.itemId) ??
+    localMenuItems.find((menuItem) => menuItem.id === entry.itemId);
 
   if (!item) {
     throw new Error(`Missing menu item ${entry.itemId}`);
@@ -328,12 +330,21 @@ function DetailModal({
   );
 }
 
-export function FullMenuPage() {
+type FullMenuPageProps = {
+  menuItems?: MenuItem[];
+  menuDataError?: string | null;
+};
+
+export function FullMenuPage({
+  menuItems = localMenuItems,
+  menuDataError = null,
+}: FullMenuPageProps) {
   const [selectedEntry, setSelectedEntry] = useState<FullMenuEntry | null>(null);
   const [activeSection, setActiveSection] = useState<"All" | MenuSection>("All");
   const { addItem, removeItem, items, itemCount } = useCart();
+  const currentMenuItems = menuItems.length > 0 ? menuItems : localMenuItems;
 
-  const selectedItem = selectedEntry ? getItem(selectedEntry) : null;
+  const selectedItem = selectedEntry ? getItem(selectedEntry, currentMenuItems) : null;
   const visibleEntries = useMemo(
     () =>
       activeSection === "All"
@@ -434,6 +445,12 @@ export function FullMenuPage() {
           </p>
         </section>
 
+        {menuDataError ? (
+          <p className="border-b border-[#2d261f]/15 px-6 py-3 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/48 lg:px-16">
+            Live menu is preparing. Showing the printed menu.
+          </p>
+        ) : null}
+
         <div className="px-6 py-8 lg:px-16">
           <h2 className="border-b border-[#2d261f]/15 pb-3 text-[9px] font-semibold uppercase tracking-[0.36em]">
             {activeSection === "All" ? "All dishes" : activeSection}
@@ -443,7 +460,7 @@ export function FullMenuPage() {
               <FullMenuCard
                 key={entry.index}
                 entry={entry}
-                item={getItem(entry)}
+                item={getItem(entry, currentMenuItems)}
                 onView={setSelectedEntry}
                 onAdd={addItem}
                 onRemove={removeItem}

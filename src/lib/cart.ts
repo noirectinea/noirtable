@@ -6,6 +6,7 @@ import { menuItems, type MenuItem } from "@/data/menu";
 export type CartEntry = {
   id: number;
   quantity: number;
+  item?: MenuItem;
 };
 
 export type CartItem = MenuItem & {
@@ -55,7 +56,8 @@ export function useCart() {
     () =>
       entries
         .map((entry) => {
-          const item = menuItems.find((menuItem) => menuItem.id === entry.id);
+          const item =
+            entry.item ?? menuItems.find((menuItem) => menuItem.id === entry.id);
           return item ? { ...item, quantity: entry.quantity } : null;
         })
         .filter((item): item is CartItem => item !== null),
@@ -74,7 +76,7 @@ export function useCart() {
     const existingItem = entries.find((entry) => entry.id === item.id);
 
     if (!existingItem) {
-      update([...entries, { id: item.id, quantity: 1 }]);
+      update([...entries, { id: item.id, quantity: 1, item }]);
       return;
     }
 
