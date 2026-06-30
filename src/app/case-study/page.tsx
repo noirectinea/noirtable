@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { CaseStudyPage } from "@/components/CaseStudyPage";
 
 export const metadata: Metadata = {
-  title: "Noirtable Case Study | Restaurant Website",
+  title: "Noirtable Notes | Restaurant Website",
   description:
-    "A restaurant website case study with ordering, reservations, checkout, and staff desk.",
+    "Notes on a small restaurant website with menu, reservations, checkout, and staff desk.",
 };
 
 export default function CaseStudy() {

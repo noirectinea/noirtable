@@ -165,10 +165,10 @@ export function FoodOrderingPage() {
       setReservationTime("");
       setReservationParty("2 guests");
       setReservationStatus(
-        `${result.reservationId} is on the evening list. We will call to confirm.`,
+        `${result.reservationId} is on tonight's list. We will call to confirm.`,
       );
     } catch {
-      setReservationStatus("Reservation service unavailable.");
+      setReservationStatus("The phone is quiet right now. Try again soon.");
     } finally {
       setIsReservationSubmitting(false);
     }
@@ -230,7 +230,7 @@ export function FoodOrderingPage() {
                 Small room. Late kitchen. Tables by phone.
               </p>
               <p className="mt-8 max-w-[310px] text-sm leading-7 text-[#11100d]/72">
-                A short list. Built around the market,
+                A short list, written around the market,
                 <br />
                 the room, and the hour.
               </p>
@@ -249,8 +249,8 @@ export function FoodOrderingPage() {
                   <span>Two late</span>
                 </div>
                 <p className="mt-5 text-sm leading-6 text-[#11100d]/68">
-                  Six tables, a short pickup window, and a kitchen kept small
-                  enough to stay precise.
+                  Six tables, two late seats, and a kitchen that stays small
+                  on purpose.
                 </p>
                 <div className="mt-6 flex items-end justify-between border-t border-[#2d261f]/16 pt-4">
                   <span className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]/62">
@@ -279,8 +279,8 @@ export function FoodOrderingPage() {
               dinner nightly.
             </h2>
             <p className="mt-8 max-w-sm text-sm leading-7 text-[#11100d]/68">
-              Opened in 2019. Seasonal plates, low light, and reservations
-              confirmed quietly by phone.
+              Opened in 2019. Low light, seasonal plates, and tables confirmed
+              by phone before service.
             </p>
             <dl className="mt-14 grid gap-0 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d]/72">
               {[
@@ -367,8 +367,8 @@ export function FoodOrderingPage() {
                 kept simple.
               </h2>
               <p className="mt-7 max-w-[270px] text-sm leading-7 text-[#11100d]/68">
-                Send a name, a number, and the hour you have in mind. The room
-                confirms every table by phone.
+                Leave a name, a number, and the hour you have in mind. We call
+                back before service.
               </p>
             </div>
 
@@ -451,21 +451,21 @@ export function FoodOrderingPage() {
         </section>
 
         <footer className="border-t border-[#2d261f]/15 px-6 py-8 text-[#11100d] lg:flex lg:items-center lg:justify-between lg:gap-5 lg:border-t-0 lg:px-16 lg:py-9">
-          <span className="block border-b border-[#2d261f]/15 pb-5 text-[9px] font-semibold uppercase tracking-[0.3em] lg:border-b-0 lg:pb-0 lg:tracking-[0.32em]">
+          <span className="block text-center text-[9px] font-semibold uppercase tracking-[0.3em] lg:text-left lg:tracking-[0.32em]">
             Noirtable
           </span>
-          <nav className="mt-5 grid grid-cols-2 border-b border-[#2d261f]/15 text-[8px] font-semibold uppercase tracking-[0.24em] lg:mt-0 lg:flex lg:flex-wrap lg:gap-7 lg:border-b-0 lg:text-[9px] lg:tracking-[0.32em]">
-            <Link className="border-r border-t border-[#2d261f]/15 py-4 lg:border-0 lg:py-0" href="/cart">
+          <nav className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-3 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#11100d]/72 lg:mt-0 lg:justify-start lg:gap-7 lg:text-[9px] lg:tracking-[0.32em]">
+            <Link href="/cart">
               {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
             </Link>
-            <a className="border-t border-[#2d261f]/15 py-4 pl-4 lg:border-0 lg:p-0" href="#reserve">
+            <a href="#reserve">
               Reserve
             </a>
-            <Link className="border-r border-t border-[#2d261f]/15 py-4 lg:border-0 lg:py-0" href="/staff">
+            <Link href="/staff">
               Staff desk
             </Link>
-            <Link className="border-t border-[#2d261f]/15 py-4 pl-4 lg:border-0 lg:p-0" href="/case-study">
-              Case study
+            <Link href="/case-study">
+              Journal
             </Link>
           </nav>
         </footer>

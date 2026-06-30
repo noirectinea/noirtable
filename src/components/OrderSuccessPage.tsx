@@ -52,7 +52,7 @@ export function OrderSuccessPage() {
             The kitchen has it.
           </h1>
           <p className="mx-auto mt-7 max-w-md text-center text-sm leading-7 text-[#1f1a15]/68">
-            The room will call if anything needs confirming.
+            If anything needs clearing up, we will call.
           </p>
 
           <div className="mx-auto mt-12 grid max-w-2xl divide-y divide-[#2d261f]/12 border-y border-[#2d261f]/15">

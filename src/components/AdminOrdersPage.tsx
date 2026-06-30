@@ -342,10 +342,10 @@ export function AdminOrdersPage() {
             Staff desk
           </p>
           <h1 className="mt-8 max-w-md font-serif text-6xl leading-[0.92] sm:text-8xl">
-            Tonight&apos;s room, kept in order.
+            Tonight&apos;s room, written down.
           </h1>
           <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
-            Orders and table requests for the evening team.
+            Orders and table requests for tonight.
           </p>
         </div>
 

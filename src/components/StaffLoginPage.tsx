@@ -71,13 +71,13 @@ export function StaffLoginPage() {
           Staff desk
         </p>
         <h1 className="mt-6 font-serif text-6xl leading-[0.92]">
-          Evening room login.
+          Staff door.
         </h1>
         <p className="mt-6 max-w-sm text-sm leading-7 text-[#11100d]/66">
-          Orders and table requests for the team.
+          Orders and table requests for tonight.
         </p>
         <p className="mt-4 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/45">
-          Use the staff account created in Supabase.
+          Sign in with the evening staff account.
         </p>
 
         <form onSubmit={submitLogin} className="mt-10 grid gap-3">

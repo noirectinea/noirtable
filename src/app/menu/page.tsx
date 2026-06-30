@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Menu | Noirtable",
   description:
-    "A full editorial restaurant menu for Noirtable with ordering and reservations.",
+    "The Noirtable dinner menu: a short list, late plates, and tables by phone.",
 };
 
 export default async function Menu() {

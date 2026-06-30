@@ -213,6 +213,14 @@ body {
   backface-visibility: hidden;
 }
 
+.noirtable-scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.noirtable-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .dish-modal-image-wrap {
     min-height: 500px;

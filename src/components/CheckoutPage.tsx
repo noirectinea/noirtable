@@ -150,7 +150,7 @@ export function CheckoutPage() {
             A final note, before the kitchen.
           </h1>
           <p className="mt-8 max-w-sm text-sm leading-7 text-[#1f1a15]/68">
-            Leave your details. The kitchen gets the note.
+            Leave your name and number. The kitchen gets the rest.
           </p>
           <div className="mt-12 border-y border-[#2d261f]/15 py-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
             {serviceMethod} / Noirtable
@@ -195,7 +195,7 @@ export function CheckoutPage() {
                   <input
                     value={pickupTime}
                     onChange={(event) => setPickupTime(event.target.value)}
-                    placeholder="Preferred pickup time"
+                    placeholder="Pickup time"
                     className="h-14 border border-[#2d261f]/18 bg-transparent px-5 text-[10px] font-semibold uppercase tracking-[0.28em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
                   />
                 ) : (
@@ -218,6 +218,7 @@ export function CheckoutPage() {
                   value={note}
                   onChange={(event) => setNote(event.target.value)}
                   placeholder="Comment / note"
+                  aria-label="Kitchen note"
                   rows={5}
                   className="resize-none border border-[#2d261f]/18 bg-transparent px-5 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] outline-none placeholder:text-[#11100d]/48 focus:border-[#11100d]/45"
                 />

@@ -42,10 +42,10 @@ export function CartPage() {
               Your order
             </p>
             <h1 className="mt-5 max-w-md font-serif text-5xl leading-[0.92] sm:text-7xl">
-              Held for the kitchen.
+              Held for tonight.
             </h1>
             <p className="mt-6 max-w-sm text-sm leading-7 text-[#f6efe4]/82">
-              Review the plates, then send the note through when you are ready.
+              Check the plates, then send them through.
             </p>
           </div>
         </div>

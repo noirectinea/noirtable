@@ -428,7 +428,7 @@ export function FullMenuPage({
         </header>
 
         <section className="grid gap-8 border-b border-[#2d261f]/15 px-6 py-8 lg:grid-cols-[1fr_auto] lg:px-16">
-          <nav className="flex gap-8 overflow-x-auto text-[8px] font-semibold uppercase tracking-[0.32em] text-[#11100d]">
+          <nav className="noirtable-scrollbar-hidden flex gap-8 overflow-x-auto text-[8px] font-semibold uppercase tracking-[0.32em] text-[#11100d]">
             <button
               type="button"
               onClick={() => setActiveSection("All")}
@@ -448,7 +448,7 @@ export function FullMenuPage({
             ))}
           </nav>
           <p className="max-w-[260px] text-xs leading-6 text-[#11100d]/66 lg:text-right">
-            Kitchen closes late.
+            Kitchen stays open late.
             <br />
             Last order 30 minutes before close.
           </p>
@@ -480,18 +480,18 @@ export function FullMenuPage({
         </div>
 
         <footer className="border-t border-[#2d261f]/15 px-6 py-8 text-[#11100d] lg:flex lg:items-center lg:justify-between lg:gap-5 lg:px-16 lg:py-9">
-          <span className="block border-b border-[#2d261f]/15 pb-5 text-[9px] font-semibold uppercase tracking-[0.3em] lg:border-b-0 lg:pb-0 lg:tracking-[0.32em]">
+          <span className="block text-center text-[9px] font-semibold uppercase tracking-[0.3em] lg:text-left lg:tracking-[0.32em]">
             Noirtable
           </span>
-          <nav className="mt-5 grid grid-cols-2 border-b border-[#2d261f]/15 text-[8px] font-semibold uppercase tracking-[0.24em] lg:mt-0 lg:flex lg:flex-wrap lg:gap-7 lg:border-b-0 lg:text-[9px] lg:tracking-[0.32em]">
-            <Link className="border-r border-t border-[#2d261f]/15 py-4 lg:border-0 lg:py-0" href="/cart">
+          <nav className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-3 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#11100d]/72 lg:mt-0 lg:justify-start lg:gap-7 lg:text-[9px] lg:tracking-[0.32em]">
+            <Link href="/cart">
               {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
             </Link>
-            <Link className="border-t border-[#2d261f]/15 py-4 pl-4 lg:border-0 lg:p-0" href="/staff">
+            <Link href="/staff">
               Staff desk
             </Link>
-            <Link className="col-span-2 border-t border-[#2d261f]/15 py-4 lg:col-span-1 lg:border-0 lg:py-0" href="/case-study">
-              Case study
+            <Link href="/case-study">
+              Journal
             </Link>
           </nav>
         </footer>

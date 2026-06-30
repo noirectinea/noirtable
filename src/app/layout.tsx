@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Noirtable | Restaurant Ordering System",
+  title: "Noirtable | Small Room, Late Plates",
   description:
-    "A restaurant website with menu ordering, reservations, checkout, and staff desk.",
+    "A small restaurant website with a dinner menu, reservations, checkout, and a staff desk.",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",
