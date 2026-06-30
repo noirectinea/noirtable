@@ -6,10 +6,10 @@ import { NoirtableMark } from "@/components/NoirtableMark";
 import { StableImageFrame } from "@/components/StableImageFrame";
 
 const projectMeta = [
-  ["Project type", "Small restaurant website"],
-  ["Role", "Design, frontend, cart, staff view"],
+  ["Place", "Six tables, late plates"],
+  ["Made for", "Menu, orders, table calls"],
   ["Stack", "Next.js, Vercel, Supabase"],
-  ["Includes", "Menu, cart, checkout, staff desk"],
+  ["Back room", "Orders, reservations, menu records"],
 ];
 
 const buildNotes = [
@@ -22,43 +22,43 @@ const buildNotes = [
 ];
 
 const staffFeatures = [
-  "Order status",
-  "Reservation status",
-  "Item list",
-  "Guest details",
-  "Staff actions",
+  "New orders",
+  "Table calls",
+  "Items ordered",
+  "Guest notes",
+  "Ready or declined",
 ];
 
 const journeySteps = [
-  ["01 Menu", "Guest picks a plate"],
-  ["02 Cart", "The order is checked"],
-  ["03 Checkout", "Name, phone, and timing"],
-  ["04 Success", "The kitchen has it"],
-  ["05 Staff desk", "The room sees the order"],
+  ["01 Menu", "Someone picks dinner"],
+  ["02 Cart", "A last look before sending"],
+  ["03 Checkout", "Name, phone, time"],
+  ["04 Received", "The kitchen has it"],
+  ["05 Staff", "The room sees the note"],
 ];
 
 const journalNotes = [
   [
     "The room first",
-    "The site had to feel like a table was already set. The order flow comes later, quietly.",
+    "Before the cart, before the forms, it needed to feel like you had walked into a small dining room.",
   ],
   [
-    "No app noise",
-    "Cart, checkout, and status buttons stay plain. Nothing shouts over the food.",
+    "No counter noise",
+    "The buttons stay flat and plain. The food gets the attention, not the checkout.",
   ],
   [
-    "Staff after service starts",
-    "The back room view is there for the evening team: who ordered, who called, what is next.",
+    "After the door opens",
+    "The staff screen is just the night's list: who ordered, who called, what needs an answer.",
   ],
 ];
 
 const workingFeatures = [
-  ["Menu", "Dishes load from Supabase, with a printed-menu fallback."],
-  ["Cart", "Quantities update in place and stay in the browser."],
-  ["Checkout", "Pickup or delivery details create an order."],
-  ["Reservations", "Table requests land beside the evening orders."],
-  ["Staff desk", "The team can accept, prepare, complete, or decline."],
-  ["Menu records", "Staff can keep the working menu tidy without code."],
+  ["Menu", "Dishes come from Supabase. If the connection slips, the printed list stays up."],
+  ["Cart", "Quantities change in place and stay in the browser."],
+  ["Checkout", "Pickup or delivery sends the order to the staff list."],
+  ["Reservations", "Table requests sit beside dinner orders."],
+  ["Staff desk", "Accept, prepare, finish, or decline. Nothing more dramatic than that."],
+  ["Menu records", "Staff can tidy the working menu without opening the code."],
 ];
 
 function Sidebar() {
@@ -131,11 +131,11 @@ export function CaseStudyPage() {
               Journal
             </p>
             <h1 className="mt-6 max-w-xl font-serif text-6xl leading-[0.9] text-[#11100d] sm:text-7xl lg:text-8xl">
-              A small room that also takes orders.
+              A small room, with ordering tucked inside.
             </h1>
             <p className="mt-8 max-w-md text-sm leading-7 text-[#1f1a15]/72 sm:text-base">
-              Notes on building Noirtable: a dinner menu, a cart, checkout, and
-              a staff desk without making the place feel like an app.
+              Notes from building Noirtable: where the menu, cart, checkout,
+              and staff desk had to feel like they belonged to the same table.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -179,7 +179,7 @@ export function CaseStudyPage() {
                 Notes
               </p>
               <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
-                What had to feel right.
+                The parts I kept coming back to.
               </h2>
             </div>
             <div className="grid gap-0 border-y border-[#2d261f]/15">
@@ -208,15 +208,15 @@ export function CaseStudyPage() {
         <section className="grid border-b border-[#2d261f]/15 lg:grid-cols-[38%_62%]">
           <div className="border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Try it
+              Walk through
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              Start with a plate. Then check the back room.
+              Order once, then look behind the pass.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Add a dish, send the order, then open the staff desk. The point is
-              simple: guests stay in the restaurant world, staff still get the
-              list they need.
+              Add a dish, send it through checkout, then open the staff desk.
+              That is the whole piece: one side for guests, one side for the
+              people working dinner.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -236,7 +236,7 @@ export function CaseStudyPage() {
 
           <div className="px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              What works now
+              Built in
             </p>
             <div className="mt-8 grid gap-0 border-y border-[#2d261f]/15">
               {workingFeatures.map(([label, text]) => (
@@ -259,27 +259,27 @@ export function CaseStudyPage() {
         <section className="grid border-b border-[#2d261f]/15 lg:grid-cols-2">
           <div className="border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              The problem
+              First thought
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              Ordering can pull you out of the room.
+              Ordering usually breaks the spell.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Many restaurant order pages feel like delivery apps: bright
-              buttons, loud cards, and none of the place left in them.
+              A lot of restaurant sites get beautiful until the moment you try
+              to buy something. Then suddenly it is all badges, boxes, and noise.
             </p>
           </div>
 
           <div className="px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              The answer
+              What I did
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              Keep the order in the same room.
+              I kept the order quiet.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              The menu, cart, checkout, and staff desk use the same language as
-              the dining room: quiet, direct, and not in a hurry.
+              Same paper tone, same thin lines, same small words. The cart is
+              there, but it does not walk into the room wearing a neon sign.
             </p>
           </div>
         </section>
@@ -304,10 +304,10 @@ export function CaseStudyPage() {
 
           <div className="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-12">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              What is included
+              Behind the table
             </p>
             <h2 className="mt-6 max-w-[410px] font-serif text-4xl leading-[0.96] sm:text-[3.25rem]">
-              The bits behind the dinner.
+              The practical things, kept out of the way.
             </h2>
 
             <div className="mt-8 grid gap-0 border-y border-[#2d261f]/15">
@@ -351,11 +351,11 @@ export function CaseStudyPage() {
               Staff desk
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              A list for the people working tonight.
+              For the people working tonight.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
-              Orders and table requests land where the team can see them:
-              confirm, prepare, finish, move on.
+              Orders and table requests land in one place. Confirm what needs a
+              call, send food to the kitchen, clear the list when it is done.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
@@ -396,10 +396,10 @@ export function CaseStudyPage() {
           <div className="grid gap-10 lg:grid-cols-[30%_70%]">
             <div>
               <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-                Service path
+                Dinner path
               </p>
               <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
-                From menu to the room.
+                From the menu to the night list.
               </h2>
             </div>
             <div className="grid gap-0 border-y border-[#2d261f]/15">
@@ -426,8 +426,7 @@ export function CaseStudyPage() {
               Noirtable
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
-              The guest sees a calm menu. The staff sees what they need. That is
-              the whole point.
+              Guests see dinner. Staff see the list. Nothing tries too hard.
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link

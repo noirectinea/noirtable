@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Noirtable | Small Room, Late Plates",
   description:
-    "A small restaurant website with a dinner menu, reservations, checkout, and a staff desk.",
+    "A six-table restaurant site with a dinner menu, checkout, reservations, and a staff list.",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",

@@ -1,44 +1,39 @@
 # Noirtable
 
-Noirtable is a small restaurant website built as a portfolio project.
-It pairs an editorial dining-room front end with a working menu, cart,
-checkout, reservations, and a staff view for the evening team.
+Noirtable is a fictional six-table restaurant site.
+It has the parts a small room would actually need: a menu, a cart, checkout,
+table requests, and a staff screen for the evening.
 
-## Concept
+## The Idea
 
-A quiet late-night dining room with a short seasonal menu.
-The site keeps ordering inside the same calm restaurant language instead of
-turning the meal into a delivery-app screen.
+Most restaurant ordering pages start to feel like a food app. This one tries to
+stay in the room: quiet type, plain controls, short copy, and no shouting around
+the food.
 
-## Core Features
+## What Is Inside
 
-- Editorial restaurant homepage
-- Responsive mobile layout
-- Supabase-backed menu items
-- Filterable menu with dish detail views
-- Add/remove quantity controls
-- Persistent cart with localStorage
-- Cart page
-- Checkout page with pickup or delivery
-- Order success page
-- Table reservation form
-- Staff login
+- Homepage for the room
+- Menu pulled from Supabase
+- Dish view, filters, and quantity controls
+- Cart saved in the browser
+- Pickup or delivery checkout
+- Order received page
+- Table request form
+- Staff sign in
 - Staff desk for orders, reservations, and menu records
-- Order status updates: new, accepted, preparing, completed, declined
-- Reservation status updates: new, confirmed, declined
 
 ## Pages
 
-- `/` - restaurant homepage and reservation form
+- `/` - room, menu preview, and reservation form
 - `/menu` - full menu
-- `/cart` - current order
-- `/checkout` - guest details and service method
-- `/order/success` - final order confirmation
+- `/cart` - plates in the order
+- `/checkout` - name, phone, time, pickup or delivery
+- `/order/success` - the kitchen has it
 - `/staff/login` - staff sign in
-- `/staff` - staff desk
-- `/case-study` - project journal and case study
+- `/staff` - tonight's list
+- `/case-study` - build notes
 
-## Tech Stack
+## Built With
 
 - Next.js
 - React
@@ -47,21 +42,22 @@ turning the meal into a delivery-app screen.
 - Supabase
 - Vercel
 
-## Environment
+## Env
 
-Add these variables locally and in Vercel:
+Add these locally and in Vercel:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-## Try The Flow
+## Run Through It
 
 1. Open `/menu`.
-2. Add a plate to the cart.
-3. Go through `/cart` and `/checkout`.
-4. Open `/staff/login`, then `/staff`, to review the order.
+2. Add a dish.
+3. Send it through cart and checkout.
+4. Open `/staff/login`, then `/staff`.
+5. Move the order through the evening list.
 
 ## Running Locally
 
