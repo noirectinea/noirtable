@@ -80,52 +80,11 @@ const fullMenuEntries: FullMenuEntry[] = [
   { index: 24, section: "Drinks", itemId: 50, image: "/images/menu-card-fast/dish-24-reserve-water.jpg", displayTime: "2 min" },
 ];
 
-const generatedFallbackImages = [
-  "/images/generated-dishes-fast/oysters.jpg",
-  "/images/generated-dishes-fast/tartare.jpg",
-  "/images/generated-dishes-fast/burrata.jpg",
-  "/images/generated-dishes-fast/octopus.jpg",
-  "/images/generated-dishes-fast/risotto.jpg",
-  "/images/generated-dishes-fast/pasta.jpg",
-];
-
-function categoryToSection(category: MenuItem["category"]): MenuSection {
-  if (category === "Pasta") {
-    return "Pasta";
-  }
-  if (category === "Desserts") {
-    return "Desserts";
-  }
-  if (category === "Drinks") {
-    return "Drinks";
-  }
-  if (category === "Signature" || category === "Seafood" || category === "Grill") {
-    return "Mains";
-  }
-
-  return "Starters";
-}
-
 function buildMenuEntries(menuItems: MenuItem[]) {
   const activeItemIds = new Set(menuItems.map((item) => item.id));
-  const curatedEntries = fullMenuEntries.filter((entry) =>
+  return fullMenuEntries.filter((entry) =>
     activeItemIds.has(entry.itemId),
   );
-  const curatedItemIds = new Set(curatedEntries.map((entry) => entry.itemId));
-  const extraEntries = menuItems
-    .filter((item) => !curatedItemIds.has(item.id))
-    .map((item, index): FullMenuEntry => ({
-      index: curatedEntries.length + index + 1,
-      section: categoryToSection(item.category),
-      itemId: item.id,
-      badge: item.badge,
-      image:
-        item.image ??
-        generatedFallbackImages[index % generatedFallbackImages.length],
-      displayTime: item.prepTime,
-    }));
-
-  return [...curatedEntries, ...extraEntries];
 }
 
 function getItem(entry: FullMenuEntry, menuItems: MenuItem[]) {
