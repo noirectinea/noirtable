@@ -55,6 +55,7 @@
 html {
   scroll-behavior: auto;
   scroll-padding-top: 64px;
+  overscroll-behavior-y: none;
   overflow-x: clip;
   width: 100%;
 }
@@ -71,6 +72,7 @@ body {
   font-family: "Manrope", "Helvetica Neue", Arial, Helvetica, sans-serif;
   letter-spacing: 0;
   min-width: 0;
+  overscroll-behavior-y: none;
   overflow-x: clip;
   width: 100%;
 }

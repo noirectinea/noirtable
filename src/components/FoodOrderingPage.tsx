@@ -186,9 +186,9 @@ export function FoodOrderingPage() {
         ]}
       />
 
-      <div className="pt-[49px] lg:pl-[104px] lg:pt-0">
+      <div className="lg:pl-[104px]">
         <section
-          className="relative min-h-[calc(100svh-49px)] border-b border-[#2d261f]/15 lg:min-h-screen"
+          className="relative min-h-svh border-b border-[#2d261f]/15 lg:min-h-screen"
           style={{ overflow: "hidden", position: "relative" }}
         >
           <StableImageFrame
@@ -221,8 +221,8 @@ export function FoodOrderingPage() {
             </a>
           </header>
 
-          <div className="grid min-h-[calc(100svh-49px)] lg:min-h-screen lg:grid-cols-[42%_58%]">
-            <div className="relative z-20 grid content-center px-6 pb-32 pt-14 lg:px-16 lg:pb-12 lg:pt-36">
+          <div className="grid min-h-svh lg:min-h-screen lg:grid-cols-[42%_58%]">
+            <div className="relative z-20 grid content-center px-6 pb-32 pt-24 lg:px-16 lg:pb-12 lg:pt-36">
               <h1 className="font-serif text-5xl leading-[0.95] tracking-[-0.01em] text-[#11100d] sm:text-7xl lg:text-[5.6rem]">
                 Noirtable
               </h1>

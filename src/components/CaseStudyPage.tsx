@@ -78,10 +78,10 @@ export function CaseStudyPage() {
         ]}
       />
 
-      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
+      <div className="lg:pl-[104px]">
         <section
-          className="relative grid min-h-screen overflow-hidden border-b border-[#2d261f]/15 px-6 py-8 sm:px-10 lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
-          style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
+          className="relative grid min-h-svh overflow-hidden border-b border-[#2d261f]/15 px-6 pb-8 pt-20 sm:px-10 sm:py-8 lg:min-h-screen lg:grid-cols-[44%_56%] lg:px-0 lg:py-0"
+          style={{ overflow: "hidden", position: "relative" }}
         >
           <StableImageFrame
             src="/images/hero/noirtable-room.jpg"
@@ -97,12 +97,12 @@ export function CaseStudyPage() {
           <div className="absolute inset-0 bg-[#e7dfd2]/72" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(231,223,210,0.97)_0%,rgba(231,223,210,0.88)_45%,rgba(231,223,210,0.44)_100%)]" />
 
-          <header className="absolute left-6 right-6 top-8 z-10 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.34em] text-[#17130f] sm:left-10 sm:right-10 lg:left-16 lg:right-16">
+          <header className="absolute left-6 right-6 top-16 z-10 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.34em] text-[#17130f] sm:left-10 sm:right-10 sm:top-8 lg:left-16 lg:right-16">
             <Link href="/">Noirtable</Link>
             <Link href="/staff">Staff desk</Link>
           </header>
 
-          <div className="relative z-10 flex min-h-screen flex-col justify-center pb-14 pt-28 lg:px-16">
+          <div className="relative z-10 flex min-h-[calc(100svh-112px)] flex-col justify-center pb-14 pt-28 lg:min-h-screen lg:px-16">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#9b7c4d]">
               Portfolio case study
             </p>
