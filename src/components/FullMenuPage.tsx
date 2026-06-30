@@ -520,12 +520,20 @@ export function FullMenuPage({
           </div>
         </div>
 
-        <footer className="flex flex-wrap items-center justify-between gap-5 border-t border-[#2d261f]/15 px-6 py-9 text-[9px] font-semibold uppercase tracking-[0.32em] text-[#11100d] lg:px-16">
-          <span>Noirtable</span>
-          <nav className="flex flex-wrap gap-7">
-            <Link href="/cart">{itemCount > 0 ? `Cart ${itemCount}` : "Cart"}</Link>
-            <Link href="/staff">Staff desk</Link>
-            <Link href="/case-study">Case study</Link>
+        <footer className="border-t border-[#2d261f]/15 px-6 py-8 text-[#11100d] lg:flex lg:items-center lg:justify-between lg:gap-5 lg:px-16 lg:py-9">
+          <span className="block border-b border-[#2d261f]/15 pb-5 text-[9px] font-semibold uppercase tracking-[0.3em] lg:border-b-0 lg:pb-0 lg:tracking-[0.32em]">
+            Noirtable
+          </span>
+          <nav className="mt-5 grid grid-cols-2 border-b border-[#2d261f]/15 text-[8px] font-semibold uppercase tracking-[0.24em] lg:mt-0 lg:flex lg:flex-wrap lg:gap-7 lg:border-b-0 lg:text-[9px] lg:tracking-[0.32em]">
+            <Link className="border-r border-t border-[#2d261f]/15 py-4 lg:border-0 lg:py-0" href="/cart">
+              {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
+            </Link>
+            <Link className="border-t border-[#2d261f]/15 py-4 pl-4 lg:border-0 lg:p-0" href="/staff">
+              Staff desk
+            </Link>
+            <Link className="col-span-2 border-t border-[#2d261f]/15 py-4 lg:col-span-1 lg:border-0 lg:py-0" href="/case-study">
+              Case study
+            </Link>
           </nav>
         </footer>
       </div>
