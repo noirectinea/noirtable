@@ -8,8 +8,8 @@ import { StableImageFrame } from "@/components/StableImageFrame";
 const projectMeta = [
   ["Project type", "Small restaurant website"],
   ["Role", "Design, frontend, cart, staff view"],
-  ["Stack", "Next.js, Vercel, ready for Supabase"],
-  ["Features", "Menu, cart, checkout, staff desk"],
+  ["Stack", "Next.js, Vercel, Supabase"],
+  ["Includes", "Menu, cart, checkout, staff desk"],
 ];
 
 const buildNotes = [
@@ -37,6 +37,21 @@ const journeySteps = [
   ["05 Staff desk", "The room sees the order"],
 ];
 
+const journalNotes = [
+  [
+    "The room first",
+    "The site had to feel like a table was already set. The order flow comes later, quietly.",
+  ],
+  [
+    "No app noise",
+    "Cart, checkout, and status buttons stay plain. Nothing shouts over the food.",
+  ],
+  [
+    "Staff after service starts",
+    "The back room view is there for the evening team: who ordered, who called, what is next.",
+  ],
+];
+
 function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
@@ -59,7 +74,7 @@ function Sidebar() {
       </nav>
 
       <p className="absolute bottom-20 left-1/2 -translate-x-1/2 -rotate-90 whitespace-nowrap text-[8px] font-semibold uppercase tracking-[0.36em] text-[#1c1712]">
-        Case study
+        Journal
       </p>
     </aside>
   );
@@ -104,14 +119,14 @@ export function CaseStudyPage() {
 
           <div className="relative z-10 flex min-h-[calc(100svh-112px)] flex-col justify-center pb-14 pt-28 lg:min-h-screen lg:px-16">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#9b7c4d]">
-              Build notes
+              Journal
             </p>
             <h1 className="mt-6 max-w-xl font-serif text-6xl leading-[0.9] text-[#11100d] sm:text-7xl lg:text-8xl">
-              A restaurant site that takes orders.
+              A small room that also takes orders.
             </h1>
             <p className="mt-8 max-w-md text-sm leading-7 text-[#1f1a15]/72 sm:text-base">
-              Menu, cart, checkout, and a staff view for a small room that works
-              by the evening list.
+              Notes on building Noirtable: a dinner menu, a cart, checkout, and
+              a staff desk without making the place feel like an app.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -148,10 +163,43 @@ export function CaseStudyPage() {
           </div>
         </section>
 
+        <section className="border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[34%_66%]">
+            <div>
+              <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
+                Notes
+              </p>
+              <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
+                What had to feel right.
+              </h2>
+            </div>
+            <div className="grid gap-0 border-y border-[#2d261f]/15">
+              {journalNotes.map(([title, text], index) => (
+                <div
+                  key={title}
+                  className="grid gap-4 border-b border-[#2d261f]/12 py-5 last:border-b-0 sm:grid-cols-[80px_1fr]"
+                >
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#1f1a15]/46">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-3xl leading-none">
+                      {title}
+                    </h3>
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-[#1f1a15]/68">
+                      {text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="grid border-b border-[#2d261f]/15 lg:grid-cols-2">
           <div className="border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Problem
+              The problem
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
               Ordering can pull you out of the room.
@@ -164,7 +212,7 @@ export function CaseStudyPage() {
 
           <div className="px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
             <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-              Solution
+              The answer
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
               Keep the order in the same room.
@@ -199,7 +247,7 @@ export function CaseStudyPage() {
               What is included
             </p>
             <h2 className="mt-6 max-w-[410px] font-serif text-4xl leading-[0.96] sm:text-[3.25rem]">
-              Cart, booking forms, checkout, staff notes.
+              The bits behind the dinner.
             </h2>
 
             <div className="mt-8 grid gap-0 border-y border-[#2d261f]/15">
@@ -243,7 +291,7 @@ export function CaseStudyPage() {
               Staff desk
             </p>
             <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
-              Tonight&apos;s room, written down.
+              A list for the people working tonight.
             </h2>
             <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
               Orders and table requests land where the team can see them:
@@ -288,7 +336,7 @@ export function CaseStudyPage() {
           <div className="grid gap-10 lg:grid-cols-[30%_70%]">
             <div>
               <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
-                Flow
+                Service path
               </p>
               <h2 className="mt-7 max-w-sm font-serif text-5xl leading-[0.96]">
                 From menu to the room.
@@ -318,8 +366,8 @@ export function CaseStudyPage() {
               Noirtable
             </p>
             <h2 className="mx-auto mt-7 max-w-3xl font-serif text-5xl leading-[0.96] sm:text-6xl">
-              A small restaurant site with a menu, a cart, and a staff desk that
-              stays out of the way.
+              The guest sees a calm menu. The staff sees what they need. That is
+              the whole point.
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link

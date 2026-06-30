@@ -389,10 +389,10 @@ export function FullMenuPage({
       />
 
       <div className="pt-[49px] lg:pl-[104px] lg:pt-0">
-        <div className="fixed bottom-4 right-4 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
+        <div className="fixed bottom-4 left-4 right-4 z-50 flex gap-2 lg:bottom-auto lg:left-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
-            className="inline-flex h-12 min-w-[116px] items-center justify-center gap-2 border border-[#11100d]/70 bg-[#e7dfd2] px-5 text-[9px] font-semibold uppercase tracking-[0.3em] text-[#11100d] shadow-[0_10px_24px_rgba(17,16,13,0.08)] transition-colors duration-300 hover:bg-[#d7c09a] lg:h-[54px] lg:min-w-0 lg:px-6 lg:tracking-[0.32em]"
+            className="inline-flex h-14 w-full items-center justify-center gap-3 border border-[#11100d]/75 bg-[#e7dfd2]/95 px-6 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#11100d] shadow-[0_12px_28px_rgba(17,16,13,0.12)] backdrop-blur transition-colors duration-300 hover:bg-[#d7c09a] lg:h-[54px] lg:w-auto lg:min-w-0 lg:px-6 lg:tracking-[0.32em]"
           >
             <CartLineIcon />
             {itemCount > 0 ? `Cart ${itemCount}` : "Cart"}
@@ -456,7 +456,7 @@ export function FullMenuPage({
 
         {menuDataError ? (
           <p className="border-b border-[#2d261f]/15 px-6 py-3 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/48 lg:px-16">
-            Live menu is preparing. Showing the printed menu.
+            The kitchen is updating the list. Showing the printed menu.
           </p>
         ) : null}
 
