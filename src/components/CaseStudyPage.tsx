@@ -52,6 +52,15 @@ const journalNotes = [
   ],
 ];
 
+const workingFeatures = [
+  ["Menu", "Dishes load from Supabase, with a printed-menu fallback."],
+  ["Cart", "Quantities update in place and stay in the browser."],
+  ["Checkout", "Pickup or delivery details create an order."],
+  ["Reservations", "Table requests land beside the evening orders."],
+  ["Staff desk", "The team can accept, prepare, complete, or decline."],
+  ["Menu records", "Staff can keep the working menu tidy without code."],
+];
+
 function Sidebar() {
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-40 hidden w-[104px] border-r border-[#2d261f]/15 bg-[#e7dfd2] lg:block">
@@ -190,6 +199,57 @@ export function CaseStudyPage() {
                       {text}
                     </p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="grid border-b border-[#2d261f]/15 lg:grid-cols-[38%_62%]">
+          <div className="border-b border-[#2d261f]/15 px-6 py-14 sm:px-10 lg:border-b-0 lg:border-r lg:px-16 lg:py-20">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
+              Try it
+            </p>
+            <h2 className="mt-7 max-w-md font-serif text-5xl leading-[0.96]">
+              Start with a plate. Then check the back room.
+            </h2>
+            <p className="mt-7 max-w-md text-sm leading-7 text-[#1f1a15]/68">
+              Add a dish, send the order, then open the staff desk. The point is
+              simple: guests stay in the restaurant world, staff still get the
+              list they need.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
+                href="/menu"
+                className="bg-[#cfaa6d] px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.3em]"
+              >
+                View menu
+              </Link>
+              <Link
+                href="/staff"
+                className="border border-[#2d261f]/18 px-7 py-4 text-[9px] font-semibold uppercase tracking-[0.3em]"
+              >
+                Staff desk
+              </Link>
+            </div>
+          </div>
+
+          <div className="px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.36em] text-[#1f1a15]/58">
+              What works now
+            </p>
+            <div className="mt-8 grid gap-0 border-y border-[#2d261f]/15">
+              {workingFeatures.map(([label, text]) => (
+                <div
+                  key={label}
+                  className="grid gap-3 border-b border-[#2d261f]/12 py-4 last:border-b-0 sm:grid-cols-[150px_1fr]"
+                >
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#1f1a15]/55">
+                    {label}
+                  </span>
+                  <span className="text-sm leading-7 text-[#1f1a15]/70">
+                    {text}
+                  </span>
                 </div>
               ))}
             </div>

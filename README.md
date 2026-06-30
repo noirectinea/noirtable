@@ -1,42 +1,42 @@
 # Noirtable
 
-Noirtable is a premium restaurant ordering website built as a portfolio project.
-The project combines an editorial restaurant landing page with a working menu,
-cart, checkout flow, table requests, and a small staff desk for orders.
+Noirtable is a small restaurant website built as a portfolio project.
+It pairs an editorial dining-room front end with a working menu, cart,
+checkout, reservations, and a staff view for the evening team.
 
 ## Concept
 
 A quiet late-night dining room with a short seasonal menu.
-The design direction is dark, warm, restrained, and editorial rather than a
-generic delivery marketplace.
+The site keeps ordering inside the same calm restaurant language instead of
+turning the meal into a delivery-app screen.
 
 ## Core Features
 
 - Editorial restaurant homepage
 - Responsive mobile layout
-- Filterable menu with dish detail view
-- Menu badges for featured, seasonal, popular, and limited dishes
+- Supabase-backed menu items
+- Filterable menu with dish detail views
 - Add/remove quantity controls
 - Persistent cart with localStorage
 - Cart page
-- Checkout page
+- Checkout page with pickup or delivery
 - Order success page
-- File-backed order storage
 - Table reservation form
-- Staff desk for orders and reservations
-- Staff order filters by status
-- Demo orders and reservations for portfolio presentation
-- Order status updates: new, accepted, preparing, completed
+- Staff login
+- Staff desk for orders, reservations, and menu records
+- Order status updates: new, accepted, preparing, completed, declined
 - Reservation status updates: new, confirmed, declined
 
 ## Pages
 
-- `/` - restaurant homepage, menu, reservation form
+- `/` - restaurant homepage and reservation form
+- `/menu` - full menu
 - `/cart` - current order
-- `/checkout` - guest details and order confirmation
+- `/checkout` - guest details and service method
 - `/order/success` - final order confirmation
-- `/admin/orders` - staff desk
-- `/case-study` - portfolio presentation page
+- `/staff/login` - staff sign in
+- `/staff` - staff desk
+- `/case-study` - project journal and case study
 
 ## Tech Stack
 
@@ -44,20 +44,24 @@ generic delivery marketplace.
 - React
 - TypeScript
 - Tailwind CSS
-- Local JSON storage for portfolio backend behavior
+- Supabase
+- Vercel
 
-## Why This Project Exists
+## Environment
 
-The goal of this project is to show more than a visual landing page.
-It demonstrates a complete small business website flow:
+Add these variables locally and in Vercel:
 
-- guests can browse dishes
-- guests can place an order
-- guests can request a table
-- staff can review and update requests
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
 
-This makes the project useful as a restaurant website case study, not only a
-design concept.
+## Try The Flow
+
+1. Open `/menu`.
+2. Add a plate to the cart.
+3. Go through `/cart` and `/checkout`.
+4. Open `/staff/login`, then `/staff`, to review the order.
 
 ## Running Locally
 
@@ -75,6 +79,5 @@ http://localhost:3000
 Build check:
 
 ```bash
-npm run lint
 npm run build
 ```
