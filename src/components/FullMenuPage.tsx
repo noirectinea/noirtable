@@ -214,8 +214,8 @@ function FullMenuCard({
         />
       </button>
 
-      <div className="px-4 py-4">
-        <div className="flex flex-wrap items-center gap-3 text-[7px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/56">
+      <div className="px-3 py-3 sm:px-4 sm:py-4">
+        <div className="flex flex-wrap items-center gap-2 text-[6px] font-semibold uppercase tracking-[0.18em] text-[#11100d]/56 sm:gap-3 sm:text-[7px] sm:tracking-[0.24em]">
           <span>{String(entry.index).padStart(2, "0")}</span>
           <span>{entry.section}</span>
           {entry.badge ? (
@@ -225,39 +225,39 @@ function FullMenuCard({
           ) : null}
         </div>
 
-        <h3 className="mt-4 min-h-[48px] font-serif text-2xl leading-none text-[#11100d]">
+        <h3 className="mt-3 min-h-[40px] font-serif text-xl leading-none text-[#11100d] sm:mt-4 sm:min-h-[48px] sm:text-2xl">
           {item.name}
         </h3>
-        <p className="mt-4 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d]/66">
+        <p className="mt-3 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#11100d]/66 sm:mt-4 sm:text-[8px] sm:tracking-[0.24em]">
           {entry.displayTime ?? item.prepTime}
         </p>
-        <div className="mt-4 flex items-end justify-between gap-4">
+        <div className="mt-4 grid gap-3 sm:flex sm:items-end sm:justify-between sm:gap-4">
           <p className="text-sm text-[#11100d]">{formatPrice(item.price)}</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-3">
             <button
               type="button"
               onClick={() => onView(entry)}
-              className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d] transition-colors duration-300 hover:border-[#9b7c4d] hover:text-[#9b7c4d]"
+              className="border-b border-[#11100d] pb-1 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#11100d] transition-colors duration-300 hover:border-[#9b7c4d] hover:text-[#9b7c4d] sm:text-[8px] sm:tracking-[0.28em]"
             >
               View
             </button>
             {quantity > 0 ? (
-              <div className="flex h-8 items-center border border-[#2d261f]/18 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#11100d]">
+              <div className="flex h-8 items-center border border-[#2d261f]/18 text-[8px] font-semibold uppercase tracking-[0.18em] text-[#11100d] sm:tracking-[0.22em]">
                 <button
                   type="button"
                   onClick={() => onRemove(item.id)}
-                  className="grid h-full w-8 place-items-center transition-colors duration-300 hover:bg-[#d7c09a]"
+                  className="grid h-full w-7 place-items-center transition-colors duration-300 hover:bg-[#d7c09a] sm:w-8"
                   aria-label={`Remove one ${item.name}`}
                 >
                   -
                 </button>
-                <span className="min-w-7 border-x border-[#2d261f]/12 px-2 text-center">
+                <span className="min-w-6 border-x border-[#2d261f]/12 px-1.5 text-center sm:min-w-7 sm:px-2">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={() => onAdd(item)}
-                  className="grid h-full w-8 place-items-center transition-colors duration-300 hover:bg-[#d7c09a]"
+                  className="grid h-full w-7 place-items-center transition-colors duration-300 hover:bg-[#d7c09a] sm:w-8"
                   aria-label={`Add one ${item.name}`}
                 >
                   +
@@ -267,7 +267,7 @@ function FullMenuCard({
               <button
                 type="button"
                 onClick={() => onAdd(item)}
-                className="border border-[#2d261f]/18 px-3 py-2 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a]"
+                className="border border-[#2d261f]/18 px-2.5 py-2 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#11100d] transition-colors duration-300 hover:bg-[#d7c09a] sm:px-3 sm:text-[8px] sm:tracking-[0.24em]"
               >
                 Add
               </button>
@@ -429,7 +429,7 @@ export function FullMenuPage({
         onAdd={addItem}
       />
 
-      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
+      <div className="pt-[49px] lg:pl-[104px] lg:pt-0">
         <div className="fixed bottom-4 right-4 z-50 flex gap-2 lg:bottom-auto lg:right-16 lg:top-6">
           <Link
             href="/cart"
@@ -505,7 +505,7 @@ export function FullMenuPage({
           <h2 className="border-b border-[#2d261f]/15 pb-3 text-[9px] font-semibold uppercase tracking-[0.36em]">
             {activeSection === "All" ? "All dishes" : activeSection}
           </h2>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-4">
             {visibleEntries.map((entry) => (
               <FullMenuCard
                 key={entry.index}

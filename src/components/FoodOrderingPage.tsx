@@ -59,7 +59,7 @@ function MenuCard({
   const image = item.image ?? previewImages[index];
 
   return (
-    <article className="grid min-h-[320px] border border-[#2d261f]/18 bg-[#e7dfd2]">
+    <article className="grid min-h-[248px] border border-[#2d261f]/18 bg-[#e7dfd2] sm:min-h-[320px]">
       <div
         className="relative overflow-hidden border-b border-[#2d261f]/14"
         style={{
@@ -80,12 +80,12 @@ function MenuCard({
         />
       </div>
 
-      <div className="grid content-between px-4 py-4">
+      <div className="grid content-between px-3 py-3 sm:px-4 sm:py-4">
         <div>
-          <div className="flex items-center gap-3 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#1f1a15]/62">
+          <div className="flex items-center gap-3 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#1f1a15]/62 sm:text-[8px]">
             <span>{String(index + 1).padStart(2, "0")}</span>
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#1f1a15]/62">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-[7px] font-semibold uppercase tracking-[0.2em] text-[#1f1a15]/62 sm:mt-4 sm:text-[8px]">
             <span>{item.category}</span>
             {tags[index] ? (
               <span className="border border-[#2d261f]/22 px-2 py-1 text-[7px] text-[#1f1a15]/70">
@@ -94,20 +94,20 @@ function MenuCard({
             ) : null}
           </div>
 
-          <h3 className="mt-3 font-serif text-2xl leading-none text-[#11100d]">
+          <h3 className="mt-3 font-serif text-xl leading-none text-[#11100d] sm:text-2xl">
             {item.name}
           </h3>
-          <p className="mt-5 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#1f1a15]/62">
+          <p className="mt-4 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#1f1a15]/62 sm:mt-5 sm:text-[9px]">
             {prepTimes[index]}
           </p>
         </div>
 
-        <div className="mt-8 flex items-end justify-between gap-4">
+        <div className="mt-5 flex items-end justify-between gap-4 sm:mt-8">
           <p className="text-sm text-[#11100d]">{formatPrice(item.price)}</p>
           <button
             type="button"
             onClick={() => onAdd(item)}
-            className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]"
+            className="border-b border-[#11100d] pb-1 text-[8px] font-semibold uppercase tracking-[0.24em] text-[#11100d] sm:tracking-[0.28em]"
           >
             View
           </button>
@@ -186,10 +186,10 @@ export function FoodOrderingPage() {
         ]}
       />
 
-      <div className="pt-[57px] lg:pl-[104px] lg:pt-0">
+      <div className="pt-[49px] lg:pl-[104px] lg:pt-0">
         <section
-          className="relative min-h-screen border-b border-[#2d261f]/15"
-          style={{ minHeight: "100vh", overflow: "hidden", position: "relative" }}
+          className="relative min-h-[calc(100svh-49px)] border-b border-[#2d261f]/15 lg:min-h-screen"
+          style={{ overflow: "hidden", position: "relative" }}
         >
           <StableImageFrame
             src="/images/home-crops/noirtable-hero-1600x900.jpg"
@@ -221,12 +221,12 @@ export function FoodOrderingPage() {
             </a>
           </header>
 
-          <div className="grid min-h-screen lg:grid-cols-[42%_58%]">
-            <div className="relative z-10 grid content-center px-6 pb-12 pt-36 lg:px-16">
-              <h1 className="font-serif text-6xl leading-[0.95] tracking-[-0.01em] text-[#11100d] sm:text-7xl lg:text-[5.6rem]">
+          <div className="grid min-h-[calc(100svh-49px)] lg:min-h-screen lg:grid-cols-[42%_58%]">
+            <div className="relative z-20 grid content-center px-6 pb-32 pt-14 lg:px-16 lg:pb-12 lg:pt-36">
+              <h1 className="font-serif text-5xl leading-[0.95] tracking-[-0.01em] text-[#11100d] sm:text-7xl lg:text-[5.6rem]">
                 Noirtable
               </h1>
-              <p className="mt-9 text-[9px] font-semibold uppercase tracking-[0.42em]">
+              <p className="mt-7 max-w-[300px] text-[8px] font-semibold uppercase tracking-[0.34em] sm:text-[9px] sm:tracking-[0.42em]">
                 Small room. Late kitchen. Tables by phone.
               </p>
               <p className="mt-8 max-w-[310px] text-sm leading-7 text-[#11100d]/72">
@@ -242,8 +242,8 @@ export function FoodOrderingPage() {
               </a>
             </div>
 
-            <div className="relative min-h-[360px] border-t border-[#2d261f]/15 lg:border-t-0">
-              <div className="absolute bottom-16 right-6 w-[260px] border border-[#2d261f]/14 bg-[#e7dfd2]/72 px-6 py-5 text-[#11100d] lg:right-16">
+            <div className="pointer-events-none absolute inset-0 z-20 border-t-0 lg:pointer-events-auto lg:relative lg:min-h-[360px]">
+              <div className="absolute bottom-5 right-5 w-[min(280px,calc(100vw-40px))] border border-[#2d261f]/14 bg-[#e7dfd2]/74 px-5 py-4 text-[#11100d] lg:bottom-16 lg:right-16 lg:w-[260px] lg:px-6 lg:py-5">
                 <div className="flex justify-between border-b border-[#2d261f]/16 pb-4 text-[8px] font-semibold uppercase tracking-[0.28em] text-[#11100d]/62">
                   <span>Tonight</span>
                   <span>Two late</span>
@@ -341,7 +341,7 @@ export function FoodOrderingPage() {
               </Link>
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-4 lg:gap-4 lg:p-10">
+            <div className="grid auto-cols-[74vw] grid-flow-col gap-4 overflow-x-auto pb-2 lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-4 lg:gap-4 lg:overflow-visible lg:p-10">
               {previewItems.map((item, index) => (
                 <MenuCard
                   key={item.id}
